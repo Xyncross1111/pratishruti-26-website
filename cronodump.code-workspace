@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "cronodump"
+		},
+		{
+			"path": "../../seagate/data"
+		},
+		{
+			"path": "../../seagate/parsed"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
