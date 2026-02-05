@@ -10,6 +10,7 @@ import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import Footer from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
+import InfiniteScroll from '@/components/infinite-scroll';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,6 +42,7 @@ export default function Home() {
         <EventCarousel />
         <JellyfishTimeline />
         <SponsorsCarousel />
+        <InfiniteScroll/>
         <AnimatedTreasureBox />
       </main>
       
