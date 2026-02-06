@@ -10,6 +10,7 @@ import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import Footer from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
+import DomeGallery from '@/components/DomeGallery';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,11 +19,11 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
-      
+
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrolled = window.scrollY;
       const progress = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
-      
+
       setScrollProgress(progress);
     };
 
@@ -34,16 +35,23 @@ export default function Home() {
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
       <Navigation scrollProgress={scrollProgress} />
       <ScrollProgress progress={scrollProgress} />
-      
+
       <main className="relative">
         <Hero />
         <AboutSection />
         <EventCarousel />
         <JellyfishTimeline />
         <SponsorsCarousel />
+        <section className="relative h-screen w-full">
+          <DomeGallery
+            fit={0.8}
+            overlayBlurColor="oklch(0.15 0.02 250)"
+            grayscale={false}
+          />
+        </section>
         <AnimatedTreasureBox />
       </main>
-      
+
       <Footer />
     </div>
   );
