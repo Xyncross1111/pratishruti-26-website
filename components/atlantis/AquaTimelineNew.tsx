@@ -1,9 +1,16 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useMemo, useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useInView,
+} from "framer-motion";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Event {
   id: number;
@@ -135,6 +142,26 @@ const statusConfig = {
 function EventCard({ event, index }: { event: Event; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
+  const isInView = useInView(cardRef, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
+  const [mobileActivated, setMobileActivated] = useState(false);
+
+  // On mobile, auto-trigger effects when card scrolls into view
+  useEffect(() => {
+    if (!isMobile) return;
+    if (isInView && !mobileActivated) {
+      setMobileActivated(true);
+      // Reset after animation completes so it can re-trigger on next scroll-in
+      const timer = setTimeout(() => setMobileActivated(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobile, isInView, mobileActivated]);
+
+  const showEffects = isHovered || (isMobile && mobileActivated);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -172,19 +199,21 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
       <motion.div
-        className="relative px-8 rounded-2xl overflow-hidden border border-cyan-500/20"
+        className="relative px-8 py-4 rounded-2xl overflow-hidden border border-cyan-500/20 backdrop-blur-sm md:backdrop-blur-[20px]"
         style={{
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
           boxShadow:
             "0 8px 32px rgba(0, 20, 40, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+          background: showEffects
+            ? "rgba(10, 30, 50, 0.05)"
+            : "rgba(10, 30, 50, 0.15)",
         }}
         animate={{
-          background: isHovered
-            ? "rgba(10, 30, 50, 0.08)"
-            : "rgba(10, 30, 50, 0.2)",
-          backdropFilter: isHovered ? "blur(25px)" : "blur(20px)",
+          background: showEffects
+            ? "rgba(10, 30, 50, 0.05)"
+            : "rgba(10, 30, 50, 0.15)",
         }}
         transition={{ duration: 0.3 }}
       >
@@ -197,45 +226,47 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             backgroundSize: "200% 100%",
           }}
           animate={{
-            backgroundPosition: isHovered ? ["200% 0", "-200% 0"] : "200% 0",
+            backgroundPosition: showEffects ? ["200% 0", "-200% 0"] : "200% 0",
           }}
           transition={{ duration: 1.3, ease: "easeInOut" }}
         />
 
         {/* Rising bubbles */}
-        {isHovered && (
+        {showEffects && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[0, 1, 2, 3].map((i) => {
-              const size = 10 + Math.random() * 8;
-              return (
-                <motion.div
-                  key={i}
-                  className="absolute rounded-full"
-                  style={{
-                    left: `${20 + i * 20}%`,
-                    width: size,
-                    height: size,
-                    bottom: -20,
-                    background:
-                      "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(150, 230, 255, 0.2))",
-                    border: "1px solid rgba(255, 255, 255, 0.2)",
-                    boxShadow:
-                      "inset -1px -1px 2px rgba(255, 255, 255, 0.3), 0 0 8px rgba(80, 200, 230, 0.3)",
-                  }}
-                  initial={{ y: 0, opacity: 0 }}
-                  animate={{
-                    y: -350,
-                    opacity: [0, 0.7, 0],
-                    x: [(Math.random() - 0.5) * 30],
-                  }}
-                  transition={{
-                    duration: 2.5 + Math.random(),
-                    delay: i * 0.2,
-                    ease: "easeOut",
-                  }}
-                />
-              );
-            })}
+            {[
+              { size: 12, left: 20, xDrift: -8, duration: 2.8 },
+              { size: 15, left: 40, xDrift: 5, duration: 3.1 },
+              { size: 11, left: 60, xDrift: -12, duration: 2.6 },
+              { size: 16, left: 80, xDrift: 10, duration: 3.3 },
+            ].map((bubble, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  left: `${bubble.left}%`,
+                  width: bubble.size,
+                  height: bubble.size,
+                  bottom: -20,
+                  background:
+                    "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(150, 230, 255, 0.2))",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  boxShadow:
+                    "inset -1px -1px 2px rgba(255, 255, 255, 0.3), 0 0 8px rgba(80, 200, 230, 0.3)",
+                }}
+                initial={{ y: 0, opacity: 0 }}
+                animate={{
+                  y: -350,
+                  opacity: [0, 0.7, 0],
+                  x: [bubble.xDrift],
+                }}
+                transition={{
+                  duration: bubble.duration,
+                  delay: i * 0.2,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
           </div>
         )}
 
@@ -243,7 +274,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         <motion.div
           className="absolute inset-0 rounded-2xl pointer-events-none"
           animate={{
-            boxShadow: isHovered
+            boxShadow: showEffects
               ? "0 0 25px rgba(100, 200, 230, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.03)"
               : "0 0 0 rgba(100, 200, 230, 0)",
           }}
@@ -291,13 +322,21 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             {event.description}
           </p>
 
-          {event.registrationStatus && (
-            <span
-              className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold border ${statusConfig[event.registrationStatus].color}`}
-            >
-              {statusConfig[event.registrationStatus].label}
-            </span>
-          )}
+          <div className="flex items-center gap-3 flex-wrap">
+            {event.registrationStatus && (
+              <span
+                className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold border ${statusConfig[event.registrationStatus].color}`}
+              >
+                {statusConfig[event.registrationStatus].label}
+              </span>
+            )}
+
+            {event.registrationStatus === "open" && (
+              <button className="px-6 py-2 bg-accent text-deep-ocean font-semibold rounded-lg hover:bg-accent/90 transition-all hover:scale-105 text-sm shadow-lg">
+                Register Now
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Water gradient at bottom */}
@@ -308,8 +347,8 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       <motion.div
         className="absolute inset-0 -z-10 rounded-2xl bg-black/40 blur-xl"
         animate={{
-          y: isHovered ? 12 : 8,
-          opacity: isHovered ? 0.5 : 0.3,
+          y: showEffects ? 12 : 8,
+          opacity: showEffects ? 0.5 : 0.3,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       />
@@ -318,50 +357,46 @@ function EventCard({ event, index }: { event: Event; index: number }) {
 }
 
 export default function AquaTimelineNew() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  // Generate flowing water stream path that bends toward each event
+  const { streamPath, eventPoints } = useMemo(() => {
+    const n = events.length;
+    if (n === 0) return { streamPath: "M 50 0 L 50 100", eventPoints: [] };
 
-  const categories = [
-    "All",
-    ...Array.from(new Set(events.map((e) => e.category))),
-  ];
+    const topPad = 4;
+    const bottomPad = 4;
+    const usable = 100 - topPad - bottomPad;
+    const gap = n > 1 ? usable / (n - 1) : 0;
+    const bendAmount = 25;
 
-  const filteredEvents =
-    selectedCategory === "All"
-      ? events
-      : events.filter((e) => e.category === selectedCategory);
-
-  // Memoized wave path - shorter with more pronounced waves
-  const wobblyPath = useMemo(() => {
-    const steps = filteredEvents.length * 8;
-    let path = "M 50 5";
-    for (let i = 0; i <= steps; i++) {
-      const y = 5 + (i / steps) * 90;
-      const x = Math.round((50 + 30 * Math.sin(i * 0.25)) * 100) / 100;
-      path += ` L ${x} ${y}`;
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i < n; i++) {
+      const y = n > 1 ? topPad + i * gap : 50;
+      const dir = i % 2 === 0 ? 1 : -1;
+      pts.push({ x: 50 + dir * bendAmount, y });
     }
-    return path;
-  }, [filteredEvents.length]);
 
-  const wobblyPath2 = useMemo(() => {
-    const steps = filteredEvents.length * 8;
-    let path = "M 50 5";
-    for (let i = 0; i <= steps; i++) {
-      const y = 5 + (i / steps) * 90;
-      const x = Math.round((50 + 30 * Math.sin(i * 0.25)) * 100) / 100;
-      path += ` L ${x} ${y}`;
+    // Build smooth S-curve path
+    let d = `M 50 0`;
+
+    // Entry curve to first event
+    const p0 = pts[0];
+    d += ` C 50 ${p0.y * 0.35}, ${50 + (p0.x - 50) * 0.5} ${p0.y * 0.65}, ${p0.x} ${p0.y}`;
+
+    // S-curves between consecutive events
+    for (let i = 0; i < pts.length - 1; i++) {
+      const curr = pts[i];
+      const next = pts[i + 1];
+      const dy = next.y - curr.y;
+      d += ` C ${curr.x} ${curr.y + dy * 0.45}, ${next.x} ${next.y - dy * 0.45}, ${next.x} ${next.y}`;
     }
-    return path;
-  }, [filteredEvents.length]);
 
-  // Wave offset for event positioning
-  const getWaveOffset = (index: number) => {
-    const progress = index / Math.max(filteredEvents.length - 1, 1);
-    return (
-      Math.round(
-        30 * Math.sin(progress * filteredEvents.length * 0.25 * 8) * 100,
-      ) / 100
-    );
-  };
+    // Exit curve from last event to bottom center
+    const pLast = pts[pts.length - 1];
+    const remY = 100 - pLast.y;
+    d += ` C ${pLast.x} ${pLast.y + remY * 0.35}, 50 ${pLast.y + remY * 0.65}, 50 100`;
+
+    return { streamPath: d, eventPoints: pts };
+  }, [events.length]);
 
   return (
     <section
@@ -401,216 +436,54 @@ export default function AquaTimelineNew() {
           </p>
         </motion.div>
 
-        {/* Category filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full font-medium transition-all hover:scale-105 ${
-                selectedCategory === category
-                  ? "bg-accent text-deep-ocean shadow-lg"
-                  : "bg-primary/30 text-foreground hover:bg-primary/50 border border-accent/20"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
         {/* Timeline container */}
         <div className="relative">
-          {/* Wave SVG */}
+          {/* Water Stream SVG */}
           <svg
-            className="absolute left-8 md:left-1/2 md:-translate-x-1/2 top-0 h-full w-32 md:w-48 pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-32 md:w-56 pointer-events-none z-0"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
             <defs>
-              {/* Vertical fade for ends */}
-              <linearGradient
-                id="verticalFade"
-                x1="0%"
-                y1="10%"
-                x2="0%"
-                y2="90%"
-              >
-                <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-                <stop offset="10%" stopColor="rgba(255,255,255,1)" />
-                <stop offset="90%" stopColor="rgba(255,255,255,1)" />
-                <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+              <linearGradient id="streamFade" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="rgba(80,200,240,0)" />
+                <stop offset="8%" stopColor="rgba(80,200,240,0.6)" />
+                <stop offset="92%" stopColor="rgba(80,200,240,0.6)" />
+                <stop offset="100%" stopColor="rgba(80,200,240,0)" />
               </linearGradient>
-              {/* 3D water tube - horizontal gradient for depth */}
-              <linearGradient id="waveCore" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="rgba(15, 45, 70, 0.95)" />
-                <stop offset="25%" stopColor="rgba(50, 120, 160, 0.9)" />
-                <stop offset="50%" stopColor="rgba(100, 180, 210, 1)" />
-                <stop offset="75%" stopColor="rgba(160, 220, 240, 0.95)" />
-                <stop offset="100%" stopColor="rgba(200, 240, 255, 0.85)" />
-              </linearGradient>
-              {/* Shadow layer */}
-              <linearGradient
-                id="waveShadow"
-                x1="0%"
-                y1="100%"
-                x2="100%"
-                y2="0%"
-              >
-                <stop offset="0%" stopColor="rgba(5, 20, 35, 0.9)" />
-                <stop offset="50%" stopColor="rgba(20, 50, 80, 0.6)" />
-                <stop offset="100%" stopColor="rgba(40, 80, 110, 0.3)" />
-              </linearGradient>
-              {/* Highlight layer */}
-              <linearGradient
-                id="waveHighlight"
-                x1="0%"
-                y1="0%"
-                x2="50%"
-                y2="0%"
-              >
-                <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-                <stop offset="70%" stopColor="rgba(220,250,255,0.5)" />
-                <stop offset="100%" stopColor="rgba(255,255,255,0.9)" />
-              </linearGradient>
-              {/* Glow filter */}
-              {/* <filter
-                id="waveGlow"
-                x="-50%"
-                y="-50%"
-                width="200%"
-                height="200%"
-              >
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="2"
-                  result="blur"
-                />
-                <feColorMatrix
-                  in="blur"
-                  type="matrix"
-                  values="0 0 0 0 0.35
-                          0 0 0 0 0.7
-                          0 0 0 0 0.85
-                          0 0 0 0.6 0"
-                />
-              </filter> 
-              <filter id="shadow">
-                <feDropShadow
-                  dx="2"
-                  dy="3"
-                  stdDeviation="2"
-                  floodColor="rgba(0,0,0,0.5)"
-                />
-              </filter>
-              */}
-              <mask id="fadeMask">
-                <rect
-                  x="0"
-                  y="0"
-                  width="100"
-                  height="100"
-                  fill="url(#verticalFade)"
-                />
-              </mask>
             </defs>
 
-            <g mask="url(#fadeMask)">
-              {/* Outer glow */}
-              <path
-                d={wobblyPath}
-                stroke="rgba(80, 180, 220, 0.4)"
-                strokeWidth="10"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                filter="url(#waveGlow)"
-              />
-              {/* Deep shadow - back layer */}
-              {/*}
-              <path
-                d={wobblyPath}
-                stroke="url(#waveShadow)"
-                strokeWidth="7"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                transform="translate(1.5, 0.8)"
-              />/*}
-              {/* Main wave body */}
-              <path
-                d={wobblyPath}
-                stroke="url(#waveCore)"
-                strokeWidth="5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              {/* Highlight edge */}
-              {[0, 1.5, 3].map((offset, i) => (
-                <path
-                  key={i}
-                  d={wobblyPath2}
-                  fill="none"
-                  stroke="rgba(159,223,255,0.4)"
-                  strokeWidth={2 - i * 0.4}
-                  transform={`translate(${offset},0)`}
-                />
-              ))}
-              {/* 
-              <path
-                d={wobblyPath}
-                stroke="rgba(255, 255, 255, 0.6)"
-                strokeWidth="0.8"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                transform="translate(-0.8, -0.4)"
-              /> */}
-            </g>
+            {/* The visible water stream */}
+            <path
+              d={streamPath}
+              stroke="url(#streamFade)"
+              strokeWidth="3"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
 
           {/* Events */}
           <div className="space-y-12 md:space-y-16">
-            {filteredEvents.map((event, index) => {
-              const waveOffset = getWaveOffset(index);
-
-              return (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  className="relative pl-20 md:pl-0"
-                  style={{ transform: `translateX(${waveOffset}px)` }}
+            {events.map((event, index) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true, margin: "-50px" }}
+                className="relative"
+              >
+                <div
+                  className={`w-full max-w-lg mx-auto md:max-w-none md:w-5/12 md:mx-0 ${index % 2 === 0 ? "md:ml-auto md:pl-12" : "md:mr-auto md:pr-12"}`}
                 >
-                  <div
-                    className={`md:w-5/12 ${index % 2 === 0 ? "md:ml-auto md:pl-12" : "md:mr-auto md:pr-12"}`}
-                  >
-                    <EventCard event={event} index={index} />
-                  </div>
-                </motion.div>
-              );
-            })}
+                  <EventCard event={event} index={index} />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-20 text-center"
-        >
-          <p className="text-muted-foreground mb-2">Ready to dive in?</p>
-          <p className="text-foreground text-lg font-medium mb-6">
-            Register now and be part of the legendary festival
-          </p>
-          <button className="px-10 py-4 bg-accent text-deep-ocean font-bold rounded-lg hover:bg-accent/90 transition-all hover:scale-105">
-            View Full Schedule
-          </button>
-        </motion.div>
       </div>
     </section>
   );

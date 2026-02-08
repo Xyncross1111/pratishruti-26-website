@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Placeholder sponsor data - replace with actual sponsor logos
@@ -17,9 +17,15 @@ const sponsors = [
 export default function SponsorsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const itemsPerView = typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 4;
+  const [itemsPerView, setItemsPerView] = useState(4);
   const totalItems = sponsors.length;
+
+  useEffect(() => {
+    const check = () => setItemsPerView(window.innerWidth < 768 ? 2 : 4);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const paginate = (direction: number) => {
     setCurrentIndex((prev) => {
