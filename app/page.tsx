@@ -5,7 +5,7 @@ import Hero from '@/components/atlantis/Hero';
 import Navigation from '@/components/atlantis/Navigation';
 import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
-import AquaTimelineNew from "@/components/atlantis/AquaTimelineNew";
+import EventsTimeline from "@/components/atlantis/EventsTimeline";
 import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
 import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
@@ -47,7 +47,7 @@ export default function Home() {
         <Hero />
         <AboutSection />
         <EventCarousel />
-        <AquaTimelineNew />
+        <EventsTimeline />
         <ArtistSection />
         <JellyfishTimeline />
         <SponsorsCarousel />
