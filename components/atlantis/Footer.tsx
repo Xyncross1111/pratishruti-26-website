@@ -79,6 +79,41 @@ export default function DeepSeaFooter() {
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
+
+
+        {/* SWIMMING FISH */}
+<motion.img
+  src="/footer/orange.png"
+  className="absolute bottom-20 left-0 w-20 lg:w-20 sm:w-36 md:w-44 pointer-events-none"
+  initial={{ x: "-20vw" }}   // start outside left
+  animate={{
+    x: "120vw",              // swim to outside right
+    y: [0, -8, 4, 0],        // gentle floating drift
+    rotate: [0, 2, -2, 0],   // subtle body sway
+  }}
+  transition={{
+    x: {
+      duration: 20,          // swimming speed (increase = slower)
+      repeat: Infinity,
+      ease: "linear",        // IMPORTANT → real swimming feel
+    },
+    y: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+    rotate: {
+      duration: 2 ,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  }}
+/>
+
+
+
+
+
       <motion.img
         src="/footer/plant-right.png"
         className="absolute bottom-0 right-0 w-40 sm:w-52 md:w-72 pointer-events-none"
