@@ -31,7 +31,7 @@ export default function DeepSeaFooter() {
       <motion.img
         src="/footer/plant-left.png"
         className="absolute bottom-16 left-4 w-72 pointer-events-none"
-        animate={{ rotate: [0, 4, -4, 0] }}
+        animate={{ rotate: [0, 2, -8, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -39,7 +39,7 @@ export default function DeepSeaFooter() {
       <motion.img
         src="/footer/plant-left.png"
         className="absolute bottom-0 left-0 w-72 pointer-events-none"
-        animate={{ rotate: [0, 4, -4, 0] }}
+        animate={{ rotate: [0, 4, -8, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 

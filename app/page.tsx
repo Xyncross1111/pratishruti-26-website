@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
       <Navigation scrollProgress={scrollProgress} />
-      <ScrollProgress progress={scrollProgress} />
+      {/* <ScrollProgress progress={scrollProgress} /> */}
 
       <main className="relative">
         <Hero />
