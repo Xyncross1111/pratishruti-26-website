@@ -104,7 +104,7 @@ export default function EventCarousel() {
   };
 
   return (
-    <section id="events" className="relative py-20 md:py-32 px-4 overflow-hidden">
+    <section id="events" className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent opacity-20" />
 
       <div className="relative z-10 max-w-6xl mx-auto">

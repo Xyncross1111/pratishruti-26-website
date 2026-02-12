@@ -36,16 +36,16 @@ export default function Home() {
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
       <Navigation scrollProgress={scrollProgress} />
       {/* <ScrollProgress progress={scrollProgress} /> */}
+      <Hero />
+      
 
-      <main className="relative">
-        <Hero />
+      <main className="relative bg-[url('/bgwebsite.png')] bg-autos">
         <AboutSection />
         <EventCarousel />
         <ArtistSection />
-        <JellyfishTimeline />
-        <SponsorsCarousel />
+        {/* <JellyfishTimeline /> */}
         <InfiniteScroll/>
-        <AnimatedTreasureBox />
+        {/* <AnimatedTreasureBox /> */}
       </main>
 
       <DeepSeaFooter />

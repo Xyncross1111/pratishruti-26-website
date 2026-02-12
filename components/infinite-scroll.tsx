@@ -146,7 +146,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   /* -------------------- Render -------------------- */
 
   return (
-    <div className="relative mx-auto text-center">
+    <div className="relative lg:py-0 mx-auto text-center">
     <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
             Our Partners
           </p>
