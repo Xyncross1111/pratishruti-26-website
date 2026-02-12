@@ -125,9 +125,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-2"
         >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase">
+          <h2 className="text-accent text-sm font-semibold tracking-widest uppercase">
             Dive Deeper
-          </p>
+          </h2>
         </motion.div>
 
         <motion.h1
@@ -141,14 +141,14 @@ export default function Hero() {
           <span className="text-accent">2026</span>
         </motion.h1>
 
-        <motion.p
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
         >
           Atlas of Atlantis
-        </motion.p>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}

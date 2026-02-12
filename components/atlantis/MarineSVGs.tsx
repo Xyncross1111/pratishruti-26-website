@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { CSSProperties } from "react";
 
 export function Coral({ className }: { className?: string }) {
   return (
@@ -94,7 +95,7 @@ export function Starfish({ className }: { className?: string }) {
   );
 }
 
-export function Bubble({ delay = 0, className }: { delay?: number; className?: string }) {
+export function Bubble({ delay = 0, className, style }: { delay?: number; className?: string; style?: CSSProperties }) {
   return (
     <motion.svg
       viewBox="0 0 40 40"
