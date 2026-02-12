@@ -39,14 +39,17 @@ export default function Home() {
       <Hero />
       
 
-      <main className="relative bg-[url('/bgwebsite.png')] bg-autos">
+      <main className="relative bg-[url('/bgwebsite.png')] bg-auto">
         <AboutSection />
         <EventCarousel />
+</main>
+        <div className="relative bg-[url('/deeper.png')] bg-auto">
+        <InfiniteScroll/>
         <ArtistSection />
         {/* <JellyfishTimeline /> */}
-        <InfiniteScroll/>
-        {/* <AnimatedTreasureBox /> */}
-      </main>
+        
+        </div>
+      
 
       <DeepSeaFooter />
     </div>

@@ -158,7 +158,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           </p>
     <div
       className={twMerge(
-        "relative w-full overflow-hidden select-none z-40 py-2 sm:py-4 px-6 sm:px-8",
+        "relative w-full overflow-hidden select-none z-40 lg:py-4 sm:py-4 px-6 sm:px-8",
         className
       )}
       onPointerEnter={onPointerEnter}
@@ -187,9 +187,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       </div>
     </div>
 
-    <div
-         
-          className="mt-25 p-6 text-center border-t border-accent/20 pt-8"
+    <div className="mt-25 p-6 text-center pt-8"
         >
     <p className="text-muted-foreground mb-4">
             Interested in sponsoring Pratishruti?
