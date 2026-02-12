@@ -182,4 +182,15 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+@font-face {
+  font-family: "AvatarWater";
+  src: url("/fonts/Avatar Water.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1, h2{
+  font-family: "AvatarWater", sans-serif;
+  letter-spacing: 0.05em;
+}
 }
