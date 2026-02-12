@@ -8,7 +8,7 @@ import EventCarousel from '@/components/atlantis/EventCarousel';
 import EventsTimeline from "@/components/atlantis/EventsTimeline";
 import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
-import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
+// import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
@@ -47,7 +47,7 @@ export default function Home() {
         <EventsTimeline />
         <ArtistSection />
         <JellyfishTimeline />
-        <SponsorsCarousel />
+        {/* <SponsorsCarousel /> */}
         <InfiniteScroll/>
         <AnimatedTreasureBox />
       </main>

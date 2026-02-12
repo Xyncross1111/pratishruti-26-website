@@ -53,12 +53,8 @@
     "gsap": "^3.14.2",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-<<<<<<< HEAD
     "next": "^16.1.6",
-=======
     "motion": "^12.31.1",
-    "next": "16.0.10",
->>>>>>> fd7aaffbf7cb5c5ced582a67449e3eedb8cb05ac
     "next-themes": "^0.4.6",
     "react": "19.2.0",
     "react-day-picker": "9.8.0",

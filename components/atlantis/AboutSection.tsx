@@ -118,7 +118,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Bottom highlight */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -131,7 +131,7 @@ export default function AboutSection() {
           <p className="text-muted-foreground">
             Come explore the depths of Atlantis. Discover your true potential. Leave your mark on legend.
           </p>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

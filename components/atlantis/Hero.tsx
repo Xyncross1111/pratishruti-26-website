@@ -60,7 +60,7 @@ export default function Hero() {
       // fallback: scroll to next section
       handleExplore();
     }, 60);
-  };
+  };  
 
   return (
     <section
@@ -170,6 +170,8 @@ export default function Hero() {
             Register Now
           </button>
         </motion.div>
+      </motion.div>
+
       </div>
 
       {/* Scroll hint */}
