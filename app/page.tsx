@@ -5,6 +5,7 @@ import Hero from '@/components/atlantis/Hero';
 import Navigation from '@/components/atlantis/Navigation';
 import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
+import EventsTimeline from "@/components/atlantis/EventsTimeline";
 import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
 import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
@@ -42,14 +43,12 @@ export default function Home() {
       <main className="relative bg-[url('/bgwebsite.png')] bg-auto">
         <AboutSection />
         <EventCarousel />
-</main>
         <div className="relative bg-[url('/deeper.png')] bg-auto">
-        <InfiniteScroll/>
         <ArtistSection />
-        {/* <JellyfishTimeline /> */}
-        
+        <InfiniteScroll />
         </div>
-      
+        {/* <JellyfishTimeline /> */}
+      </main>
 
       <DeepSeaFooter />
     </div>
