@@ -56,6 +56,7 @@ export default function EventCarousel() {
   const [direction, setDirection] = useState(0);
   const [activeCategory, setActiveCategory] = useState('All');
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   const slideVariants = {
     enter: (dir: number) => ({
@@ -97,6 +98,10 @@ export default function EventCarousel() {
     }
     return visible;
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
@@ -147,7 +152,7 @@ export default function EventCarousel() {
 
         <div ref={containerRef} className="relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {getVisibleEvents().map((event, idx) => (
+            {(mounted ? getVisibleEvents() : getFilteredEvents().slice(0, 3)).map((event, idx) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, y: 20 }}
