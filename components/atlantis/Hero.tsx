@@ -82,13 +82,18 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      {/* ================= HAMBURGER MENU BUTTON ================= */}
-      <button
-        className="fixed top-5 right-5 z-50 text-white md:hidden"
-        onClick={() => setMenuOpen(true)}
-      >
-        <Menu size={32} />
-      </button>
+      {/* Content */}
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-2"
+        >
+          <h2 className="text-accent text-sm font-semibold tracking-widest uppercase">
+            Dive Deeper
+          </h2>
+        </motion.div>
 
       {/* ================= MENU PAGE (NEW, SEPARATE) ================= */}
       {menuOpen && (
@@ -113,19 +118,14 @@ export default function Hero() {
           <X size={32} />
         </button>
 
-        <div className="flex flex-col justify-center items-center h-full backdrop-blur-h gap-10 text-3xl font-semibold" style={{ color: 'white', boxShadow: '0 0 20px black/50' }} >
-          <button onClick={() => handleMenuNavigate('events')}>Events</button>
-          <button onClick={() => handleMenuNavigate('timeline')}>Timeline</button>
-          <button onClick={() => handleMenuNavigate()}>Register</button>
-        </div>
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-8 md:mt-0 md:-translate-y-10 top-70 md:top-120"
-        style={{
-          transform: `translateY(${scrollY * 0.15}px)`,
-          opacity: 1 - Math.min(scrollY * 0.0006, 0.4),
-        }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-lg md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+        >
+          Atlas of Atlantis
+        </motion.h2>
 
         <motion.p
           className="text-lg md:text-2xl font-medium mb-8"

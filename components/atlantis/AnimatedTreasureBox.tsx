@@ -181,9 +181,9 @@ export default function AnimatedTreasureBox() {
           }}
         >
           <div className="p-8 rounded-lg border border-accent/40 bg-gradient-to-br from-primary/20 to-secondary/10 backdrop-blur-sm">
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Register Now
-            </h3>
+            </h2>
             <p className="text-muted-foreground mb-6">
               Secure your place in the legends of Atlantis. Join thousands of explorers on this oceanic journey.
             </p>

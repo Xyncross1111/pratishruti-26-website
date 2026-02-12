@@ -120,9 +120,9 @@ export default function EventCarousel() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
+          <h2 className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
             Discover Events
-          </p>
+          </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
             Explore Atlantis Events
           </h2>
