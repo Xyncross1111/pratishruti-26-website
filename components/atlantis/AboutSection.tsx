@@ -5,7 +5,7 @@ import { Waves } from 'lucide-react';
 
 export default function AboutSection() {
   return (
-    <section className="relative py-20 md:py-32 px-4 overflow-hidden">
+    <section className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
       {/* Background effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
 
@@ -117,21 +117,7 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
 
-        {/* Bottom highlight */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-12 p-8 rounded-lg border border-accent/30 bg-gradient-to-r from-primary/10 to-secondary/10 text-center"
-        >
-          <p className="text-lg md:text-xl text-foreground mb-4">
-            <span className="text-accent font-bold">Pratishruti</span> is more than a festival—it's a portal to ancient wonder, a celebration of human talent, and a gathering of minds united by passion.
-          </p>
-          <p className="text-muted-foreground">
-            Come explore the depths of Atlantis. Discover your true potential. Leave your mark on legend.
-          </p>
-        </motion.div>
+      
       </div>
     </section>
   );
