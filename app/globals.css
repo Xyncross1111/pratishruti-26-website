@@ -127,9 +127,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     scroll-behavior: smooth;
   }
@@ -139,30 +141,129 @@
   .deep-ocean {
     background-color: var(--deep-ocean);
   }
+
   .bio-cyan {
     color: var(--bio-cyan);
   }
+
   .gold-accent {
     color: var(--gold-accent);
   }
+
   .glow-blue {
     color: var(--glow-blue);
   }
-  
+
   /* Poseidon theme utilities */
   .poseidon-glow {
     box-shadow: 0 0 30px rgba(112, 200, 220, 0.3);
   }
-  
+
   .atlantis-card {
     @apply bg-gradient-to-br from-primary/20 to-secondary/10 border border-accent/30 hover:border-accent/60 transition-all;
   }
-  
+
   .treasure-glow {
     box-shadow: 0 0 20px rgba(215, 174, 69, 0.5);
   }
-  
+
   .bioluminescent {
     @apply bg-gradient-to-br from-accent/20 to-accent/5;
+  }
+}
+
+/* Hide scrollbar for carousel */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Bioluminescent Fish Gallery Animations */
+@layer utilities {
+  @keyframes fish-swim {
+
+    0%,
+    100% {
+      transform: translateX(0) translateY(0);
+    }
+
+    50% {
+      transform: translateX(10px) translateY(-5px);
+    }
+  }
+
+  @keyframes bio-pulse {
+
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes eye-glow {
+
+    0%,
+    100% {
+      filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+    }
+
+    50% {
+      filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.9));
+    }
+  }
+
+  @keyframes radial-zoom {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(20);
+      opacity: 0;
+    }
+  }
+
+  .animate-fish-swim {
+    animation: fish-swim 3s ease-in-out infinite;
+  }
+
+  .animate-bio-pulse {
+    animation: bio-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-eye-glow {
+    animation: eye-glow 2s ease-in-out infinite;
+  }
+
+  .animate-radial-zoom {
+    animation: radial-zoom 1.5s ease-out forwards;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-fish-swim,
+  .animate-bio-pulse,
+  .animate-eye-glow,
+  .animate-radial-zoom {
+    animation: none;
   }
 }

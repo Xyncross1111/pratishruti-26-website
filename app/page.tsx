@@ -5,12 +5,14 @@ import Hero from '@/components/atlantis/Hero';
 import Navigation from '@/components/atlantis/Navigation';
 import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
+import EventsTimeline from "@/components/atlantis/EventsTimeline";
+import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
 import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
-import Footer from '@/components/atlantis/Footer';
+import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
-import DomeGallery from '@/components/DomeGallery';
+import BioluminescentFishGallery from '@/components/atlantis/BioluminescentFishGallery';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,19 +42,15 @@ export default function Home() {
         <Hero />
         <AboutSection />
         <EventCarousel />
+        <EventsTimeline />
+        <ArtistSection />
         <JellyfishTimeline />
         <SponsorsCarousel />
-        <section className="relative h-screen w-full">
-          <DomeGallery
-            fit={0.8}
-            overlayBlurColor="oklch(0.15 0.02 250)"
-            grayscale={false}
-          />
-        </section>
+        <BioluminescentFishGallery />
         <AnimatedTreasureBox />
       </main>
 
-      <Footer />
+      <DeepSeaFooter />
     </div>
   );
 }
