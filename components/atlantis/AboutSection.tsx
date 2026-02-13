@@ -17,9 +17,9 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
+          <h2 className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
             The Legend
-          </p>
+          </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
             About Pratishruti
           </h2>

@@ -13,6 +13,7 @@ import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
 import InfiniteScroll from '@/components/infinite-scroll';
+import Header from '@/components/header';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,10 +36,9 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
-      <Navigation scrollProgress={scrollProgress} />
-      {/* <ScrollProgress progress={scrollProgress} /> */}
-      <Hero />
-      
+      <Header/>
+      {/* <Navigation scrollProgress={scrollProgress} /> */}
+      <ScrollProgress progress={scrollProgress} />
 
       <main className="relative bg-[url('/bgwebsite.png')] bg-auto">
         <AboutSection />

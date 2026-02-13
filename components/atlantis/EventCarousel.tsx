@@ -56,6 +56,7 @@ export default function EventCarousel() {
   const [direction, setDirection] = useState(0);
   const [activeCategory, setActiveCategory] = useState('All');
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   const slideVariants = {
     enter: (dir: number) => ({
@@ -98,6 +99,10 @@ export default function EventCarousel() {
     return visible;
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setCurrentIndex(0);
@@ -115,9 +120,9 @@ export default function EventCarousel() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
+          <h2 className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
             Discover Events
-          </p>
+          </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
             Explore Atlantis Events
           </h2>
@@ -147,7 +152,7 @@ export default function EventCarousel() {
 
         <div ref={containerRef} className="relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {getVisibleEvents().map((event, idx) => (
+            {(mounted ? getVisibleEvents() : getFilteredEvents().slice(0, 3)).map((event, idx) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, y: 20 }}
