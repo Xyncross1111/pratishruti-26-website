@@ -7,8 +7,9 @@ interface ScrollProgressProps {
 }
 
 export default function ScrollProgress({ progress }: ScrollProgressProps) {
-  const depth = Math.floor((progress / 100) * 5);
+  const clampedProgress = Math.min(100, Math.max(0, progress));
   const depthLabels = ['Surface', 'Shallow', 'Ruins', 'Deep Sea', 'Abyss', 'Vault'];
+  const depth = Math.floor((clampedProgress / 100) * (depthLabels.length - 1));
 
   return (
     <>
@@ -24,9 +25,9 @@ export default function ScrollProgress({ progress }: ScrollProgressProps) {
           <div className="relative w-12 h-40 border-2 border-white/40 rounded-full bg-deep-ocean/50 backdrop-blur-sm overflow-hidden">
             {/* Depth bar fill */}
             <motion.div
-              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-400 via-glow-blue to-blue-1000"
+              className="absolute top-0 left-0 right-0 bg-linear-to-b from-blue-400 via-glow-blue to-blue-1000"
               style={{
-                height: `${progress}%`,
+                height: `${clampedProgress}%`,
               }}
               transition={{ duration: 0.3 }}
             />
@@ -34,7 +35,7 @@ export default function ScrollProgress({ progress }: ScrollProgressProps) {
             <motion.div
               className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-foreground"
               style={{
-                top: `calc(${100 - progress}% - 6px)`,
+                top: `calc(${clampedProgress}% - 6px)`,
               }}
               transition={{ duration: 0.3 }}
             />
@@ -49,8 +50,8 @@ export default function ScrollProgress({ progress }: ScrollProgressProps) {
             transition={{ duration: 0.3 }}
           >
             <div>{depthLabels[depth]}</div>
-            <div className="text-muted-foreground text-white text-[10px] mt-1">
-              {progress.toFixed(0)}%
+            <div className="text-white text-[10px] mt-1">
+              {clampedProgress.toFixed(0)}%
             </div>
           </motion.div>
         </div>
@@ -58,9 +59,9 @@ export default function ScrollProgress({ progress }: ScrollProgressProps) {
 
       {/* Top progress bar */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-glow-blue to-blue-1000 z-50"
+        className="fixed bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-400 via-glow-blue to-blue-1000 z-50"
         style={{
-          width: `${progress}%`,
+          width: `${clampedProgress}%`,
         }}
         transition={{ duration: 0.3 }}
       />

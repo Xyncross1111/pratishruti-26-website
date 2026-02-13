@@ -117,7 +117,21 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
 
-      
+        {/* Bottom highlight */}
+        {/* <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-12 p-8 rounded-lg border border-accent/30 bg-gradient-to-r from-primary/10 to-secondary/10 text-center"
+        >
+          <p className="text-lg md:text-xl text-foreground mb-4">
+            <span className="text-accent font-bold">Pratishruti</span> is more than a festival—it's a portal to ancient wonder, a celebration of human talent, and a gathering of minds united by passion.
+          </p>
+          <p className="text-muted-foreground">
+            Come explore the depths of Atlantis. Discover your true potential. Leave your mark on legend.
+          </p>
+        </motion.div> */}
       </div>
     </section>
   );
