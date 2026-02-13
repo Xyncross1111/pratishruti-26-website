@@ -40,11 +40,10 @@ export default function Home() {
       {/* <Navigation scrollProgress={scrollProgress} /> */}
       <ScrollProgress progress={scrollProgress} />
 
-      <main className="relative">
-        <Hero />
+      <main className="relative bg-[url('/bgwebsite.png')] bg-auto">
         <AboutSection />
         <EventCarousel />
-        <EventsTimeline />
+        <div className="relative bg-[url('/deeper.png')] bg-auto">
         <ArtistSection />
         <JellyfishTimeline />
         {/* <SponsorsCarousel /> */}
