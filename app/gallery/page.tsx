@@ -1,19 +1,30 @@
 import { SpiralGallery } from '@/components/atlantis/SpiralGallery';
+import Link from 'next/link';
 
 export default function GalleryPage() {
     return (
         <main className="relative min-h-screen bg-[#4f6b52]">
-            {/* Small title block like reference */}
-            <div className="fixed top-16 left-20 z-50 text-white/90 leading-tight tracking-wide">
-                <p className="text-sm font-semibold">Poseidon</p>
-                <p className="text-sm font-semibold">Gallery</p>
-            </div>
-
-            {/* Minimal timeline marker at top center */}
-            <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 text-white/70">
-                <span className="text-xs font-semibold tracking-[0.2em]">JAN</span>
-                <div className="w-56 h-px bg-white/25" />
-                <span className="text-xs font-semibold tracking-[0.2em]">DEC</span>
+            {/* Navigation back to home */}
+            <div className="fixed top-8 left-8 z-50">
+                <Link
+                    href="/"
+                    className="group flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 bg-black/10 text-white/80 hover:text-white hover:border-white/40 transition-all duration-300"
+                >
+                    <svg
+                        className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
+                    </svg>
+                    <span className="font-medium">Back to Home</span>
+                </Link>
             </div>
 
             {/* Scroll indicator */}
@@ -34,18 +45,6 @@ export default function GalleryPage() {
                         />
                     </svg>
                 </div>
-            </div>
-
-            {/* Bottom-left play marker */}
-            <div className="fixed bottom-16 left-10 z-50 flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-[10px] text-white/50">
-                ▶
-            </div>
-
-            {/* Bottom-right social markers */}
-            <div className="fixed bottom-12 right-12 z-50 flex items-center gap-6 text-xs tracking-[0.2em] text-white/45">
-                <span>FB</span>
-                <span>TW</span>
-                <span>YT</span>
             </div>
 
             {/* 3D Spiral Gallery */}

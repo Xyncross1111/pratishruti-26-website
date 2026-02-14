@@ -1,143 +1,250 @@
 'use client';
 
-import { useRef, useState, useEffect, useMemo } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { useRef, useState, useEffect, useMemo, Suspense } from 'react';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
 import { PoseidonModel } from './PoseidonModel';
-import { GalleryImage } from './GalleryImage';
+import * as THREE from 'three';
+import { TextureLoader } from 'three';
 
 interface SpiralGalleryProps {
     images?: string[];
 }
 
 const defaultImages = [
-    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop', // Underwater scene
-    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=1000&fit=crop', // Ocean
-    'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=1000&fit=crop', // Underwater
-    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop', // Sea life
-    'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=1000&fit=crop', // Ocean depths
-    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=1000&fit=crop&sat=-100', // Blue ocean
-    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop&sat=-50', // Underwater 2
-    'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=1000&fit=crop', // Deep sea
-    'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=1000&fit=crop&sat=-50', // Ocean 2
-    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop&sat=-50', // Marine
-    'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=1000&fit=crop&sat=-50', // Underwater 3
-    'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=1000&fit=crop&sat=-50', // Deep ocean
+    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1485550409059-9afb054cada4?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1530053969600-caed2596d242?w=800&h=1000&fit=crop',
 ];
+
+// Smooth easing function - ease in-out sine (very smooth)
+function easeInOutSine(t: number): number {
+    return -(Math.cos(Math.PI * t) - 1) / 2;
+}
+
+// Animated camera that pans in on load
+function AnimatedCamera({ isIntroComplete }: { isIntroComplete: boolean }) {
+    const { camera } = useThree();
+    const startZ = 50; // Start far away
+    const endZ = 20;   // End position
+    const startY = 10; // Start above
+    const endY = 0;    // End at center
+    const duration = 2.5; // Duration in seconds
+    const elapsedRef = useRef(0);
+    
+    useFrame((_, delta) => {
+        if (elapsedRef.current < duration) {
+            elapsedRef.current += delta;
+            
+            // Clamp to 0-1 range
+            const t = Math.min(elapsedRef.current / duration, 1);
+            
+            // Very smooth easing
+            const eased = easeInOutSine(t);
+            
+            // Smoothly interpolate camera position using lerp
+            const targetZ = startZ + (endZ - startZ) * eased;
+            const targetY = startY + (endY - startY) * eased;
+            
+            // Use lerp for extra smoothness
+            camera.position.z += (targetZ - camera.position.z) * 0.1;
+            camera.position.y += (targetY - camera.position.y) * 0.1;
+            camera.lookAt(0, 0, 0);
+        } else {
+            // Ensure final position is exact
+            camera.position.z = endZ;
+            camera.position.y = endY;
+            camera.lookAt(0, 0, 0);
+        }
+    });
+    
+    return null;
+}
+
+// Single helix image - animates along vertical spiral path
+function HelixImage({ 
+    index, 
+    total,
+    imagePath,
+    scrollProgress,
+    isMobile,
+}: { 
+    index: number; 
+    total: number;
+    imagePath: string;
+    scrollProgress: number;
+    isMobile: boolean;
+}) {
+    const meshRef = useRef<THREE.Mesh>(null);
+    
+    // Load texture
+    const texture = useLoader(TextureLoader, imagePath);
+    
+    // Each image gets a portion of the scroll
+    // Offset by 1 so first image starts off-screen (below) at scroll=0
+    const imageProgress = scrollProgress * (total + 1) - index - 1;
+    
+    // Clamp to useful range: -1 (below) to 0 (center) to 1 (above)
+    const clampedProgress = Math.max(-1.5, Math.min(1.5, imageProgress));
+    
+    // Vertical position: enters from below, exits above
+    const y = clampedProgress * 8;
+    
+    // Spiral angle based on progress (one full rotation per image transition)
+    const spiralAngle = clampedProgress * Math.PI * 1.5;
+    
+    // Radius - closer when at center (progress = 0)
+    const baseRadius = isMobile ? 6 : 8;
+    const radiusVariation = Math.abs(clampedProgress) * 4;
+    const radius = baseRadius + radiusVariation;
+    
+    // Position on spiral
+    const x = Math.sin(spiralAngle) * radius;
+    const z = Math.cos(spiralAngle) * radius;
+    
+    // Opacity: fully visible at center, fades at edges
+    const opacity = 1 - Math.abs(clampedProgress) * 0.7;
+    
+    // Scale: larger when centered
+    const scale = 1 - Math.abs(clampedProgress) * 0.3;
+    
+    // Only render if within visible range
+    const isVisible = imageProgress > -1.5 && imageProgress < 1.5;
+    
+    // Image size - smaller on mobile
+    const width = isMobile ? 3.5 : 6;
+    const height = isMobile ? 2.2 : 3.8;
+
+    if (!isVisible) return null;
+
+    return (
+        <mesh
+            ref={meshRef}
+            position={[x, y, z]}
+            rotation={[0, spiralAngle + Math.PI, 0]} // Face outward
+            scale={[scale, scale, scale]}
+        >
+            <planeGeometry args={[width, height]} />
+            <meshStandardMaterial 
+                map={texture}
+                side={THREE.DoubleSide}
+                transparent={true}
+                opacity={opacity}
+            />
+        </mesh>
+    );
+}
+
+// Helix group - contains all images
+function HelixGroup({ 
+    images, 
+    scrollProgress,
+    isMobile,
+}: { 
+    images: string[]; 
+    scrollProgress: number;
+    isMobile: boolean;
+}) {
+    return (
+        <group position={[0, 0, 0]}>
+            {images.map((imagePath, index) => (
+                <HelixImage
+                    key={index}
+                    index={index}
+                    total={images.length}
+                    imagePath={imagePath}
+                    scrollProgress={scrollProgress}
+                    isMobile={isMobile}
+                />
+            ))}
+        </group>
+    );
+}
 
 export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isIntroComplete, setIsIntroComplete] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const panelImages = images.slice(0, 6);
 
-    const panelLayout = useMemo(
-        () => [
-            { x: -5.8, y: 0.8, z: -1.4, ry: 0.2, rz: 0.03, scale: 1.22, drift: 1 },
-            { x: 5.9, y: -0.2, z: -1.0, ry: -0.22, rz: -0.02, scale: 0.92, drift: -1 },
-            { x: -3.9, y: -2.8, z: -2.8, ry: 0.5, rz: 0.04, scale: 0.82, drift: 1 },
-            { x: 3.8, y: -3.0, z: -2.6, ry: -0.48, rz: -0.04, scale: 0.8, drift: -1 },
-            { x: 0.8, y: -2.1, z: -3.5, ry: -0.1, rz: 0.03, scale: 0.72, drift: 1 },
-            { x: -0.9, y: -1.8, z: -3.8, ry: 0.14, rz: -0.02, scale: 0.68, drift: -1 },
-        ],
-        []
-    );
+    // Mark intro as complete after animation duration
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsIntroComplete(true);
+        }, 3000); // 3 seconds for pan-in animation
+        return () => clearTimeout(timer);
+    }, []);
 
-    // Track scroll progress
+    // Detect mobile screen
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     useEffect(() => {
         const handleScroll = () => {
-            if (containerRef.current) {
-                const scrollTop = window.scrollY;
-                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-                setScrollProgress(progress);
-            }
+            const scrollTop = window.scrollY;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+            setScrollProgress(progress);
         };
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Initial call
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Floating side panels (reference-style composition)
-    const getImagePosition = (index: number, total: number): [number, number, number] => {
-        const layout = panelLayout[index % panelLayout.length];
-        const eased = 1 - Math.pow(1 - scrollProgress, 2);
-        const verticalDrift = (eased - 0.5) * 2.8 * layout.drift;
-        const depthDrift = (eased - 0.5) * 0.8;
-
-        return [layout.x, layout.y + verticalDrift, layout.z + depthDrift];
-    };
-
-    // Match the editorial tilted panel look from the reference
-    const getImageRotation = (index: number, total: number): [number, number, number] => {
-        const layout = panelLayout[index % panelLayout.length];
-        const eased = 1 - Math.pow(1 - scrollProgress, 2);
-        const yawParallax = eased * 0.22 * layout.drift;
-        return [0, layout.ry + yawParallax, layout.rz];
-    };
-
     return (
         <div ref={containerRef} className="relative w-full">
-            {/* 3D Canvas - Fixed position */}
-            <div className="fixed inset-0 w-full h-screen">
-                <Canvas shadows>
-                    {/* Camera centered on model */}
-                    <PerspectiveCamera makeDefault position={[0, 1.1, 11.6]} fov={40} />
+            {/* 3D Canvas */}
+            <div className="fixed inset-0 w-full h-screen z-0">
+                <Canvas>
+                    <PerspectiveCamera makeDefault position={[0, 10, 50]} fov={40} />
+                    <AnimatedCamera isIntroComplete={isIntroComplete} />
+                    <fog attach="fog" args={['#4f6b52', 15, 60]} />
 
-                    {/* Atmospheric fog like the reference */}
-                    <fog attach="fog" args={['#5d7a63', 7, 24]} />
+                    <ambientLight intensity={0.6} color="#c5d8c8" />
+                    <directionalLight position={[5, 10, 7]} intensity={1.2} color="#f5f9f6" />
+                    <directionalLight position={[-6, 3, -5]} intensity={0.4} color="#8fa89a" />
 
-                    {/* Soft cinematic lighting */}
-                    <ambientLight intensity={0.48} color="#c8d6c8" />
-                    <directionalLight position={[4, 8, 6]} intensity={1.15} color="#edf3ef" />
-                    <directionalLight position={[-5, 2, -4]} intensity={0.35} color="#95ab98" />
-                    <spotLight
-                        position={[0, 10, 6]}
-                        angle={0.55}
-                        penumbra={0.4}
-                        intensity={0.8}
-                        color="#e7f0eb"
-                    />
-
-                    {/* Poseidon Model - Medium parallax */}
+                    {/* Model in center */}
                     <PoseidonModel scrollProgress={scrollProgress} />
 
-                    {/* Floating monochrome side panels */}
-                    {panelImages.map((imagePath, index) => (
-                        <GalleryImage
-                            key={index}
-                            imagePath={imagePath}
-                            position={getImagePosition(index, panelImages.length)}
-                            rotation={getImageRotation(index, panelImages.length)}
-                            index={index}
-                            scale={panelLayout[index % panelLayout.length].scale}
-                        />
-                    ))}
+                    {/* Helix images - proper 3D planes with depth */}
+                    <Suspense fallback={null}>
+                        <HelixGroup images={images} scrollProgress={scrollProgress} isMobile={isMobile} />
+                    </Suspense>
 
-                    {/* Keep model centered in viewport while still allowing orbit inspection */}
                     <OrbitControls target={[0, 0, 0]} enablePan={false} enableZoom={false} enableRotate={false} />
                 </Canvas>
             </div>
 
-            {/* Scroll spacer - creates scrollable height */}
-            <div
-                className="relative pointer-events-none"
-                style={{ height: `${panelImages.length * 130}vh` }}
-            />
+            {/* Scroll spacer */}
+            <div className="relative pointer-events-none" style={{ height: '500vh' }} />
 
-            {/* Background gradient - Slowest parallax */}
+            {/* Background */}
             <div
-                className="fixed inset-0 -z-10 transition-opacity duration-1000"
+                className="fixed inset-0 -z-10"
                 style={{
-                    background: `linear-gradient(
-            to bottom,
-                        #5d7a63 0%,
-                        #56725c ${scrollProgress * 35}%,
-                        #4a654f ${scrollProgress * 70}%,
-                        #3b5341 100%
-          )`,
-                    opacity: 0.95,
+                    background: 'linear-gradient(to bottom, #556f5a 0%, #4f6b52 35%, #415b47 70%, #32483a 100%)',
                 }}
             />
         </div>

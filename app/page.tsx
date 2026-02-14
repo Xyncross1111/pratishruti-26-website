@@ -12,7 +12,6 @@ import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
-import BioluminescentFishGallery from '@/components/atlantis/BioluminescentFishGallery';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -46,7 +45,6 @@ export default function Home() {
         <ArtistSection />
         <JellyfishTimeline />
         <SponsorsCarousel />
-        <BioluminescentFishGallery />
         <AnimatedTreasureBox />
       </main>
 

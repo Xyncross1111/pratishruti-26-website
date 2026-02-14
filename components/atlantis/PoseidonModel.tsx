@@ -30,18 +30,31 @@ export function PoseidonModel({ scrollProgress }: PoseidonModelProps) {
             console.log('Model size:', size);
             console.log('Model center:', center);
 
-            // Keep a lightweight mesh count debug
+            // Log hierarchy to see what's inside
+            console.log('Model hierarchy:', scene);
             let meshCount = 0;
             scene.traverse((child: any) => {
                 if (child.isMesh) {
                     meshCount++;
+                    console.log(`Mesh found: ${child.name}`, {
+                        geometry: child.geometry,
+                        material: child.material,
+                        scale: child.scale,
+                        position: child.position,
+                        visible: child.visible
+                    });
                 }
             });
             console.log(`Total meshes found: ${meshCount}`);
 
-            // Center geometry at origin so the model stays perfectly centered in viewport
-            scene.position.set(-center.x, -center.y, -center.z);
-            console.log('Model centered! New position:', scene.position);
+            // Center all geometry so the model rotates around its own center
+            scene.traverse((child: any) => {
+                if (child.isMesh && child.geometry) {
+                    child.geometry.center();
+                }
+            });
+            scene.position.set(0, 0, 0);
+            console.log('Model geometry centered at origin');
 
             // Ensure materials are visible
             scene.traverse((child: any) => {
@@ -59,14 +72,14 @@ export function PoseidonModel({ scrollProgress }: PoseidonModelProps) {
                             mat.opacity = 1;
                             mat.visible = true;
 
-                            // Statue-like white material look
-                            if (mat.color) {
-                                mat.color.setHex(0xe7ece9);
+                            // Ensure it's not completely black
+                            if (mat.color && mat.color.r < 0.1 && mat.color.g < 0.1 && mat.color.b < 0.1) {
+                                mat.color.setHex(0x4a9fd8); // Ocean blue
                             }
 
-                            // Marble/plaster finish
-                            if (mat.metalness !== undefined) mat.metalness = 0.05;
-                            if (mat.roughness !== undefined) mat.roughness = 0.55;
+                            // Set metalness and roughness for better visibility
+                            if (mat.metalness !== undefined) mat.metalness = 0.5;
+                            if (mat.roughness !== undefined) mat.roughness = 0.5;
                             
                             // Enable double-sided rendering
                             mat.side = THREE.DoubleSide;
@@ -77,12 +90,11 @@ export function PoseidonModel({ scrollProgress }: PoseidonModelProps) {
         }
     }, [scene, error]);
 
-    // Animate based on scroll progress - only rotation, position stays fixed
+    // Animate based on scroll progress - full 360° rotation
     useFrame(() => {
         if (modelRef.current) {
-            // Smooth eased parallax rotation (clockwise)
-            const eased = 1 - Math.pow(1 - scrollProgress, 2);
-            modelRef.current.rotation.y = eased * Math.PI * 2.25;
+            // Full rotation - model completes 360° and returns to center
+            modelRef.current.rotation.y = scrollProgress * Math.PI * 2;
         }
     });
 
@@ -98,8 +110,8 @@ export function PoseidonModel({ scrollProgress }: PoseidonModelProps) {
 
     return (
         <group ref={modelRef} position={[0, 0, 0]}>
-            {/* Keep model centered, scaled, and upright (vertical) */}
-            <primitive object={scene} scale={0.027} position={[0, -0.15, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+            {/* Model geometry is now centered, so rotation happens around its center */}
+            <primitive object={scene} scale={0.1} rotation={[-Math.PI / 2, 0, 0]} />
         </group>
     );
 }

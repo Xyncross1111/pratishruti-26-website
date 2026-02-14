@@ -255,6 +255,40 @@
   .animate-radial-zoom {
     animation: radial-zoom 1.5s ease-out forwards;
   }
+
+  /* Gallery loading animations */
+  .animate-bubble {
+    animation: bubble-rise 3s ease-in infinite;
+  }
+
+  .animate-wave {
+    animation: wave-move 4s linear infinite;
+  }
+}
+
+/* Bubble rising animation */
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Wave movement animation */
+@keyframes wave-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Reduced motion support */
@@ -263,7 +297,9 @@
   .animate-fish-swim,
   .animate-bio-pulse,
   .animate-eye-glow,
-  .animate-radial-zoom {
+  .animate-radial-zoom,
+  .animate-bubble,
+  .animate-wave {
     animation: none;
   }
 }
