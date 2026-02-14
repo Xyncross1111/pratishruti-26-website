@@ -219,11 +219,11 @@ export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
                 <Canvas>
                     <PerspectiveCamera makeDefault position={[0, 10, 50]} fov={40} />
                     <AnimatedCamera isIntroComplete={isIntroComplete} />
-                    <fog attach="fog" args={['#4f6b52', 15, 60]} />
+                    <fog attach="fog" args={['#001428', 15, 60]} />
 
-                    <ambientLight intensity={0.6} color="#c5d8c8" />
-                    <directionalLight position={[5, 10, 7]} intensity={1.2} color="#f5f9f6" />
-                    <directionalLight position={[-6, 3, -5]} intensity={0.4} color="#8fa89a" />
+                    <ambientLight intensity={0.6} color="#70c8dc" />
+                    <directionalLight position={[5, 10, 7]} intensity={1.2} color="#b4e0e8" />
+                    <directionalLight position={[-6, 3, -5]} intensity={0.4} color="#5da9c0" />
 
                     {/* Model in center */}
                     <PoseidonModel scrollProgress={scrollProgress} />
@@ -244,7 +244,7 @@ export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
             <div
                 className="fixed inset-0 -z-10"
                 style={{
-                    background: 'linear-gradient(to bottom, #556f5a 0%, #4f6b52 35%, #415b47 70%, #32483a 100%)',
+                    background: 'linear-gradient(to bottom, #001428 0%, #002040 35%, #001a35 70%, #00101f 100%)',
                 }}
             />
         </div>

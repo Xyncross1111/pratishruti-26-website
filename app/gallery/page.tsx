@@ -1,14 +1,15 @@
 import { SpiralGallery } from '@/components/atlantis/SpiralGallery';
 import Link from 'next/link';
+import DeepSeaFooter from '@/components/atlantis/Footer';
 
 export default function GalleryPage() {
     return (
-        <main className="relative min-h-screen bg-[#4f6b52]">
+        <div className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
             {/* Navigation back to home */}
             <div className="fixed top-8 left-8 z-50">
                 <Link
                     href="/"
-                    className="group flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 bg-black/10 text-white/80 hover:text-white hover:border-white/40 transition-all duration-300"
+                    className="group flex items-center gap-2 px-6 py-3 rounded-full border border-accent/30 bg-deep-ocean/80 backdrop-blur-sm text-accent hover:text-white hover:border-accent/60 transition-all duration-300"
                 >
                     <svg
                         className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
@@ -30,9 +31,9 @@ export default function GalleryPage() {
             {/* Scroll indicator */}
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-bounce">
                 <div className="flex flex-col items-center gap-2">
-                    <span className="text-white/50 text-sm">Scroll Down</span>
+                    <span className="text-accent/70 text-sm">Scroll Down</span>
                     <svg
-                        className="w-6 h-6 text-white/50"
+                        className="w-6 h-6 text-accent/70"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -48,7 +49,11 @@ export default function GalleryPage() {
             </div>
 
             {/* 3D Spiral Gallery */}
-            <SpiralGallery />
-        </main>
+            <main className="relative">
+                <SpiralGallery />
+            </main>
+
+            
+        </div>
     );
 }

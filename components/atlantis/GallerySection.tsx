@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import DomeGallery from '../DomeGallery';
 import { Coral, Seaweed, Bubble, Pearl, Starfish } from './MarineSVGs';
 
 // Gallery images - replace these with your actual event/team photos
@@ -93,59 +92,30 @@ export default function GallerySection() {
                     </p>
                 </motion.div>
 
-                {/* Gallery Container */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden"
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 40, 80, 0.6) 100%)',
-                        boxShadow: '0 0 40px rgba(112, 200, 220, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3)',
-                    }}
-                >
-                    {/* Dome Gallery */}
-                    <DomeGallery
-                        images={GALLERY_IMAGES}
-                        fit={0.6}
-                        fitBasis="auto"
-                        minRadius={400}
-                        maxRadius={800}
-                        overlayBlurColor="oklch(0.15 0.02 250)" // Deep ocean color
-                        grayscale={false} // Color images
-                        imageBorderRadius="20px"
-                        openedImageBorderRadius="24px"
-                        openedImageWidth="500px"
-                        openedImageHeight="500px"
-                        maxVerticalRotationDeg={8}
-                        dragSensitivity={18}
-                        enlargeTransitionMs={350}
-                        segments={35}
-                        dragDampening={2}
-                    />
-
-                    {/* Subtle glow overlay */}
-                    <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                            background: 'radial-gradient(circle at 50% 50%, rgba(112, 200, 220, 0.1) 0%, transparent 70%)',
-                        }}
-                    />
-                </motion.div>
-
-                {/* Instructions */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className="text-center mt-8 md:mt-12"
-                >
-                    <p className="text-accent/80 text-sm md:text-base">
-                        🖱️ Drag to rotate • 👆 Click to enlarge • ⌨️ Press ESC to close
-                    </p>
-                </motion.div>
+                {/* Gallery Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {GALLERY_IMAGES.map((image, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="relative group overflow-hidden rounded-2xl"
+                            style={{
+                                background: 'linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 40, 80, 0.6) 100%)',
+                                boxShadow: '0 0 20px rgba(112, 200, 220, 0.2)',
+                            }}
+                        >
+                            <img
+                                src={image.src}
+                                alt={image.alt}
+                                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-deep-ocean/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </section>
     );
