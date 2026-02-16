@@ -7,11 +7,15 @@ import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
 import EventsTimeline from "@/components/atlantis/EventsTimeline";
 import ArtistSection from '@/components/atlantis/ArtistSection';
+import EventsTimeline from "@/components/atlantis/EventsTimeline";
+import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
-import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
+// import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
+import InfiniteScroll from '@/components/infinite-scroll';
+import Header from '@/components/header';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,17 +38,17 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
-      <Navigation scrollProgress={scrollProgress} />
+      <Header/>
+      {/* <Navigation scrollProgress={scrollProgress} /> */}
       <ScrollProgress progress={scrollProgress} />
-
+      
       <main className="relative">
         <Hero />
         <AboutSection />
         <EventCarousel />
-        <EventsTimeline />
-        <ArtistSection />
         <JellyfishTimeline />
-        <SponsorsCarousel />
+        {/* <SponsorsCarousel /> */}
+        <InfiniteScroll/>
         <AnimatedTreasureBox />
       </main>
 
