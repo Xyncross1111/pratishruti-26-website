@@ -194,3 +194,7 @@ h1, h2{
   letter-spacing: 0.05em;
 }
 }
+/* Hide scrollbar but keep scroll */
+::-webkit-scrollbar {
+  display: none;
+}
