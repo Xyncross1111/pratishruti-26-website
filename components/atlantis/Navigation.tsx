@@ -21,17 +21,9 @@ export default function Navigation({ scrollProgress }: NavigationProps) {
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-3"
-        >
-          <div className="text-2xl font-bold text-gold-accent">Ⱦ</div>
-          <div>
-            <h1 className="text-sm font-bold text-accent tracking-wider">PRATISHRUTI</h1>
-            <p className="text-xs text-muted-foreground">Atlas of Atlantis</p>
-          </div>
+        <motion.div className="flex items-center text-yellow-400 font-bold gap-3"
+        style = {{ }}>
+          <div className="flex flex-col">Pratishruti 2026</div>
         </motion.div>
 
         <motion.div
@@ -46,7 +38,7 @@ export default function Navigation({ scrollProgress }: NavigationProps) {
                 const element = document.getElementById('events');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-xs font-medium text-foreground/70 hover:text-accent transition-colors"
+              className="text-xs text-white font-medium text-foreground/70 hover:text-blue-300 transition-colors"
             >
               Events
             </button>
@@ -55,16 +47,22 @@ export default function Navigation({ scrollProgress }: NavigationProps) {
                 const element = document.getElementById('timeline');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-xs font-medium text-foreground/70 hover:text-accent transition-colors"
+              className="text-xs text-white font-medium text-foreground/70 hover:text-blue-300 transition-colors"
             >
               Timeline
             </button>
+            <a
+              href="/gallery"
+              className="text-xs font-medium text-foreground/70 hover:text-accent transition-colors"
+            >
+              Gallery
+            </a>
             <button
               onClick={() => {
                 const element = document.getElementById('register');
                 element?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-xs font-medium text-foreground/70 hover:text-accent transition-colors"
+              className="text-xs text-white font-medium text-foreground/70 hover:text-blue-300 transition-colors"
             >
               Register
             </button>

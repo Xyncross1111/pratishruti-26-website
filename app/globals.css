@@ -128,6 +128,7 @@
     @apply border-border outline-ring/50;
   }
 
+
   body {
     @apply bg-background text-foreground;
   }
@@ -140,6 +141,13 @@
 @layer utilities {
   .deep-ocean {
     background-color: var(--deep-ocean);
+  }
+
+  .footer-bg-texture {
+    background-color: #020617;
+    background-image: url('/footer/footerbg.png');
+    background-size: cover;
+    background-position: center;
   }
 
   .bio-cyan {

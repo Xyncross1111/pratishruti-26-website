@@ -5,9 +5,9 @@ import { Waves } from 'lucide-react';
 
 export default function AboutSection() {
   return (
-    <section className="relative py-20 md:py-32 px-4 overflow-hidden">
+    <section className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
       {/* Background effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
+      <div className="absolute inset-0 bg-linear-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
 
       <div className="relative z-10 max-w-4xl mx-auto">
         <motion.div
@@ -18,10 +18,10 @@ export default function AboutSection() {
           className="text-center mb-12"
         >
           <h2 className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
-            The Legend
+            Pratishruti ’26 Brochure
           </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-            About Pratishruti
+            About RBU, SRC & Pratishruti
           </h2>
         </motion.div>
 
@@ -35,37 +35,37 @@ export default function AboutSection() {
           {/* Left content */}
           <div className="space-y-6">
             <div className="flex gap-4">
-              <Waves className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+              <Waves className="w-8 h-8 text-accent shrink-0 mt-1" />
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-2">
-                  Realm of Poseidon
+                  About Ramdeobaba University (RBU)
                 </h3>
                 <p className="text-muted-foreground">
-                  Pratishruti, the annual festival of ancient wisdom and modern celebration, draws inspiration from the legendary underwater kingdoms ruled by Poseidon himself. Dive deep into a realm where mythology meets reality.
+                  Ramdeobaba University (formerly Shri Ramdeobaba College of Engineering and Management, RCOEM), Nagpur, established in 1984, is a reputed institution focused on nurturing ethical and competent professionals through innovation, research, and real-world learning.
                 </p>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <Waves className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+              <Waves className="w-8 h-8 text-accent shrink-0 mt-1" />
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-2">
-                  Atlantis Reborn
+                  About Students’ Representative Council (SRC)
                 </h3>
                 <p className="text-muted-foreground">
-                  Every year, the hidden city of Atlantis awakens once more. Through immersive events, competitions, and performances, we recreate the grandeur of this mystical civilization, revealing treasures of talent and culture.
+                  SRC is the apex student body of Ramdeobaba University and the key link between students and administration. Through mentorship, leadership opportunities, and co-curricular initiatives, SRC fosters an inclusive campus culture of excellence and collaboration.
                 </p>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <Waves className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
+              <Waves className="w-8 h-8 text-accent shrink-0 mt-1" />
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-2">
-                  Cultural Odyssey
+                  About Pratishruti – 29ᵗʰ Edition
                 </h3>
                 <p className="text-muted-foreground">
-                  From dance and music to technology and innovation, Pratishruti celebrates the boundless creativity of its participants. Join thousands of explorers on this oceanic journey of discovery.
+                  Pratishruti is Central India&apos;s largest cultural festival where art, ideas, and youth energy come together through competitions, showcases, literary and fine arts programs, film, photography, pop-culture events, informals, workshops, and campus engagement activities.
                 </p>
               </div>
             </div>
@@ -81,44 +81,44 @@ export default function AboutSection() {
           >
             <div className="p-6 rounded-lg border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-colors">
               <h4 className="text-accent text-sm font-semibold uppercase mb-2">
-                📅 When
+                Footfall
               </h4>
               <p className="text-foreground font-semibold">
-                March 1-8, 2026
+                8,000+
               </p>
               <p className="text-muted-foreground text-sm mt-1">
-                A week-long celebration of art, culture, and innovation
+                Students and visitors across all days
               </p>
             </div>
 
             <div className="p-6 rounded-lg border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-colors">
               <h4 className="text-accent text-sm font-semibold uppercase mb-2">
-                🌊 Scale
+                Events & Activities
               </h4>
               <p className="text-foreground font-semibold">
-                5000+ Participants
+                35+
               </p>
               <p className="text-muted-foreground text-sm mt-1">
-                From across the globe, united in celebration
+                Competitions and events across multiple categories
               </p>
             </div>
 
             <div className="p-6 rounded-lg border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-colors">
               <h4 className="text-accent text-sm font-semibold uppercase mb-2">
-                🎭 Diversity
+                Brand Associations
               </h4>
               <p className="text-foreground font-semibold">
-                30+ Events
+                30+
               </p>
               <p className="text-muted-foreground text-sm mt-1">
-                Spanning culture, technology, sports, and arts
+                Sponsors, partners, and collaborators with strong digital reach
               </p>
             </div>
           </motion.div>
         </motion.div>
 
         {/* Bottom highlight */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -131,7 +131,7 @@ export default function AboutSection() {
           <p className="text-muted-foreground">
             Come explore the depths of Atlantis. Discover your true potential. Leave your mark on legend.
           </p>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

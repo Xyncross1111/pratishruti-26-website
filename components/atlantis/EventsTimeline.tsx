@@ -11,6 +11,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
 import { useIsMobile } from "@/hooks/use-mobile";
+import Link from "next/link";
+import { registrationEvents } from "@/lib/events";
 
 interface Event {
   id: number;
@@ -24,104 +26,17 @@ interface Event {
   registrationStatus?: "open" | "closed" | "soon";
 }
 
-const events: Event[] = [
-  {
-    id: 1,
-    title: "Underwater Dance Battle",
-    date: "March 1, 2026",
-    time: "2:00 PM - 5:00 PM",
-    venue: "Grand Hall",
-    category: "Cultural",
-    description:
-      "Experience the rhythmic waves as teams compete in an electrifying dance showdown",
-    capacity: "500 participants",
-    registrationStatus: "open",
-  },
-  {
-    id: 2,
-    title: "Poetry Slam: Voices of the Abyss",
-    date: "March 2, 2026",
-    time: "6:00 PM - 8:00 PM",
-    venue: "Coral Theater",
-    category: "Literary",
-    description:
-      "Dive deep into emotions with powerful spoken word performances from the depths",
-    capacity: "200 participants",
-    registrationStatus: "open",
-  },
-  {
-    id: 3,
-    title: "Neon Glow Concert",
-    date: "March 3, 2026",
-    time: "8:00 PM - 11:00 PM",
-    venue: "Main Stage",
-    category: "Pro Shows",
-    description:
-      "Bioluminescent beats and neon lights merge in an unforgettable musical journey",
-    capacity: "1000+ attendees",
-    registrationStatus: "soon",
-  },
-  {
-    id: 4,
-    title: "Coding Marathon: Atlantis Edition",
-    date: "March 4, 2026",
-    time: "10:00 AM - 6:00 PM",
-    venue: "Tech Lab",
-    category: "Tech Events",
-    description:
-      "Build innovative solutions while exploring ancient algorithms of Atlantis",
-    capacity: "150 teams",
-    registrationStatus: "open",
-  },
-  {
-    id: 5,
-    title: "Treasure Hunt Quest",
-    date: "March 5, 2026",
-    time: "3:00 PM - 7:00 PM",
-    venue: "Beach & Ocean",
-    category: "Competitions",
-    description:
-      "Follow the clues through coral reefs and hidden chambers to discover lost treasures",
-    capacity: "300 participants",
-    registrationStatus: "open",
-  },
-  {
-    id: 6,
-    title: "Marine Art & Craft Workshop",
-    date: "March 6, 2026",
-    time: "11:00 AM - 1:00 PM",
-    venue: "Amphitheater",
-    category: "Workshops",
-    description:
-      "Create stunning ocean-inspired art pieces with expert guidance",
-    capacity: "100 participants",
-    registrationStatus: "closed",
-  },
-  {
-    id: 7,
-    title: "Fashion Show: Oceanic Elegance",
-    date: "March 7, 2026",
-    time: "7:00 PM - 9:00 PM",
-    venue: "Grand Stage",
-    category: "Pro Shows",
-    description:
-      "Witness breathtaking designs inspired by the mysteries of the deep sea",
-    capacity: "800 attendees",
-    registrationStatus: "soon",
-  },
-  {
-    id: 8,
-    title: "Grand Closing Ceremony",
-    date: "March 8, 2026",
-    time: "6:00 PM - 10:00 PM",
-    venue: "Main Arena",
-    category: "Ceremony",
-    description:
-      "Celebrate the festival with awards, performances, and the grand treasure reveal",
-    capacity: "Open to all",
-    registrationStatus: "open",
-  },
-];
+const events: Event[] = registrationEvents.map((event) => ({
+  id: event.id,
+  title: event.name,
+  date: event.date ?? "Date TBA",
+  time: "Time TBA",
+  venue: event.venue ?? "Venue TBA",
+  category: event.category ?? "General",
+  description: `Participate in ${event.name} at Pratishruti 2026.`,
+  capacity: event.prize ? `Prizes worth ${event.prize}` : undefined,
+  registrationStatus: event.registrationStatus ?? "open",
+}));
 
 const statusConfig = {
   open: {
@@ -332,9 +247,12 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             )}
 
             {event.registrationStatus === "open" && (
-              <button className="px-6 py-2 bg-accent text-deep-ocean font-semibold rounded-lg hover:bg-accent/90 transition-all hover:scale-105 text-sm shadow-lg">
+              <Link
+                href={`/register?event=${event.id}`}
+                className="px-6 py-2 bg-accent text-deep-ocean font-semibold rounded-lg hover:bg-accent/90 transition-all hover:scale-105 text-sm shadow-lg"
+              >
                 Register Now
-              </button>
+              </Link>
             )}
           </div>
         </div>
