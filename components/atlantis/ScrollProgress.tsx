@@ -59,7 +59,7 @@ export default function ScrollProgress({ progress }: ScrollProgressProps) {
 
       {/* Top progress bar */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-400 via-glow-blue to-blue-1000 z-50"
+        className="hidden md:block fixed bottom-0 left-0 right-0 h-1 bg-linear-to-r from-blue-400 via-glow-blue to-blue-1000 z-50"
         style={{
           width: `${clampedProgress}%`,
         }}

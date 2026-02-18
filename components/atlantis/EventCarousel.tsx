@@ -58,14 +58,20 @@ const AUTO_SCROLL_MS = 8000;
 export default function EventCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPaused, setIsAutoPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
+  const mobileScrollRafRef = useRef<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const filteredEvents = events;
+  const desktopItemsToShow = 3;
+  const desktopStep = 3;
+  const desktopPageCount = Math.ceil(filteredEvents.length / desktopItemsToShow);
 
   const getVisibleEvents = () => {
     if (filteredEvents.length === 0) return [];
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const itemsToShow = isMobile ? 1 : 3;
+    if (isMobile) return [filteredEvents[currentIndex % filteredEvents.length]];
+
+    const itemsToShow = desktopItemsToShow;
     const visible = [];
 
     for (let i = 0; i < itemsToShow; i++) {
@@ -74,19 +80,146 @@ export default function EventCarousel() {
     return visible;
   };
 
+  const getMobileSlideWidth = (container: HTMLDivElement) => {
+    const firstCard = container.firstElementChild as HTMLElement | null;
+    const cardWidth = firstCard?.offsetWidth ?? container.clientWidth;
+    const computedStyle = window.getComputedStyle(container);
+    const gap = Number.parseFloat(computedStyle.columnGap || computedStyle.gap || '0') || 0;
+    return cardWidth + gap;
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
+    const updateViewport = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    return () => window.removeEventListener('resize', updateViewport);
+  }, [mounted]);
+
+  useEffect(() => {
     if (!mounted || isAutoPaused || filteredEvents.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % filteredEvents.length);
+      if (isMobile) {
+        setCurrentIndex((prev) => {
+          const nextIndex = (prev + 1) % filteredEvents.length;
+          const container = mobileScrollRef.current;
+          if (container) {
+            const slideWidth = getMobileSlideWidth(container);
+            container.scrollTo({ left: slideWidth * nextIndex, behavior: 'smooth' });
+          }
+          return nextIndex;
+        });
+        return;
+      }
+
+      setCurrentIndex((prev) => (prev + desktopStep) % filteredEvents.length);
     }, AUTO_SCROLL_MS);
 
     return () => clearInterval(interval);
-  }, [mounted, isAutoPaused, filteredEvents.length]);
+  }, [mounted, isAutoPaused, filteredEvents.length, isMobile]);
+
+  useEffect(() => {
+    return () => {
+      if (mobileScrollRafRef.current) {
+        window.cancelAnimationFrame(mobileScrollRafRef.current);
+      }
+    };
+  }, []);
+
+  const renderEventCard = (event: Event, idx: number) => (
+    <motion.div
+      key={`${event.slug}-${event.id}-${idx}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: idx * 0.1 }}
+      className="group relative h-full w-[95%] md:w-full mx-auto"
+    >
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-linear-to-b from-primary/30 via-background/80 to-secondary/30 p-4 md:p-5 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-accent/45">
+        <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-accent/10 opacity-70" />
+        <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-accent/10 blur-3xl" />
+
+        <div className="relative z-10 flex h-full flex-col">
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <h3 className="line-clamp-2 text-xl font-extrabold text-foreground md:text-2xl">
+              {event.name}
+            </h3>
+            <span
+              className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
+                event.registrationStatus === 'closed'
+                  ? 'bg-destructive/20 text-destructive'
+                  : event.registrationStatus === 'soon'
+                    ? 'bg-amber-500/20 text-amber-300'
+                    : 'bg-emerald-500/20 text-emerald-300'
+              }`}
+            >
+              {event.registrationStatus === 'closed'
+                ? 'Closed'
+                : event.registrationStatus === 'soon'
+                  ? 'Soon'
+                  : 'Open'}
+            </span>
+          </div>
+
+              <div className="mb-4 w-[92%] md:w-full mx-auto overflow-hidden rounded-xl border border-accent/20 bg-black/15">
+            <div className="relative">
+              <Image
+                src={event.posterSrc}
+                alt={`${event.name} poster`}
+                width={1080}
+                height={1350}
+                sizes="(max-width: 768px) 80vw, 320px"
+                className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
+                priority={idx === 0}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4 rounded-xl border border-accent/15 bg-background/45 p-3">
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
+                <span className="text-muted-foreground">Date</span>
+                <p className="text-right font-medium text-foreground/90">{event.date}</p>
+              </div>
+              <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
+                <span className="text-muted-foreground">Venue</span>
+                <p className="text-right font-medium text-foreground/90">{event.venue}</p>
+              </div>
+              {event.prize ? (
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-muted-foreground">Prize Pool</span>
+                  <p className="text-right font-semibold text-accent">{event.prize}</p>
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="mb-4 mt-auto">
+            <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-xs text-accent/90">
+              {event.access ?? 'Open to all'}
+            </span>
+          </div>
+
+          <Link
+            href={`/register?event=${event.id}`}
+            className="block w-full rounded-xl border border-accent/30 bg-accent/20 px-4 py-2.5 text-center text-sm font-semibold text-accent transition-colors hover:bg-accent/35"
+          >
+            Register
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  const activeDesktopPage = Math.floor(currentIndex / desktopItemsToShow) % Math.max(desktopPageCount, 1);
 
   return (
     <section id="events" className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
@@ -108,107 +241,54 @@ export default function EventCarousel() {
           </p>
         </motion.div>
 
-        <div
-          ref={containerRef}
-          className="relative"
-          onMouseEnter={() => setIsAutoPaused(true)}
-          onMouseLeave={() => setIsAutoPaused(false)}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {(mounted ? getVisibleEvents() : filteredEvents.slice(0, 3)).map((event, idx) => (
-              <motion.div
-                key={`${event.slug}-${event.id}-${idx}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="group relative h-full"
-              >
-                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-linear-to-b from-primary/30 via-background/80 to-secondary/30 p-4 md:p-5 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-accent/45">
-                  <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-accent/10 opacity-70" />
-                  <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-accent/10 blur-3xl" />
+        <div className="relative">
+          {isMobile ? (
+            <div
+              ref={mobileScrollRef}
+              className="mb-8 flex snap-x snap-mandatory gap-0 overflow-x-auto pb-2 scrollbar-hide"
+              style={{ touchAction: 'pan-x' }}
+              onScroll={(event) => {
+                const target = event.currentTarget;
+                if (mobileScrollRafRef.current) {
+                  window.cancelAnimationFrame(mobileScrollRafRef.current);
+                }
 
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="mb-3 flex items-center justify-end gap-3">
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
-                          event.registrationStatus === 'closed'
-                            ? 'bg-destructive/20 text-destructive'
-                            : event.registrationStatus === 'soon'
-                              ? 'bg-amber-500/20 text-amber-300'
-                              : 'bg-emerald-500/20 text-emerald-300'
-                        }`}
-                      >
-                        {event.registrationStatus === 'closed'
-                          ? 'Closed'
-                          : event.registrationStatus === 'soon'
-                            ? 'Soon'
-                            : 'Open'}
-                      </span>
-                    </div>
-
-                    <div className="mb-4 overflow-hidden rounded-xl border border-accent/20 bg-black/15">
-                      <div className="relative">
-                        <Image
-                          src={event.posterSrc}
-                          alt={`${event.name} poster`}
-                          width={1080}
-                          height={1350}
-                          sizes="(max-width: 768px) 80vw, 320px"
-                          className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
-                          priority={idx === 0}
-                        />
-                      </div>
-                    </div>
-
-                    <h3 className="mb-2 line-clamp-2 text-xl font-extrabold text-foreground md:text-2xl">
-                      {event.name}
-                    </h3>
-
-                    <div className="mb-4 rounded-xl border border-accent/15 bg-background/45 p-3">
-                      <div className="space-y-2 text-sm">
-                        <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
-                          <span className="text-muted-foreground">Date</span>
-                          <p className="text-right font-medium text-foreground/90">{event.date}</p>
-                        </div>
-                        <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
-                          <span className="text-muted-foreground">Venue</span>
-                          <p className="text-right font-medium text-foreground/90">{event.venue}</p>
-                        </div>
-                        {event.prize ? (
-                          <div className="flex items-start justify-between gap-3">
-                            <span className="text-muted-foreground">Prize Pool</span>
-                            <p className="text-right font-semibold text-accent">{event.prize}</p>
-                          </div>
-                        ) : null}
-                      </div>
-                    </div>
-
-                    <div className="mb-4 mt-auto">
-                      <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-xs text-accent/90">
-                        {event.access ?? 'Open to all'}
-                      </span>
-                    </div>
-
-                    <Link
-                      href={`/register?event=${event.id}`}
-                      className="block w-full rounded-xl border border-accent/30 bg-accent/20 px-4 py-2.5 text-center text-sm font-semibold text-accent transition-colors hover:bg-accent/35"
-                    >
-                      Register
-                    </Link>
-                  </div>
+                mobileScrollRafRef.current = window.requestAnimationFrame(() => {
+                  const slideWidth = getMobileSlideWidth(target);
+                  const nextIndex = Math.round(target.scrollLeft / Math.max(slideWidth, 1));
+                  const boundedIndex = Math.min(Math.max(nextIndex, 0), filteredEvents.length - 1);
+                  setCurrentIndex((prev) => (prev === boundedIndex ? prev : boundedIndex));
+                });
+              }}
+            >
+              {filteredEvents.map((event, idx) => (
+                <div key={`${event.slug}-${event.id}-${idx}`} className="min-w-full snap-start px-1.5 md:px-0">
+                  {renderEventCard(event, idx)}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {(mounted ? getVisibleEvents() : filteredEvents.slice(0, 3)).map((event, idx) => renderEventCard(event, idx))}
+            </div>
+          )}
 
           <div className="mx-auto max-w-md rounded-full border border-accent/20 bg-background/60 px-4 py-3 backdrop-blur">
             <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
               <span>{isAutoPaused ? 'Paused' : 'Now showing'}</span>
               <span>
-                {filteredEvents.length > 0 ? currentIndex + 1 : 0}/{filteredEvents.length}
+                {isMobile
+                  ? `${filteredEvents.length > 0 ? currentIndex + 1 : 0}/${filteredEvents.length}`
+                  : `${desktopPageCount > 0 ? activeDesktopPage + 1 : 0}/${desktopPageCount}`}
               </span>
             </div>
-            <div className="h-1 overflow-hidden rounded-full bg-accent/15">
+            <div
+              className="h-1 overflow-hidden rounded-full bg-accent/15"
+              onPointerDown={() => setIsAutoPaused(true)}
+              onPointerUp={() => setIsAutoPaused(false)}
+              onPointerCancel={() => setIsAutoPaused(false)}
+              onPointerLeave={() => setIsAutoPaused(false)}
+            >
               <motion.div
                 key={`${currentIndex}-${isAutoPaused ? 'paused' : 'running'}`}
                 className="h-full rounded-full bg-accent"
@@ -219,11 +299,16 @@ export default function EventCarousel() {
             </div>
 
             <div className="mt-2 flex justify-center gap-1.5">
-              {filteredEvents.map((event, idx) => (
+              {(isMobile
+                ? filteredEvents.map((_, idx) => idx)
+                : Array.from({ length: desktopPageCount }, (_, idx) => idx)
+              ).map((idx) => (
                 <span
-                  key={`${event.slug}-${event.id}-${idx}`}
+                  key={`event-indicator-${idx}`}
                   className={`h-1.5 rounded-full transition-all ${
-                    idx === currentIndex ? 'w-6 bg-accent' : 'w-1.5 bg-accent/30'
+                    (isMobile ? idx === currentIndex : idx === activeDesktopPage)
+                      ? 'w-6 bg-accent'
+                      : 'w-1.5 bg-accent/30'
                   }`}
                 />
               ))}
