@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
@@ -67,19 +68,40 @@ export default function Hero() {
       ref={heroRef}
       className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden pt-20 pb-20"
     >
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{ objectFit: 'cover' }}
+          className="absolute inset-0 h-full w-full object-contain md:object-cover md:object-center"
         >
           <source src="/bg.mp4" type="video/mp4" />
         </video>
         {/* Optional: Add a dark overlay here if the video makes text hard to read */}
         <div className="absolute inset-0 bg-black/20" />
+      </div>
+
+      <div className="absolute top-28 left-1/2 -translate-x-1/2 z-20 sm:hidden pointer-events-none">
+        <Image
+          src="/Pratishruti-icon.png"
+          alt="Pratishruti Logo"
+          width={140}
+          height={56}
+          className="h-auto w-auto object-contain"
+          priority
+        />
+      </div>
+
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 sm:hidden pointer-events-none">
+        <p
+          className="text-4xl font-extrabold leading-none tracking-[0.12em] bg-linear-to-r from-accent via-primary to-secondary bg-clip-text text-transparent"
+          style={{
+            textShadow: '0 0 14px var(--accent)',
+          }}
+        >
+          #SceneहैHatke
+        </p>
       </div>
 
       {/* Content */}
@@ -91,14 +113,14 @@ export default function Hero() {
           className="mb-2"
         >
           <h2 className="text-accent text-sm font-semibold tracking-widest uppercase">
-            Dive Deeper
+            PRATISHRUTI ’26
           </h2>
         </motion.div>
 
       {/* ================= MENU PAGE (NEW, SEPARATE) ================= */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black/0 z-[90]"
+          className="fixed inset-0 bg-black/0 z-90"
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
         />
@@ -108,7 +130,7 @@ export default function Hero() {
         initial={{ x: '100%' }}
         animate={{ x: menuOpen ? '0%' : '100%' }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className="fixed top-0 right-0 h-screen w-2/5 bg-[#001e2f]/75 backdrop-blur-xs z-[100] flex flex-col"
+        className="fixed top-0 right-0 h-screen w-2/5 bg-[#001e2f]/75 backdrop-blur-xs z-100 flex flex-col"
         style={{ borderStartStartRadius: 30, borderEndStartRadius: 30, boxShadow: '0 0 20px black/50' }}
       >
         <button
@@ -124,7 +146,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
         >
-          Atlas of Atlantis
+          Central India&apos;s Largest Cultural Festival
         </motion.h2>
 
         <motion.p
@@ -138,7 +160,7 @@ export default function Hero() {
             letterSpacing: '0.2em'
           }}
         >
-          #SceneहैHatke
+          RIGHT THINGS, RIGHT WAY.
         </motion.p>
 
         <motion.div

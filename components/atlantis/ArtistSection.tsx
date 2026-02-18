@@ -7,33 +7,40 @@ import { X } from 'lucide-react';
 import { Pearl, Starfish } from './MarineSVGs';
 import AlbumCover from './AlbumCover';
 
-// TODO: Replace with your actual artists and their songs when ready
 // To get Spotify Track URI: Open Spotify → Right-click on a TRACK → Share → Copy Spotify URI
 // Format: Use TRACK URIs only → spotify:track:TRACK_ID (remove 'spotify:' prefix, use 'track/TRACK_ID')
 const PLACEHOLDER_ARTISTS = [
     {
         id: '1',
-        name: 'Artist Name',
-        genre: 'Genre 1',
-        image: '/placeholder-user.jpg', // Replace with actual artist image
-        spotifyUri: 'track/3n3Ppam7vgaVa1iaRUc9Lp', // Example track - Replace with actual
-        year: '2024',
+        name: 'Chaar Diwari',
+        genre: 'Featured Artist',
+        image: '/images/artists/chaar_diwari.webp',
+        spotifyUri: 'track/1hj2XHe0acA4QuAS0HSxsz',
+        year: '2026',
     },
     {
         id: '2',
-        name: 'Artist Name 2',
-        genre: 'Genre 2',
-        image: '/placeholder-user.jpg',
-        spotifyUri: 'track/0VjIjW4GlUZAMYd2vXMi3b', // Example track - Replace with actual
-        year: '2024',
+        name: 'Olly Esse',
+        genre: 'Featured Artist',
+        image: '/images/artists/olly_eese.avif',
+        spotifyUri: 'track/53wKgTog0mSWfeRsr5Xczf',
+        year: '2026',
     },
     {
         id: '3',
-        name: 'Artist Name 3',
-        genre: 'Genre 3',
-        image: '/placeholder-user.jpg',
-        spotifyUri: 'track/7qiZfU4dY1lWllzX7mPBI', // Example track - Replace with actual
-        year: '2024',
+        name: 'Paarth Shrivastava',
+        genre: 'Featured Artist',
+        image: '/images/artists/paarth_shrivastava.jpg',
+        spotifyUri: 'track/75983zLFgUzgjJM45aY0Mn',
+        year: '2026',
+    },
+    {
+        id: '4',
+        name: 'Raazid',
+        genre: 'Featured Artist',
+        image: '/images/artists/raazid.jpg',
+        spotifyUri: 'track/2takcwOaAZWiXQijPHIx7B',
+        year: '2026',
     },
 ];
 
@@ -68,7 +75,7 @@ export default function ArtistSection() {
     return (
         <section id="artists" className="relative py-20 md:py-32 px-4 overflow-hidden">
             {/* Background with marine theme */}
-            <div className="absolute inset-0 bg-gradient-to-b from-deep-ocean via-deep-ocean/95 to-deep-ocean" />
+            <div className="absolute inset-0 bg-linear-to-b from-deep-ocean via-deep-ocean/95 to-deep-ocean" />
 
             {/* Decorative marine elements */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -112,7 +119,7 @@ export default function ArtistSection() {
                             }}
                         >
                             {PLACEHOLDER_ARTISTS.map((artist) => (
-                                <div key={artist.id} className="flex-shrink-0 w-full flex justify-center snap-center px-8 py-4">
+                                <div key={artist.id} className="shrink-0 w-full flex justify-center snap-center px-8 py-4">
                                     <AlbumCover
                                         image={artist.image}
                                         title={artist.name}
@@ -195,7 +202,7 @@ export default function ArtistSection() {
                                                     }?utm_source=generator&theme=0`}
                                                 width="100%"
                                                 height="450"
-                                                className="h-[450px] md:h-[380px]"
+                                                className="h-112.5 md:h-95"
                                                 frameBorder="0"
                                                 scrolling="no"
                                                 style={{ overflow: 'hidden' }}
