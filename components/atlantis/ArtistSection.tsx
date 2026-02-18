@@ -146,7 +146,7 @@ export default function ArtistSection() {
                     </div>
 
                     {/* Desktop Grid */}
-                    <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20 lg:gap-40 justify-items-center">
+                    <div className="hidden md:grid md:grid-cols-2 gap-12 md:gap-20 justify-items-center">
                         {PLACEHOLDER_ARTISTS.map((artist) => (
                             <AlbumCover
                                 key={artist.id}

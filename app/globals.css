@@ -200,6 +200,7 @@
 h1, h2{
   font-family: "AvatarWater", sans-serif;
   letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 }
 /* Hide scrollbar but keep scroll */
