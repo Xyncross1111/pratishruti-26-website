@@ -51,6 +51,12 @@ export default function Navigation({ scrollProgress }: NavigationProps) {
             >
               Timeline
             </button>
+            <a
+              href="/gallery"
+              className="text-xs font-medium text-foreground/70 hover:text-accent transition-colors"
+            >
+              Gallery
+            </a>
             <button
               onClick={() => {
                 const element = document.getElementById('register');
