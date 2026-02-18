@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Jellyfish } from "./MarineSVGs";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const timelineEvents = [
   {
@@ -58,93 +59,47 @@ const timelineEvents = [
 export default function JellyfishTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const jellyfishRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const [trackHeight, setTrackHeight] = useState(0);
+  const [jellyfishHeight, setJellyfishHeight] = useState(64);
 
-  // Raw target position — set directly so there's zero lag
-  const scrollTarget = useMotionValue(0);
-  // Bouncy spring wrapping the raw target — gives the overshoot/settle effect
-  const compositeY = useSpring(scrollTarget, {
-    stiffness: 50,
-    damping: 18,
-    mass: 1.2,
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start center", "end center"],
   });
 
-  // Slow down scrolling while inside this section
+  const maxTravel = Math.max(trackHeight - jellyfishHeight, 0);
+  const rawY = useTransform(scrollYProgress, (value) => value * maxTravel);
+  const smoothY = useSpring(rawY, {
+    stiffness: isMobile ? 260 : 180,
+    damping: isMobile ? 45 : 28,
+    mass: isMobile ? 0.7 : 0.9,
+  });
+  const jellyfishY = isMobile ? rawY : smoothY;
+
+  // Keep travel bounds accurate as layout changes (especially on phones)
   useEffect(() => {
-    const section = containerRef.current;
-    if (!section) return;
+    const track = trackRef.current;
+    const jellyfish = jellyfishRef.current;
+    if (!track || !jellyfish) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      const rect = section.getBoundingClientRect();
-      const inSection = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inSection) return;
-
-      e.preventDefault();
-      // Scroll at 30% of normal speed
-      window.scrollBy({ top: e.deltaY * 0.3, behavior: "instant" });
+    const updateSizes = () => {
+      setTrackHeight(track.offsetHeight);
+      setJellyfishHeight(jellyfish.offsetHeight);
     };
 
-    section.addEventListener("wheel", handleWheel, { passive: false });
-    return () => section.removeEventListener("wheel", handleWheel);
+    const resizeObserver = new ResizeObserver(updateSizes);
+    resizeObserver.observe(track);
+    resizeObserver.observe(jellyfish);
+    window.addEventListener("resize", updateSizes);
+    updateSizes();
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateSizes);
+    };
   }, []);
-
-  // On scroll: position jellyfish where the viewport center meets the track
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const update = () => {
-      const rect = track.getBoundingClientRect();
-      const maxY = Math.max(rect.height - 64, 0);
-      // How far the viewport center is into the track (0 at top, 1 at bottom)
-      const viewportCenter = window.innerHeight / 2;
-      const posInTrack = viewportCenter - rect.top;
-      const clamped = Math.min(Math.max(posInTrack, 0), maxY);
-      scrollTarget.set(clamped);
-    };
-
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update(); // initial position
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [scrollTarget]);
-
-  // Mouse interaction: temporarily override position toward cursor
-  useEffect(() => {
-    const section = containerRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
-
-    let isHovering = false;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      isHovering = true;
-      const trackRect = track.getBoundingClientRect();
-      const mouseInTrack = e.clientY - trackRect.top;
-      const maxY = Math.max(trackRect.height - 64, 0);
-      const clamped = Math.min(Math.max(mouseInTrack, 0), maxY);
-      scrollTarget.set(clamped);
-    };
-
-    const handleMouseLeave = () => {
-      isHovering = false;
-      // Snap back to viewport-center position
-      const rect = track.getBoundingClientRect();
-      const maxY = Math.max(rect.height - 64, 0);
-      const viewportCenter = window.innerHeight / 2;
-      const posInTrack = viewportCenter - rect.top;
-      scrollTarget.set(Math.min(Math.max(posInTrack, 0), maxY));
-    };
-
-    section.addEventListener("mousemove", handleMouseMove);
-    section.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      section.removeEventListener("mousemove", handleMouseMove);
-      section.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [scrollTarget]);
 
   return (
     <section
@@ -182,10 +137,12 @@ export default function JellyfishTimeline() {
 
           {/* Animated jellyfish following scroll */}
           <motion.div
-            className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-20 -translate-y-1/2"
+            ref={jellyfishRef}
+            className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-20"
             style={{
               top: 0,
-              y: compositeY,
+              y: jellyfishY,
+              willChange: "transform",
             }}
           >
             <Jellyfish className="w-10 h-14 md:w-12 md:h-16 text-accent drop-shadow-lg" />

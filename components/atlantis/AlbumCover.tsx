@@ -37,7 +37,7 @@ export default function AlbumCover({
 
     return (
         <motion.div
-            className="group relative cursor-pointer select-none w-full max-w-60 md:max-w-85 lg:max-w-95"
+            className="group relative cursor-pointer select-none w-full max-w-72 md:max-w-90 lg:max-w-100"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={handleClick}

@@ -139,6 +139,15 @@
 }
 
 @layer utilities {
+  .site-ocean-bg {
+    background-color: #020617;
+    background-image: url('/footer/footerbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
   .deep-ocean {
     background-color: var(--deep-ocean);
   }
@@ -148,6 +157,7 @@
     background-image: url('/footer/footerbg.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
   }
 
   .bio-cyan {

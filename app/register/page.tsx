@@ -232,7 +232,7 @@ function RegisterFallback() {
 
 export default function RegisterPage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden footer-bg-texture">
+    <div className="relative min-h-screen overflow-x-hidden">
       <Header />
 
       <main className="mx-auto w-full max-w-2xl px-6 pt-28 pb-16">

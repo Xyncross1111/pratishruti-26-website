@@ -119,7 +119,7 @@ export default function ArtistSection() {
                             }}
                         >
                             {PLACEHOLDER_ARTISTS.map((artist) => (
-                                <div key={artist.id} className="shrink-0 w-full flex justify-center snap-center px-8 py-4">
+                                <div key={artist.id} className="shrink-0 w-full flex justify-center snap-center px-2 sm:px-4 py-4">
                                     <AlbumCover
                                         image={artist.image}
                                         title={artist.name}

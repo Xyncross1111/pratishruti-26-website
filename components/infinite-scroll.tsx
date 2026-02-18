@@ -151,7 +151,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
             Our Sponsors & Partners
           </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-            Our Collaborators
+            Our Collaboirators and Sponsors
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Thank you for supporting Pratishruti and the spirit of student-led initiatives.
@@ -189,7 +189,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
     <div
          
-          className="mt-25 p-6 text-center border-t border-accent/20 pt-8"
+          className="mt-25 p-6 text-center pt-8"
         >
     <p className="text-muted-foreground mb-4">
             Interested in sponsoring Pratishruti?
