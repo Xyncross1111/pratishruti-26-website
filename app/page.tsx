@@ -44,7 +44,7 @@ export default function Home() {
           <AboutSection />
           <EventCarousel />
           <ArtistSection />
-          <JellyfishTimeline />
+          <EventsTimeline />
           {/* <SponsorsCarousel /> */}
           <InfiniteScroll />
         </div>
