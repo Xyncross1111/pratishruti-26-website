@@ -179,3 +179,30 @@
     @apply bg-gradient-to-br from-accent/20 to-accent/5;
   }
 }
+
+/* Hide scrollbar for carousel */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+@font-face {
+  font-family: "AvatarWater";
+  src: url("/fonts/Avatar Water.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1, h2{
+  font-family: "AvatarWater", sans-serif;
+  letter-spacing: 0.05em;
+}
+}
+/* Hide scrollbar but keep scroll */
+::-webkit-scrollbar {
+  display: none;
+}
