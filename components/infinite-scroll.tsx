@@ -34,11 +34,11 @@ const TECHNOLOGY_ICONS: StaticImageData[] = [
 ];
 
 const LABELS: string[] = [
-  "TechCorp",
-  "AquaSoft",
-  "OceanFlow",
-  "DeepNet",
-  "WaveSync",
+  "Sponsor Partner",
+  "Associate Partner",
+  "Brand Collaborator",
+  "Community Partner",
+  "Media Partner",
 ];
 
 const ELEMENTS: ElementItem[] = TECHNOLOGY_ICONS.map((icon, i) => ({
@@ -122,7 +122,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
         {DOUBLE_ELEMENTS.map((item, index) => (
           <div
             key={index}
-            className="flex items-center gap-9 text-white text-lg font-medium w-[250px] text-center leading-tight"
+            className="flex items-center gap-9 text-white text-lg font-medium w-62.5 text-center leading-tight"
             style={{
               whiteSpace: "normal",
               wordWrap: "break-word",
@@ -148,13 +148,13 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   return (
     <div className="relative mx-auto text-center">
     <h2 className="text-accent text-sm font-semibold tracking-widest uppercase mb-2">
-            Our Partners
+            Our Sponsors & Partners
           </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-            Sponsors of Atlantis
+            Our Collaborators
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Trusted partners making Pratishruti possible
+            Thank you for supporting Pratishruti and the spirit of student-led initiatives.
           </p>
     <div
       className={twMerge(
@@ -187,15 +187,6 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       </div>
     </div>
 
-    <div className="mt-25 p-6 text-center pt-8"
-        >
-    <p className="text-muted-foreground mb-4">
-            Interested in sponsoring Pratishruti?
-          </p>
-          <button className="px-6 py-2 bg-accent/20 hover:bg-accent/40 text-accent rounded-lg text-sm font-semibold transition-colors">
-            Become a Sponsor
-          </button>
-          </div>
     </div>
     
   );

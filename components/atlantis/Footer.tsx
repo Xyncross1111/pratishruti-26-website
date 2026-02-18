@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function DeepSeaFooter() {
   return (
-    <footer className="relative w-full min-h-[520px] overflow-hidden bg-[#020617] text-white">
+    <footer className="relative w-full min-h-130 overflow-hidden bg-[#020617] text-white">
 
       {/* Background */}
       <div className="absolute inset-0 bg-[url('/footer/footerbg.png')] bg-cover bg-center opacity-90" />
@@ -66,7 +66,7 @@ export default function DeepSeaFooter() {
       {/* Small Jellyfish */}
       <motion.img
         src="/footer/bio.png"
-        className="absolute right-40 lg:left-160 top-48 -translate-x-1/2 md:left-[180px] md:translate-x-0 w-24 sm:w-28 md:w-32 pointer-events-none"
+        className="absolute right-40 lg:left-160 top-48 -translate-x-1/2 md:left-45 md:translate-x-0 w-24 sm:w-28 md:w-32 pointer-events-none"
         animate={{ y: [0, -40, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -125,16 +125,16 @@ export default function DeepSeaFooter() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-16
                       grid gap-10
                       text-center md:text-left
-                      md:grid-cols-3">
+                      md:grid-cols-2">
 
         {/* Brand */}
         <div className="space-y-3">
           <h2 className="text-xl sm:text-2xl font-semibold text-cyan-300">
-            Pratishruti
+            Pratishruti ’26
           </h2>
           <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-sm mx-auto md:mx-0">
-            Celebrating culture, creativity, and innovation through the
-            legendary lens of Atlantis.
+            Central India&apos;s largest cultural festival by Ramdeobaba University,
+            celebrating creativity, collaboration, and campus spirit.
           </p>
         </div>
 
@@ -142,20 +142,13 @@ export default function DeepSeaFooter() {
         <div className="space-y-3">
           <h3 className="font-semibold text-white">Quick Links</h3>
           <ul className="space-y-2 text-gray-300 text-sm sm:text-base">
-            <li>Events</li>
-            <li>Timeline</li>
-            <li>Register</li>
-            <li>Sponsors</li>
+            <li>About RBU</li>
+            <li>About SRC</li>
+            <li>Why Partner</li>
+            <li>Connect With Us</li>
           </ul>
         </div>
 
-        {/* Contact */}
-        <div className="space-y-3">
-          <h3 className="font-semibold text-white">Contact</h3>
-          <p className="text-gray-300 text-sm sm:text-base">
-            info@pratishruti.com
-          </p>
-        </div>
       </div>
     </footer>
   );

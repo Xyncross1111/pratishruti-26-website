@@ -2,14 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Hero from '@/components/atlantis/Hero';
-import Navigation from '@/components/atlantis/Navigation';
 import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
-import EventsTimeline from "@/components/atlantis/EventsTimeline";
 import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
 // import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
-import AnimatedTreasureBox from '@/components/atlantis/AnimatedTreasureBox';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
 import InfiniteScroll from '@/components/infinite-scroll';
@@ -35,20 +32,21 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
+    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden footer-bg-texture">
       <Header/>
       {/* <Navigation scrollProgress={scrollProgress} /> */}
       <ScrollProgress progress={scrollProgress} />
 
-      <main className="relative bg-[url('/bgwebsite.png')] bg-auto">
-        <AboutSection />
-        <EventCarousel />
-        <div className="relative bg-[url('/deeper.png')] bg-auto">
-        <ArtistSection />
-        <JellyfishTimeline />
-        {/* <SponsorsCarousel /> */}
-        <InfiniteScroll/>
-        <AnimatedTreasureBox />
+      <main className="relative">
+        <Hero />
+        <div className="relative footer-bg-texture">
+          <AboutSection />
+          <EventCarousel />
+          <ArtistSection />
+          <JellyfishTimeline />
+          {/* <SponsorsCarousel /> */}
+          <InfiniteScroll />
+        </div>
       </main>
 
       <DeepSeaFooter />
