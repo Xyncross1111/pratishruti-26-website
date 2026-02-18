@@ -1,6 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
+
+import { Coral, Pearl, Seaweed, Starfish } from "./MarineSVGs";
 
 export default function DeepSeaFooter() {
   return (
@@ -26,12 +36,17 @@ export default function DeepSeaFooter() {
             <div className="flex items-center gap-2 mb-4">
               <div className="text-2xl font-bold text-accent">Ⱦ</div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">Pratishruti</h3>
-                <p className="text-xs text-muted-foreground">Atlas of Atlantis</p>
+                <h3 className="text-lg font-bold text-foreground">
+                  Pratishruti
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Atlas of Atlantis
+                </p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Celebrating culture, creativity, and innovation through the legendary lens of Atlantis.
+              Celebrating culture, creativity, and innovation through the
+              legendary lens of Atlantis.
             </p>
           </div>
 
@@ -42,22 +57,34 @@ export default function DeepSeaFooter() {
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#events" className="hover:text-accent transition-colors">
+                <a
+                  href="#events"
+                  className="hover:text-accent transition-colors"
+                >
                   Events
                 </a>
               </li>
               <li>
-                <a href="#timeline" className="hover:text-accent transition-colors">
+                <a
+                  href="#timeline"
+                  className="hover:text-accent transition-colors"
+                >
                   Timeline
                 </a>
               </li>
               <li>
-                <a href="#register" className="hover:text-accent transition-colors">
+                <a
+                  href="#register"
+                  className="hover:text-accent transition-colors"
+                >
                   Register
                 </a>
               </li>
               <li>
-                <a href="#sponsors" className="hover:text-accent transition-colors">
+                <a
+                  href="#sponsors"
+                  className="hover:text-accent transition-colors"
+                >
                   Sponsors
                 </a>
               </li>
@@ -120,7 +147,7 @@ export default function DeepSeaFooter() {
         </motion.div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent my-8" />
+        <div className="h-px bg-linear-to-r from-transparent via-accent/30 to-transparent my-8" />
 
         {/* Bottom */}
         <motion.div

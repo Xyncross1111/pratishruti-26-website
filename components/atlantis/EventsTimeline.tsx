@@ -11,6 +11,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePuzzle } from "@/hooks/use-puzzle";
 import Link from "next/link";
 import { registrationEvents } from "@/lib/events";
 
@@ -64,6 +65,28 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   });
   const [mobileActivated, setMobileActivated] = useState(false);
 
+  // Easter egg: click any event card 5 times quickly to reveal a puzzle piece (once only across all cards)
+  const { revealPiece, collected } = usePuzzle();
+  const clickCount = useRef(0);
+  const clickTimer = useRef<ReturnType<typeof setTimeout>>();
+  const collectedAtMount = useRef(collected);
+
+  const handleEasterEggClick = () => {
+    // Only allow one piece from this easter egg (the first reveal after mount)
+    if (collected > collectedAtMount.current) return;
+    clickCount.current++;
+    clearTimeout(clickTimer.current);
+
+    if (clickCount.current >= 5) {
+      revealPiece();
+      clickCount.current = 0;
+    } else {
+      clickTimer.current = setTimeout(() => {
+        clickCount.current = 0;
+      }, 1000);
+    }
+  };
+
   // On mobile, auto-trigger effects when card scrolls into view
   useEffect(() => {
     if (!isMobile) return;
@@ -107,6 +130,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
       ref={cardRef}
       className="relative cursor-pointer"
       style={{ transformStyle: "preserve-3d", perspective: "350px" }}
+      onClick={handleEasterEggClick}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
