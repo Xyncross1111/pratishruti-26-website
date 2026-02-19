@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
 
 export default function DeepSeaFooter() {
   return (

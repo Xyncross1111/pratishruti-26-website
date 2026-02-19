@@ -12,6 +12,7 @@ interface SpiralGalleryProps {
 }
 
 const defaultImages = [
+    // Ocean & underwater
     'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=1000&fit=crop',
@@ -20,6 +21,7 @@ const defaultImages = [
     'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=1000&fit=crop',
+    // Marine life
     'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&h=1000&fit=crop',
@@ -28,6 +30,20 @@ const defaultImages = [
     'https://images.unsplash.com/photo-1485550409059-9afb054cada4?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=800&h=1000&fit=crop',
     'https://images.unsplash.com/photo-1530053969600-caed2596d242?w=800&h=1000&fit=crop',
+    // Deep sea & coral
+    'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1498623116890-37e912163d5d?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=800&h=1000&fit=crop',
+    // Waves & coastline
+    'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1468413253725-0d5181091126?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1484291150605-0860ed671f04?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&h=1000&fit=crop',
+    'https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=800&h=1000&fit=crop',
 ];
 
 // Smooth easing function - ease in-out sine (very smooth)
@@ -94,6 +110,45 @@ function HelixImage({
     // Load texture
     const texture = useLoader(TextureLoader, imagePath);
     
+    // Unique phase offset per image so they don't all wobble in sync
+    const phaseOffset = useMemo(() => index * 1.7, [index]);
+    
+    // Air wobble animation
+    useFrame(({ clock }) => {
+        if (!meshRef.current || !isVisibleRef.current) return;
+        const t = clock.getElapsedTime();
+        // Gentle floating bob
+        meshRef.current.position.y += Math.sin(t * 0.8 + phaseOffset) * 0.001;
+        // Subtle tilt wobble on X and Z rotation
+        meshRef.current.rotation.x = wobbleBaseRotX.current + Math.sin(t * 1.1 + phaseOffset) * 0.02;
+        meshRef.current.rotation.z = Math.sin(t * 0.7 + phaseOffset * 0.5) * 0.015;
+    });
+    
+    // Refs to track visibility and base rotation for wobble
+    const isVisibleRef = useRef(false);
+    const wobbleBaseRotX = useRef(0);
+    
+    // Image size - smaller on mobile
+    const width = isMobile ? 2.8 : 4.5;
+    const height = isMobile ? 1.8 : 2.8;
+    
+    // Create curved plane geometry
+    const curvedGeometry = useMemo(() => {
+        const segments = 32;
+        const geo = new THREE.PlaneGeometry(width, height, segments, 1);
+        const pos = geo.attributes.position;
+        const curvature = 0.35; // How much the image curves inward
+        for (let i = 0; i < pos.count; i++) {
+            const x = pos.getX(i);
+            // Bend along X axis: push Z back based on distance from center
+            const normalized = x / (width / 2); // -1 to 1
+            pos.setZ(i, -curvature * (normalized * normalized));
+        }
+        pos.needsUpdate = true;
+        geo.computeVertexNormals();
+        return geo;
+    }, [width, height]);
+    
     // Each image gets a portion of the scroll
     // Offset by 1 so first image starts off-screen (below) at scroll=0
     const scrollSpeed = 0.8;
@@ -125,10 +180,8 @@ function HelixImage({
     
     // Only render if within visible range
     const isVisible = imageProgress > -visibleWindow && imageProgress < visibleWindow;
-    
-    // Image size - smaller on mobile
-    const width = isMobile ? 3.5 : 6;
-    const height = isMobile ? 2.2 : 3.8;
+    isVisibleRef.current = isVisible;
+    wobbleBaseRotX.current = 0;
 
     if (!isVisible) return null;
 
@@ -136,10 +189,10 @@ function HelixImage({
         <mesh
             ref={meshRef}
             position={[x, y, z]}
-            rotation={[0, spiralAngle + Math.PI, 0]} // Face outward
+            rotation={[0, spiralAngle + Math.PI, 0]}
             scale={[scale, scale, scale]}
+            geometry={curvedGeometry}
         >
-            <planeGeometry args={[width, height]} />
             <meshStandardMaterial 
                 map={texture}
                 side={THREE.DoubleSide}
@@ -240,7 +293,7 @@ export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
             </div>
 
             {/* Scroll spacer */}
-            <div className="relative pointer-events-none" style={{ height: '500vh' }} />
+            <div className="relative pointer-events-none" style={{ height: '800vh' }} />
 
             {/* Background */}
             <div

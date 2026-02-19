@@ -217,3 +217,111 @@ h1, h2{
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* ═══════════════════════════════════════════
+   VIDEO LOADING SCREEN
+   ═══════════════════════════════════════════ */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.loading-screen--fade-out {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.loading-screen__video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .loading-screen__video {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+  }
+}
+
+/* --- Play button fallback (autoplay blocked) --- */
+.loading-screen__play-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, #000 70%);
+  animation: playOverlayIn 0.5s ease-out;
+}
+
+@keyframes playOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.loading-screen__play-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px oklch(0.7 0.2 190 / 0.5));
+  animation: playLogoFloat 3s ease-in-out infinite;
+}
+
+@keyframes playLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.loading-screen__play-btn {
+  width: 72px;
+  height: 72px;
+  color: oklch(0.7 0.2 190);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: drop-shadow(0 0 12px oklch(0.7 0.2 190 / 0.5));
+  animation: playBtnPulse 2s ease-in-out infinite;
+}
+
+.loading-screen__play-btn:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 20px oklch(0.7 0.2 190 / 0.8));
+}
+
+.loading-screen__play-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes playBtnPulse {
+  0%, 100% { filter: drop-shadow(0 0 12px oklch(0.7 0.2 190 / 0.5)); }
+  50% { filter: drop-shadow(0 0 24px oklch(0.7 0.2 190 / 0.8)); }
+}
+
+.loading-screen__play-text {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: oklch(0.75 0.05 200);
+  animation: playTextFade 2s ease-in-out infinite alternate;
+}
+
+@keyframes playTextFade {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
