@@ -139,6 +139,15 @@
 }
 
 @layer utilities {
+  .site-ocean-bg {
+    background-color: #020617;
+    background-image: url('/footer/footerbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
   .deep-ocean {
     background-color: var(--deep-ocean);
   }
@@ -148,6 +157,7 @@
     background-image: url('/footer/footerbg.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
   }
 
   .bio-cyan {
@@ -200,6 +210,7 @@
 h1, h2{
   font-family: "AvatarWater", sans-serif;
   letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 }
 /* Hide scrollbar but keep scroll */

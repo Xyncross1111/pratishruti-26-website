@@ -4,7 +4,7 @@ import DeepSeaFooter from '@/components/atlantis/Footer';
 
 export default function GalleryPage() {
     return (
-        <div className="relative min-h-screen overflow-x-hidden bg-deep-ocean">
+        <div className="relative min-h-screen overflow-x-hidden">
             {/* Navigation back to home */}
             <div className="fixed top-8 left-8 z-50">
                 <Link

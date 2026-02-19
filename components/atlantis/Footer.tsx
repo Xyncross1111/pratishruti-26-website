@@ -2,94 +2,183 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
-import { Coral, Seaweed, Pearl, Starfish } from "./MarineSVGs";
 
 export default function DeepSeaFooter() {
   return (
-    <footer className="relative bg-deep-ocean/80 backdrop-blur-sm border-t border-accent/30 py-16 px-4 overflow-hidden">
-      {/* Decorative marine elements */}
+    <footer className="relative py-10 sm:py-12 px-4 overflow-hidden border-t border-accent/20 backdrop-blur-sm">
+      <div className="absolute inset-0 bg-deep-ocean/75 pointer-events-none" />
+
+      {/* Animated marine elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <Coral className="absolute w-16 h-24 opacity-20 top-10 left-5" />
-        <Coral className="absolute w-12 h-20 opacity-15 bottom-16 right-8" />
-        <Seaweed className="absolute w-6 h-20 opacity-20 top-1/2 right-1/4" />
-        <Pearl className="absolute w-8 h-8 opacity-20 top-1/4 left-1/3" />
-        <Starfish className="absolute w-10 h-10 opacity-15 bottom-1/3 right-1/3" />
+        <motion.img
+          src="/footer/jellyfish.png"
+          className="absolute left-2 sm:left-6 top-8 w-16 sm:w-20 md:w-28 opacity-70"
+          animate={{ y: [0, -18, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/angler.png"
+          className="absolute right-2 sm:right-8 top-10 w-20 sm:w-24 md:w-32 opacity-70"
+          animate={{ y: [0, 10, 0], x: [0, -8, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/angler.png"
+          className="absolute left-[22%] bottom-16 w-12 sm:w-16 md:w-20 opacity-60 hidden sm:block"
+          animate={{ y: [0, 8, 0], x: [0, 10, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/bio.png"
+          className="absolute left-1/3 top-6 w-12 sm:w-16 md:w-20 opacity-60 hidden sm:block"
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/bio.png"
+          className="absolute right-[28%] top-14 w-10 sm:w-14 md:w-16 opacity-55 hidden md:block"
+          animate={{ y: [0, -10, 0], x: [0, -6, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/orange.png"
+          className="absolute bottom-20 left-[-18vw] w-12 sm:w-16 md:w-20 opacity-75"
+          animate={{ x: ["0vw", "130vw"], y: [0, -6, 3, 0], rotate: [0, 2, -2, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        />
+
+        <motion.img
+          src="/footer/orange.png"
+          className="absolute bottom-28 right-[-20vw] w-10 sm:w-14 md:w-16 opacity-70 hidden sm:block"
+          animate={{ x: ["0vw", "-130vw"], y: [0, 5, -4, 0], rotate: [0, -2, 2, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }}
+        />
+
+        <motion.img
+          src="/footer/plant-left.png"
+          className="absolute bottom-0 left-0 w-24 sm:w-36 md:w-52 opacity-65"
+          animate={{ rotate: [0, 3, -2, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/plant-left.png"
+          className="absolute bottom-0 left-10 sm:left-20 w-16 sm:w-24 md:w-32 opacity-45"
+          animate={{ rotate: [0, 2, -2, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/plant-right.png"
+          className="absolute bottom-0 right-0 w-24 sm:w-36 md:w-52 opacity-65"
+          animate={{ rotate: [2, -3, 2] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.img
+          src="/footer/plant-right.png"
+          className="absolute bottom-0 right-8 sm:right-16 w-16 sm:w-24 md:w-32 opacity-45"
+          animate={{ rotate: [1, -2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
+
       <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8 mb-8"
         >
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="text-2xl font-bold text-accent">Ⱦ</div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">Pratishruti</h3>
-                <p className="text-xs text-muted-foreground">Atlas of Atlantis</p>
+                <h3 className="text-lg font-bold text-foreground">
+                  Pratishruti
+                </h3>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Celebrating culture, creativity, and innovation through the legendary lens of Atlantis.
+              Celebrating culture, creativity, and innovation through the
+              legendary lens of Atlantis.
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
-              Quick Links
-            </h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="#events" className="hover:text-accent transition-colors">
-                  Events
-                </a>
-              </li>
-              <li>
-                <a href="#timeline" className="hover:text-accent transition-colors">
-                  Timeline
-                </a>
-              </li>
-              <li>
-                <a href="#register" className="hover:text-accent transition-colors">
-                  Register
-                </a>
-              </li>
-              <li>
-                <a href="#sponsors" className="hover:text-accent transition-colors">
-                  Sponsors
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div className="grid grid-cols-2 gap-5 sm:gap-8">
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-foreground mb-3 sm:mb-4 uppercase tracking-wide">
+                Quick Links
+              </h4>
+              <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
+                <li>
+                  <a
+                    href="#events"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Events
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#timeline"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Timeline
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#register"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Register
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#sponsors"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Sponsors
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
-              Contact
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors">
-                <Mail size={16} />
-                <a href="mailto:info@pratishruti.com">info@pratishruti.com</a>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors">
-                <Phone size={16} />
-                <a href="tel:+919876543210">+91 9876543210</a>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <MapPin size={16} />
-                <span>RCOEM, Nagpur</span>
-              </li>
-            </ul>
+            {/* Contact */}
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-foreground mb-3 sm:mb-4 uppercase tracking-wide">
+                Contact
+              </h4>
+              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+                <li className="flex items-start gap-2 text-muted-foreground hover:text-accent transition-colors">
+                  <Mail size={16} className="shrink-0 mt-0.5" />
+                  <a href="mailto:info@pratishruti.com" className="break-all">info@pratishruti.com</a>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground hover:text-accent transition-colors">
+                  <Phone size={16} className="shrink-0 mt-0.5" />
+                  <a href="tel:+919876543210">+91 9876543210</a>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <MapPin size={16} className="shrink-0 mt-0.5" />
+                  <span>RCOEM, Nagpur</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Social */}
           <div>
-            <h4 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wide">
+            <h4 className="text-xs sm:text-sm font-bold text-foreground mb-3 sm:mb-4 uppercase tracking-wide">
               Follow Us
             </h4>
             <div className="flex gap-3">
@@ -122,7 +211,7 @@ export default function DeepSeaFooter() {
         </motion.div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent my-8" />
+        <div className="h-px bg-linear-to-r from-transparent via-accent/30 to-transparent my-5" />
 
         {/* Bottom */}
         <motion.div
@@ -130,31 +219,11 @@ export default function DeepSeaFooter() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row items-center justify-between gap-4"
+          className="flex items-center justify-center px-2 text-center"
         >
-          <div className="text-sm text-muted-foreground">
-            © 2026 Pratishruti. All rights reserved. Atlas of Atlantis.
+          <div className="text-xs sm:text-sm text-muted-foreground">
+            © 2026 Pratishruti. All rights reserved.
           </div>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-accent transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-accent transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-accent transition-colors">
-              Code of Conduct
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Atlantis rune footer decoration */}
-        <motion.div
-          className="mt-8 text-center text-accent/20 text-3xl tracking-widest"
-          animate={{ opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 4, repeat: Infinity }}
-        >
-          Ⱦ Ⱦ Ⱦ
         </motion.div>
       </div>
     </footer>

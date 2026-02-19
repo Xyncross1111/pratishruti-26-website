@@ -52,10 +52,10 @@ function easeInOutSine(t: number): number {
 }
 
 // Animated camera that pans in on load
-function AnimatedCamera({ isIntroComplete }: { isIntroComplete: boolean }) {
+function AnimatedCamera({ isIntroComplete, isMobile }: { isIntroComplete: boolean; isMobile: boolean }) {
     const { camera } = useThree();
-    const startZ = 50; // Start far away
-    const endZ = 20;   // End position
+    const startZ = isMobile ? 58 : 50; // Start far away
+    const endZ = isMobile ? 26 : 20;   // End position
     const startY = 10; // Start above
     const endY = 0;    // End at center
     const duration = 2.5; // Duration in seconds
@@ -105,6 +105,7 @@ function HelixImage({
     isMobile: boolean;
 }) {
     const meshRef = useRef<THREE.Mesh>(null);
+    const visibleWindow = 2.8;
     
     // Load texture
     const texture = useLoader(TextureLoader, imagePath);
@@ -150,13 +151,14 @@ function HelixImage({
     
     // Each image gets a portion of the scroll
     // Offset by 1 so first image starts off-screen (below) at scroll=0
-    const imageProgress = scrollProgress * (total + 1) - index - 1;
+    const scrollSpeed = 0.8;
+    const imageProgress = scrollProgress * (total + 1) * scrollSpeed - index - 1;
     
-    // Clamp to useful range: -1 (below) to 0 (center) to 1 (above)
-    const clampedProgress = Math.max(-1.5, Math.min(1.5, imageProgress));
+    // Clamp to useful range: larger window shows more images at once
+    const clampedProgress = Math.max(-visibleWindow, Math.min(visibleWindow, imageProgress));
     
     // Vertical position: enters from below, exits above
-    const y = clampedProgress * 8;
+    const y = clampedProgress * 2.25;
     
     // Spiral angle based on progress (one full rotation per image transition)
     const spiralAngle = clampedProgress * Math.PI * 1.5;
@@ -177,7 +179,7 @@ function HelixImage({
     const scale = 1 - Math.abs(clampedProgress) * 0.3;
     
     // Only render if within visible range
-    const isVisible = imageProgress > -1.5 && imageProgress < 1.5;
+    const isVisible = imageProgress > -visibleWindow && imageProgress < visibleWindow;
     isVisibleRef.current = isVisible;
     wobbleBaseRotX.current = 0;
 
@@ -270,8 +272,8 @@ export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
             {/* 3D Canvas */}
             <div className="fixed inset-0 w-full h-screen z-0">
                 <Canvas>
-                    <PerspectiveCamera makeDefault position={[0, 10, 50]} fov={40} />
-                    <AnimatedCamera isIntroComplete={isIntroComplete} />
+                    <PerspectiveCamera makeDefault position={[0, 10, isMobile ? 58 : 50]} fov={isMobile ? 46 : 40} />
+                    <AnimatedCamera isIntroComplete={isIntroComplete} isMobile={isMobile} />
                     <fog attach="fog" args={['#001428', 15, 60]} />
 
                     <ambientLight intensity={0.6} color="#70c8dc" />
