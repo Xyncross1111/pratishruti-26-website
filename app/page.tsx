@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Hero from '@/components/atlantis/Hero';
 import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
@@ -12,10 +12,16 @@ import DeepSeaFooter from '@/components/atlantis/Footer';
 import ScrollProgress from '@/components/atlantis/ScrollProgress';
 import InfiniteScroll from '@/components/infinite-scroll';
 import Header from '@/components/header';
+import LoadingScreen from '@/components/atlantis/LoadingScreen';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingFinished = useCallback(() => {
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +40,9 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden footer-bg-texture">
+      {/* Atlantis Loading Screen */}
+      <LoadingScreen onFinished={handleLoadingFinished} />
+
       <Header/>
       {/* <Navigation scrollProgress={scrollProgress} /> */}
       <ScrollProgress progress={scrollProgress} />
