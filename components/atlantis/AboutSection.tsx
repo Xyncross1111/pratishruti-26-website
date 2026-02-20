@@ -5,11 +5,11 @@ import { Waves } from 'lucide-react';
 
 export default function AboutSection() {
   return (
-    <section className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
+    <section className="relative py-16 lg:py-24 md:py-32 px-4 overflow-hidden">
       {/* Background effect */}
       <div className="absolute inset-0 bg-linear-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
