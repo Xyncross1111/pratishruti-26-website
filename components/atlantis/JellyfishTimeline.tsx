@@ -125,7 +125,7 @@ export default function JellyfishTimeline() {
             Festival Timeline
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Follow the jellyfish through the depths as it guides you through
+            Follow the anchor through the depths as it guides you through
             each phase of Pratishruti
           </p>
         </motion.div>

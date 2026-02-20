@@ -9,7 +9,7 @@ export default function AboutSection() {
       {/* Background effect */}
       <div className="absolute inset-0 bg-linear-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div className="relative z-10 max-w-275 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
