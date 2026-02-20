@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { ChevronDown, X } from 'lucide-react';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
@@ -68,7 +67,19 @@ export default function Hero() {
       ref={heroRef}
       className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden pt-20 pb-20"
     >
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black sm:hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/hero_mobile.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black hidden sm:block">
         <video
           autoPlay
           loop
@@ -82,30 +93,8 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <div className="absolute top-28 left-1/2 -translate-x-1/2 z-20 sm:hidden pointer-events-none">
-        <Image
-          src="/Pratishruti-icon.png"
-          alt="Pratishruti Logo"
-          width={140}
-          height={56}
-          className="h-auto w-auto object-contain"
-          priority
-        />
-      </div>
-
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 sm:hidden pointer-events-none">
-        <p
-          className="text-4xl font-extrabold leading-none tracking-[0.12em] bg-linear-to-r from-accent via-primary to-secondary bg-clip-text text-transparent"
-          style={{
-            textShadow: '0 0 14px var(--accent)',
-          }}
-        >
-          #SceneहैHatke
-        </p>
-      </div>
-
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto hidden sm:block">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -198,7 +187,7 @@ export default function Hero() {
 
       {/* Scroll hint */}
       <motion.button
-        className="absolute bottom-3 left-1/2 -translate-x-1/2 text-accent"
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 text-accent hidden sm:block"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         onClick={() => handleExplore('events')}

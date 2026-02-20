@@ -39,7 +39,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden footer-bg-texture">
+    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden site-ocean-bg">
       {/* Atlantis Loading Screen */}
       <LoadingScreen onFinished={handleLoadingFinished} />
 
@@ -49,7 +49,7 @@ export default function Home() {
 
       <main className="relative">
         <Hero />
-        <div className="relative footer-bg-texture">
+        <div className="relative site-ocean-bg">
           <AboutSection />
           <EventCarousel />
           <ArtistSection />
