@@ -156,7 +156,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex justify-center"
         >
           <button
             onClick={() => handleExplore('events')}
@@ -176,9 +176,6 @@ export default function Hero() {
             }}
           >
             Explore Events
-          </button>
-          <button className="px-8 py-3 border border-white backdrop-blur-sm font-semibold rounded-lg hover:bg-accent/10 transition-colors duration-300">
-            Register Now
           </button>
         </motion.div>
       </motion.div>
