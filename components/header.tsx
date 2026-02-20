@@ -10,7 +10,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type LocationKey = "about" | "events" | "artists" | "gallery";
+type LocationKey = "about" | "events" | "artists" | "gallery" | "credits";
 
 const MAP_LOCATIONS: {
   key: LocationKey;
@@ -24,18 +24,23 @@ const MAP_LOCATIONS: {
   },
   {
     key: "events",
-    desktop: { x: "69%", y: "37%" },
+    desktop: { x: "68%", y: "37%" },
     mobile: { x: "230%", y: "37%" },
   },
   {
     key: "artists",
-    desktop: { x: "47%", y: "46%" },
+    desktop: { x: "46.5%", y: "46%" },
     mobile: { x: "133%", y: "46%" },
   },
   {
     key: "gallery",
     desktop: { x: "36%", y: "60%" },
     mobile: { x: "85%", y: "60%" },
+  },
+  {
+    key: "credits",
+    desktop: { x: "56.5%", y: "68%" },
+    mobile: { x: "179%", y: "67.5%" },
   },
 ];
 
@@ -138,6 +143,10 @@ export default function Header() {
       // 🟢 SPECIAL CASE: gallery → go to page
       if (key === "gallery") {
         router.push("/gallery");
+        return;
+      }
+      if (key === "credits") {
+        router.push("/credits");
         return;
       }
 
@@ -315,7 +324,7 @@ transition"
               {/* DESKTOP MAP */}
               <div className="hidden md:block relative w-full h-full">
                 <Image
-                  src="/images/desktop-map.webp"
+                  src="/images/desktop-map-2.webp"
                   alt="Treasure Map"
                   fill
                   className="object-cover object-center"
@@ -325,7 +334,7 @@ transition"
               {/* MOBILE MAP */}
               <div className="md:hidden relative h-full w-[300vw]">
                 <Image
-                  src="/images/phone-map.svg"
+                  src="/images/phone-map.webp"
                   alt="Phone Map"
                   fill
                   className="object-cover object-left"
@@ -358,33 +367,29 @@ left-1/2 -translate-x-1/2"
                     >
                       {/* <p className="absolute">{loc.key}</p> */}
                       <motion.div
-  className="relative
+  className="
+relative
 w-16 h-10
 sm:w-20 sm:h-12
 md:w-24 md:h-14
 bg-contain bg-center bg-no-repeat
-drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]
+drop-shadow-[0_10px_18px_rgba(0,0,0,0.5)]
 "
-
   style={{
     backgroundImage: "url('/images/pirate-flag.png')",
-    transformOrigin: "left center",
+    transformOrigin: "center bottom",
   }}
- animate={{
-  y: [0, -6 - floatOffset, 0, 4 + floatOffset, 0],
-  rotateZ: [0, 2, -2, 1, 0],
-  rotateY: [0, 6, -6, 3, 0],
-}}
-
+  animate={{
+    y: [0, -3, 0],
+    rotateZ: [0, 1.5, 0],
+  }}
   transition={{
-    duration: 4 + Math.random() * 2,  // slightly different timing per flag
+    duration: 3.5,
     repeat: Infinity,
     ease: "easeInOut",
   }}
   whileHover={{
-    scale: 1.15,
-    rotateY: 12,
-    y: -12,
+    scale: 1.12,
   }}
 />
                     </div>
