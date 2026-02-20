@@ -145,7 +145,8 @@ export default function JellyfishTimeline() {
               willChange: "transform",
             }}
           >
-            <Jellyfish className="w-10 h-14 md:w-12 md:h-16 text-accent drop-shadow-lg" />
+            {/* <Jellyfish className="w-10 h-14 md:w-12 md:h-16 text-accent drop-shadow-lg" /> */}
+            <img src="/images/anchor.png" alt="anchor" className="w-10 h-14 md:w-12 md:h-16 brightness-150" />
           </motion.div>
 
           {/* Timeline events */}
