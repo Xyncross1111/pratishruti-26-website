@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { registrationEvents } from '@/lib/events';
 
 type Event = {
@@ -16,7 +15,6 @@ type Event = {
   posterSrc: string;
   prize?: string;
   access?: 'RBU only' | 'Open to all';
-  registrationStatus?: 'open' | 'closed' | 'soon';
 };
 
 const posterBySlug: Record<string, string> = {
@@ -50,7 +48,6 @@ const events: Event[] = registrationEvents.map((event) => ({
   posterSrc: posterBySlug[event.slug] ?? '/placeholder.jpg',
   prize: event.prize,
   access: event.access,
-  registrationStatus: event.registrationStatus,
 }));
 
 const AUTO_SCROLL_MS = 8000;
@@ -152,21 +149,6 @@ export default function EventCarousel() {
             <h3 className="line-clamp-2 text-xl font-extrabold text-foreground md:text-2xl">
               {event.name}
             </h3>
-            <span
-              className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
-                event.registrationStatus === 'closed'
-                  ? 'bg-destructive/20 text-destructive'
-                  : event.registrationStatus === 'soon'
-                    ? 'bg-amber-500/20 text-amber-300'
-                    : 'bg-emerald-500/20 text-emerald-300'
-              }`}
-            >
-              {event.registrationStatus === 'closed'
-                ? 'Closed'
-                : event.registrationStatus === 'soon'
-                  ? 'Soon'
-                  : 'Open'}
-            </span>
           </div>
 
               <div className="mb-4 w-[92%] md:w-full mx-auto overflow-hidden rounded-xl border border-accent/20 bg-black/15">
@@ -207,13 +189,6 @@ export default function EventCarousel() {
               {event.access ?? 'Open to all'}
             </span>
           </div>
-
-          <Link
-            href={`/register?event=${event.id}`}
-            className="block w-full rounded-xl border border-accent/30 bg-accent/20 px-4 py-2.5 text-center text-sm font-semibold text-accent transition-colors hover:bg-accent/35"
-          >
-            Register
-          </Link>
         </div>
       </div>
     </motion.div>

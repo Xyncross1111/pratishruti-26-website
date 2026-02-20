@@ -12,7 +12,6 @@ import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePuzzle } from "@/hooks/use-puzzle";
-import Link from "next/link";
 import { registrationEvents } from "@/lib/events";
 
 interface Event {
@@ -24,7 +23,6 @@ interface Event {
   category: string;
   description: string;
   capacity?: string;
-  registrationStatus?: "open" | "closed" | "soon";
 }
 
 const events: Event[] = registrationEvents.map((event) => ({
@@ -36,23 +34,7 @@ const events: Event[] = registrationEvents.map((event) => ({
   category: event.category ?? "General",
   description: `Participate in ${event.name} at Pratishruti 2026.`,
   capacity: event.prize ? `Prizes worth ${event.prize}` : undefined,
-  registrationStatus: event.registrationStatus ?? "open",
 }));
-
-const statusConfig = {
-  open: {
-    label: "Open",
-    color: "bg-green-500/20 text-green-400 border-green-500/40",
-  },
-  closed: {
-    label: "Closed",
-    color: "bg-red-500/20 text-red-400 border-red-500/40",
-  },
-  soon: {
-    label: "Coming Soon",
-    color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/40",
-  },
-};
 
 // 3D Interactive Event Card Component
 function EventCard({ event, index }: { event: Event; index: number }) {
@@ -261,24 +243,6 @@ function EventCard({ event, index }: { event: Event; index: number }) {
             {event.description}
           </p>
 
-          <div className="flex items-center gap-3 flex-wrap">
-            {event.registrationStatus && (
-              <span
-                className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold border ${statusConfig[event.registrationStatus].color}`}
-              >
-                {statusConfig[event.registrationStatus].label}
-              </span>
-            )}
-
-            {event.registrationStatus === "open" && (
-              <Link
-                href={`/register?event=${event.id}`}
-                className="px-6 py-2 bg-accent text-deep-ocean font-semibold rounded-lg hover:bg-accent/90 transition-all hover:scale-105 text-sm shadow-lg"
-              >
-                Register Now
-              </Link>
-            )}
-          </div>
         </div>
 
         {/* Water gradient at bottom */}

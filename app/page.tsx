@@ -39,14 +39,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden footer-bg-texture">
+    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden site-ocean-bg">
+      {/* Atlantis Loading Screen */}
+      <LoadingScreen onFinished={handleLoadingFinished} />
+
       <Header/>
       {/* <Navigation scrollProgress={scrollProgress} /> */}
       <ScrollProgress progress={scrollProgress} />
 
       <main className="relative">
         <Hero />
-        <div className="relative">
+        <div className="relative site-ocean-bg">
           <AboutSection />
           <EventCarousel />
           <ArtistSection />
