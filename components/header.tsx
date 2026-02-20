@@ -90,52 +90,68 @@ export default function Header() {
   };
 
   const zoomToLocation = (key: LocationKey) => {
-    const el = document.querySelector(
-      `[data-location="${key}"]`,
-    ) as HTMLElement;
+  const el = document.querySelector(
+    `[data-location="${key}"]`,
+  ) as HTMLElement;
 
-    if (!el || !mapRef.current) return;
+  if (!el || !mapRef.current) return;
 
-    const bounds = el.getBoundingClientRect();
-    const centerX = bounds.left + bounds.width / 2;
-    const centerY = bounds.top + bounds.height / 2;
+  const bounds = el.getBoundingClientRect();
+  const centerX = bounds.left + bounds.width / 2;
+  const centerY = bounds.top + bounds.height / 2;
 
-    const tl = gsap.timeline({
-      defaults: { ease: "power4.inOut" },
+  const tl = gsap.timeline({
+    defaults: { ease: "power4.inOut" },
+  });
+
+  const isMobile = window.innerWidth < 768;
+  const zoomScale = isMobile ? 1.8 : 2.4;
+
+  tl.to(mapRef.current, {
+    scale: zoomScale,
+    x: -(centerX - window.innerWidth / 2),
+    y: -(centerY - window.innerHeight / 2),
+    rotateX: 8,
+    rotateY: -8,
+    duration: 1.4,
+  })
+    .to(
+      mapRef.current,
+      {
+        filter: "brightness(0.7)",
+        duration: 0.6,
+      },
+      0.6,
+    )
+    .to(
+      parchmentRef.current,
+      {
+        y: "-100%",
+        duration: 1,
+        ease: "power4.in",
+      },
+      1.2,
+    )
+    .add(() => {
+      setMapOpen(false);
+
+      // 🟢 SPECIAL CASE: gallery → go to page
+      if (key === "gallery") {
+        router.push("/gallery");
+        return;
+      }
+
+      // 🟢 All others → scroll to section ID
+      const section = document.getElementById(key);
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     });
-    const isMobile = window.innerWidth < 768;
-    const zoomScale = isMobile ? 1.8 : 2.4;
-
-    tl.to(mapRef.current, {
-      scale: zoomScale,
-      x: -(centerX - window.innerWidth / 2),
-      y: -(centerY - window.innerHeight / 2),
-      rotateX: 8,
-      rotateY: -8,
-      duration: 1.4,
-    })
-      .to(
-        mapRef.current,
-        {
-          filter: "brightness(0.7)",
-          duration: 0.6,
-        },
-        0.6,
-      )
-      .to(
-        parchmentRef.current,
-        {
-          y: "-100%",
-          duration: 1,
-          ease: "power4.in",
-        },
-        1.2,
-      )
-      .add(() => {
-        setMapOpen(false);
-        router.push(`/${key}`);
-      });
-  };
+};
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -299,7 +315,7 @@ transition"
               {/* DESKTOP MAP */}
               <div className="hidden md:block relative w-full h-full">
                 <Image
-                  src="/images/desktop-map.jpg"
+                  src="/images/desktop-map.webp"
                   alt="Treasure Map"
                   fill
                   className="object-cover object-center"
@@ -376,7 +392,7 @@ drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]
                 );
               })}
               x{/* COMPASS */}
-              <motion.div
+              {/* <motion.div
                 className="
     absolute
     w-16 h-16
@@ -393,7 +409,7 @@ drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]
                   duration: 0.5,
                   ease: "easeInOut",
                 }}
-              />
+              /> */}
             </div>
           </div>
         </div>

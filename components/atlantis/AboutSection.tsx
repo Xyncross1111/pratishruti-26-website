@@ -5,7 +5,7 @@ import { Waves } from 'lucide-react';
 
 export default function AboutSection() {
   return (
-    <section className="relative py-16 lg:py-24 md:py-32 px-4 overflow-hidden">
+    <section id="about" className="relative py-16 lg:py-24 md:py-32 px-4 overflow-hidden">
       {/* Background effect */}
       <div className="absolute inset-0 bg-linear-to-b from-deep-ocean/20 via-transparent to-deep-ocean/20" />
 
