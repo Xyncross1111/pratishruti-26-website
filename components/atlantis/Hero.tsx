@@ -87,7 +87,7 @@ export default function Hero() {
           playsInline
           className="absolute inset-0 h-full w-full object-contain md:object-cover md:object-center"
         >
-          <source src="/bg.mp4" type="video/mp4" />
+          <source src="/hero_desktop.MP4" type="video/mp4" />
         </video>
         {/* Optional: Add a dark overlay here if the video makes text hard to read */}
         <div className="absolute inset-0 bg-black/20" />
