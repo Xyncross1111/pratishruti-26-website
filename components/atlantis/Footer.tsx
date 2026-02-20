@@ -6,56 +6,56 @@ import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react"
 
 export default function DeepSeaFooter() {
   return (
-    <footer className="relative py-10 sm:py-12 px-4 overflow-hidden border-t border-accent/20 backdrop-blur-sm">
+    <footer className="relative py-10 sm:py-12 px-4 overflow-hidden border-t border-accent/20 backdrop-blur-sm footer-bg-texture">
       <div className="absolute inset-0 bg-deep-ocean/75 pointer-events-none" />
 
       {/* Animated marine elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.img
           src="/footer/jellyfish.png"
-          className="absolute left-2 sm:left-6 top-8 w-16 sm:w-20 md:w-28 opacity-70"
+          className="absolute left-2 sm:left-6 top-8 w-24 sm:w-28 md:w-36 opacity-70"
           animate={{ y: [0, -18, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.img
           src="/footer/angler.png"
-          className="absolute right-2 sm:right-8 top-10 w-20 sm:w-24 md:w-32 opacity-70"
+          className="absolute right-2 sm:right-8 top-10 w-28 sm:w-32 md:w-40 opacity-70"
           animate={{ y: [0, 10, 0], x: [0, -8, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.img
           src="/footer/angler.png"
-          className="absolute left-[22%] bottom-16 w-12 sm:w-16 md:w-20 opacity-60 hidden sm:block"
+          className="absolute left-[22%] bottom-16 w-16 sm:w-20 md:w-24 opacity-60 hidden sm:block"
           animate={{ y: [0, 8, 0], x: [0, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.img
           src="/footer/bio.png"
-          className="absolute left-1/3 top-6 w-12 sm:w-16 md:w-20 opacity-60 hidden sm:block"
+          className="absolute left-1/3 top-6 w-16 sm:w-20 md:w-24 opacity-60 hidden sm:block"
           animate={{ y: [0, -12, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.img
           src="/footer/bio.png"
-          className="absolute right-[28%] top-14 w-10 sm:w-14 md:w-16 opacity-55 hidden md:block"
+          className="absolute right-[28%] top-14 w-14 sm:w-20 md:w-20 opacity-55 hidden md:block"
           animate={{ y: [0, -10, 0], x: [0, -6, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.img
           src="/footer/orange.png"
-          className="absolute bottom-20 left-[-18vw] w-12 sm:w-16 md:w-20 opacity-75"
+          className="absolute bottom-20 left-[-18vw] w-16 sm:w-20 md:w-24 opacity-75"
           animate={{ x: ["0vw", "130vw"], y: [0, -6, 3, 0], rotate: [0, 2, -2, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         />
 
         <motion.img
           src="/footer/orange.png"
-          className="absolute bottom-28 right-[-20vw] w-10 sm:w-14 md:w-16 opacity-70 hidden sm:block"
+          className="absolute bottom-28 right-[-20vw] w-14 sm:w-20 md:w-20 opacity-70 hidden sm:block"
           animate={{ x: ["0vw", "-130vw"], y: [0, 5, -4, 0], rotate: [0, -2, 2, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }}
         />
@@ -129,14 +129,6 @@ export default function DeepSeaFooter() {
                     className="hover:text-accent transition-colors"
                   >
                     Timeline
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#register"
-                    className="hover:text-accent transition-colors"
-                  >
-                    Register
                   </a>
                 </li>
                 <li>

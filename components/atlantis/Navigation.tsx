@@ -57,15 +57,6 @@ export default function Navigation({ scrollProgress }: NavigationProps) {
             >
               Gallery
             </a>
-            <button
-              onClick={() => {
-                const element = document.getElementById('register');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-xs text-white font-medium text-foreground/70 hover:text-blue-300 transition-colors"
-            >
-              Register
-            </button>
           </div>
 
 

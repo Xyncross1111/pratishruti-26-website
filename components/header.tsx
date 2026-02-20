@@ -10,7 +10,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type LocationKey = "about" | "events" | "artists" | "gallery" | "register";
+type LocationKey = "about" | "events" | "artists" | "gallery";
 
 const MAP_LOCATIONS: {
   key: LocationKey;
@@ -36,11 +36,6 @@ const MAP_LOCATIONS: {
     key: "gallery",
     desktop: { x: "36%", y: "60%" },
     mobile: { x: "85%", y: "60%" },
-  },
-  {
-    key: "register",
-    desktop: { x: "57.5%", y: "67%" },
-    mobile: { x: "179%", y: "67%" },
   },
 ];
 
