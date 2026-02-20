@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {Coral,Seaweed,Pearl,Starfish} from './MarineSVGs'
+import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
 
 export default function DeepSeaFooter() {
   return (

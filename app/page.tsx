@@ -6,7 +6,7 @@ import AboutSection from '@/components/atlantis/AboutSection';
 import EventCarousel from '@/components/atlantis/EventCarousel';
 import ArtistSection from '@/components/atlantis/ArtistSection';
 import EventsTimeline from "@/components/atlantis/EventsTimeline";
-import ArtistSection from '@/components/atlantis/ArtistSection';
+// import ArtistSection from '@/components/atlantis/ArtistSection';
 import JellyfishTimeline from '@/components/atlantis/JellyfishTimeline';
 // import SponsorsCarousel from '@/components/atlantis/SponsorsCarousel';
 import DeepSeaFooter from '@/components/atlantis/Footer';
