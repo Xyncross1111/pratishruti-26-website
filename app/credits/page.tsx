@@ -18,12 +18,16 @@ interface Contributor {
 }
 
 const CONTRIBUTORS: Contributor[] = [
-  { name: 'Devansh Goel', role: 'Lead Developer', epitaph: 'Coded till the ocean dried', image: '/images/credits/devansh-goel.png' },
-  { name: 'Contributor 2', role: 'Designer', epitaph: 'Made pixels dance underwater' },
-  { name: 'Contributor 3', role: 'Backend Sorcerer', epitaph: 'REST in peace… literally' },
-  { name: 'Contributor 4', role: 'Frontend Wizard', epitaph: 'CSS was their last spell' },
-  { name: 'Contributor 5', role: 'Content Writer', epitaph: 'Words lost in the deep' },
-  { name: 'Contributor 6', role: 'Coordinator', epitaph: 'Managed the tides' },
+  { name: 'Anas Khan', role: 'CMC', image: '/images/credits/anas.png' },
+  { name: 'Sanskar Krishnani', role: 'CMC', image: '/images/credits/sanskar-removebg-preview.png' },
+  { name: 'Vallaki Mandaogane', role: 'CMC', image: '/images/credits/vallaki-removebg-preview.png' },
+  { name: 'Devansh Goel', role: 'Developer', image: '/images/credits/devansh.png' },
+  { name: 'Soumya Agrawal', role: 'Developer', image: '/images/credits/Soumya.png' },
+  { name: 'Diyansh Wasnik', role: 'Developer', image: '/images/credits/diyansh-removebg-preview.png' },
+  { name: 'Vyakhya Goyal', role: 'Developer', image: '/images/credits/vyakhya-removebg-preview.png' },
+  { name: 'Abbas Nadir', role: 'Developer', image: '/images/credits/abbas-removebg-preview.png' },
+  { name: 'Shamit Bundela', role: 'Developer', image: '/images/credits/shamit-removebg-preview.png' },
+  { name: 'Tejas Sawjiyani', role: 'Developer', image: '/images/credits/tejas-removebg-preview.png' },
 ];
 
 // ──────────────────────────────────────────────
@@ -47,7 +51,7 @@ function Tombstone({ contributor, index }: { contributor: Contributor; index: nu
 
         {contributor.image ? (
           /* ── Image-based tombstone ── */
-          <div className="relative w-60 sm:w-72 md:w-80 flex flex-col items-center">
+          <div className="relative w-72 sm:w-80 md:w-96 flex flex-col items-center">
             <div className="relative w-full aspect-square">
               <Image
                 src={contributor.image}
@@ -57,7 +61,7 @@ function Tombstone({ contributor, index }: { contributor: Contributor; index: nu
               />
             </div>
             {/* Role tag below image */}
-            <p className="text-center text-amber-200/60 text-sm mt-3 tracking-wider uppercase">
+              <p className="text-center text-amber-200/60 text-base sm:text-lg mt-3 tracking-wider uppercase">
               {contributor.role}
             </p>
             {contributor.epitaph && (
@@ -84,7 +88,7 @@ function Tombstone({ contributor, index }: { contributor: Contributor; index: nu
                 style={{ fontFamily: 'serif' }}>
                 {contributor.name}
               </h3>
-              <p className="text-center text-amber-200/60 text-xs mt-2 tracking-wider uppercase">
+              <p className="text-center text-amber-200/60 text-sm sm:text-base mt-2 tracking-wider uppercase">
                 {contributor.role}
               </p>
               {contributor.epitaph && (
@@ -93,18 +97,9 @@ function Tombstone({ contributor, index }: { contributor: Contributor; index: nu
                 </p>
               )}
             </div>
-            {/* Pedestal */}
-            <div className="relative mx-auto">
-              <div className="h-3 bg-gradient-to-b from-[#2b2e33] to-[#1e2025] border-x border-b border-white/5" />
-              <div className="h-4 -mx-2 bg-gradient-to-b from-[#25282d] to-[#1a1c20] border border-white/5 shadow-md" />
-              <div className="h-3 -mx-4 bg-gradient-to-b from-[#1f2125] to-[#15171a] border border-white/5 shadow-lg" />
-            </div>
-            {/* Flowers */}
-            <div className="flex justify-center -mt-1 gap-1">
-              <span className="text-red-500/80 text-xs">🌹</span>
-              <span className="text-red-500/80 text-xs">🥀</span>
-              <span className="text-red-500/80 text-xs">🌹</span>
-            </div>
+
+            {/* Base */}
+            <div className="w-20 sm:w-24 md:w-28 h-6 bg-gradient-to-t from-[#2b2e33] to-[#22252a] border border-white/10 mx-auto -mt-3 rounded-b-md shadow-[0_0_20px_rgba(0,0,0,0.5),inset_0_1px_4px_rgba(255,255,255,0.05)]" />
           </div>
         )}
       </motion.div>
@@ -165,7 +160,7 @@ function GraveyardParticles() {
 // ──────────────────────────────────────────────
 export default function CreditsPage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden footer-bg-texture">
+    <div className="relative min-h-screen overflow-x-hidden site-ocean-bg">
       {/* Back button */}
       <div className="fixed top-8 left-8 z-50">
         <Link
@@ -208,19 +203,33 @@ export default function CreditsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center text-white/40 text-sm sm:text-base max-w-xl mx-auto mb-20 leading-relaxed"
+          className="text-center text-white/50 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-20 leading-relaxed tracking-wide font-light"
+          style={{ fontFamily: 'serif' }}
         >
-          These brave souls poured their hearts into bringing Atlantis to life.
+          These brave souls poured their hearts into bringing this website to life.
           <br />
           They may rest now, but their code lives on in the deep.
         </motion.p>
 
         {/* Tombstone grid */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-items-center">
-          {CONTRIBUTORS.map((contributor, i) => (
-            <Tombstone key={contributor.name} contributor={contributor} index={i} />
-          ))}
-        </div>
+        {(() => {
+          // Top 3 fixed
+          const topContributors = CONTRIBUTORS.slice(0, 3);
+          // Shuffle the rest
+          const rest = CONTRIBUTORS.slice(3);
+          for (let i = rest.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [rest[i], rest[j]] = [rest[j], rest[i]];
+          }
+          const randomized = [...topContributors, ...rest];
+          return (
+            <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-items-center">
+              {randomized.map((contributor, i) => (
+                <Tombstone key={contributor.name} contributor={contributor} index={i} />
+              ))}
+            </div>
+          );
+        })()}
 
         {/* Bottom fog effect */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#020617] to-transparent pointer-events-none" />
