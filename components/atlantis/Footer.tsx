@@ -143,6 +143,14 @@ export default function DeepSeaFooter() {
                     Sponsors
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/credits"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Credits
+                  </a>
+                </li>
               </ul>
             </div>
 
