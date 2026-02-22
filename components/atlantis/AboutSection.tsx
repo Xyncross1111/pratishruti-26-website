@@ -115,60 +115,72 @@ function WaterOverlay({
   return (
     <div
       className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-hidden"
-      style={{ mixBlendMode: "color-dodge" }}
+      style={{
+        mixBlendMode: "color-dodge",
+      }}
     >
-      {/* The water body — slides down as user scrolls */}
+      {/* Fade Wrapper */}
       <div
-        className="absolute left-0 w-full"
+        className="absolute inset-0 overflow-hidden"
         style={{
-          top: 0,
-          height: "120%",
-          transform: `translateY(${waterTranslateY}%)`,
-          opacity: waterOpacity,
-          willChange: "transform, opacity",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, white 0%, white 85%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, white 0%, white 85%, transparent 100%)",
         }}
       >
-        {/* Animated wave surface — two layers flowing in opposite directions */}
-        <div className="relative w-full h-[60px] md:h-[80px] lg:h-[100px] -mb-[1px]">
-          {/* Back wave — flows right */}
-          <svg
-            viewBox="0 0 2880 180"
-            preserveAspectRatio="none"
-            className="absolute inset-0 w-[200%] h-full block"
-            style={{ animation: "waveFlowRight 8s linear infinite" }}
-          >
-            <path
-              d="M0,100 C180,70 360,130 540,100 C720,70 900,130 1080,100 C1260,70 1440,130 1620,100 C1800,70 1980,130 2160,100 C2340,70 2520,130 2700,100 L2880,100 L2880,180 L0,180 Z"
-              fill="rgba(150,225,240,0.18)"
-            />
-          </svg>
-          {/* Front wave — flows left */}
-          <svg
-            viewBox="0 0 2880 180"
-            preserveAspectRatio="none"
-            className="absolute inset-0 w-[200%] h-full block"
-            style={{ animation: "waveFlowLeft 6s linear infinite" }}
-          >
-            <path
-              d="M0,110 C160,80 320,140 480,110 C640,80 800,140 960,110 C1120,80 1280,140 1440,110 C1600,80 1760,140 1920,110 C2080,80 2240,140 2400,110 C2560,80 2720,140 2880,110 L2880,180 L0,180 Z"
-              fill="rgba(170,235,250,0.22)"
-            />
-          </svg>
+        {/* The water body — slides down as user scrolls */}
+        <div
+          className="absolute left-0 w-full"
+          style={{
+            top: 0,
+            height: "120%",
+            transform: `translateY(${waterTranslateY}%)`,
+            opacity: waterOpacity,
+            willChange: "transform, opacity",
+          }}
+        >
+          {/* Animated wave surface — two layers flowing in opposite directions */}
+          <div className="relative w-full h-[60px] md:h-[80px] lg:h-[100px] -mb-[1px]">
+            {/* Back wave — flows right */}
+            <svg
+              viewBox="0 0 2880 180"
+              preserveAspectRatio="none"
+              className="absolute inset-0 w-[200%] h-full block"
+              style={{ animation: "waveFlowRight 8s linear infinite" }}
+            >
+              <path
+                d="M0,100 C180,70 360,130 540,100 C720,70 900,130 1080,100 C1260,70 1440,130 1620,100 C1800,70 1980,130 2160,100 C2340,70 2520,130 2700,100 L2880,100 L2880,180 L0,180 Z"
+                fill="rgba(150,225,240,0.18)"
+              />
+            </svg>
+            {/* Front wave — flows left */}
+            <svg
+              viewBox="0 0 2880 180"
+              preserveAspectRatio="none"
+              className="absolute inset-0 w-[200%] h-full block"
+              style={{ animation: "waveFlowLeft 6s linear infinite" }}
+            >
+              <path
+                d="M0,110 C160,80 320,140 480,110 C640,80 800,140 960,110 C1120,80 1280,140 1440,110 C1600,80 1760,140 1920,110 C2080,80 2240,140 2400,110 C2560,80 2720,140 2880,110 L2880,180 L0,180 Z"
+                fill="rgba(170,235,250,0.22)"
+              />
+            </svg>
+          </div>
+
+          {/* Water body fill */}
+          <div
+            className="w-full"
+            style={{
+              height: "calc(100% - 60px)",
+              background:
+                "linear-gradient(180deg, rgba(170,235,250,0.22) 0%, rgba(140,215,240,0.15) 30%, rgba(120,200,230,0.10) 70%, rgba(100,180,220,0.06) 100%)",
+            }}
+          />
         </div>
 
-        {/* Water body fill */}
-        <div
-          className="w-full"
-          style={{
-            height: "calc(100% - 60px)",
-            background:
-              "linear-gradient(180deg, rgba(170,235,250,0.22) 0%, rgba(140,215,240,0.15) 30%, rgba(120,200,230,0.10) 70%, rgba(100,180,220,0.06) 100%)",
-          }}
-        />
-      </div>
-
-      {/* Inline keyframes for wave flow */}
-      <style>{`
+        {/* Inline keyframes for wave flow */}
+        <style>{`
         @keyframes waveFlowRight {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -178,6 +190,7 @@ function WaterOverlay({
           100% { transform: translateX(0); }
         }
       `}</style>
+      </div>
     </div>
   );
 }
