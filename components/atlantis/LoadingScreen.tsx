@@ -78,7 +78,7 @@ export default function LoadingScreen({ onFinished }: LoadingScreenProps) {
         webkit-playsinline="true"
         className="loading-screen__video"
       >
-        <source src="/PratishrutiLogoReveal.mp4" type="video/mp4" />
+        <source src="/Logo.mp4" type="video/mp4" />
       </video>
 
       {/* Play button shown when autoplay is blocked */}
