@@ -111,6 +111,7 @@ function WaterOverlay({
 
   const waterTranslateY = drain * 100;
   const waterOpacity = Math.max(0, 1 - drain * 0.3);
+  const waveHeight = "clamp(60px, 8vw, 100px)";
 
   return (
     <div
@@ -138,10 +139,23 @@ function WaterOverlay({
             transform: `translateY(${waterTranslateY}%)`,
             opacity: waterOpacity,
             willChange: "transform, opacity",
+            background: `linear-gradient(
+              180deg,
+              rgba(170,235,250,0) 0px,
+              rgba(170,235,250,0) calc(${waveHeight} - 2px),
+              rgba(170,235,250,0.24) calc(${waveHeight} - 2px),
+              rgba(170,235,250,0.22) calc(${waveHeight} + 10px),
+              rgba(140,215,240,0.15) 30%,
+              rgba(120,200,230,0.10) 70%,
+              rgba(100,180,220,0.06) 100%
+            )`,
           }}
         >
           {/* Animated wave surface — two layers flowing in opposite directions */}
-          <div className="relative w-full h-[60px] md:h-[80px] lg:h-[100px] -mb-[1px]">
+          <div
+            className="absolute top-0 left-0 w-full"
+            style={{ height: waveHeight }}
+          >
             {/* Back wave — flows right */}
             <svg
               viewBox="0 0 2880 180"
@@ -167,16 +181,6 @@ function WaterOverlay({
               />
             </svg>
           </div>
-
-          {/* Water body fill */}
-          <div
-            className="w-full"
-            style={{
-              height: "calc(100% - 60px)",
-              background:
-                "linear-gradient(180deg, rgba(170,235,250,0.22) 0%, rgba(140,215,240,0.15) 30%, rgba(120,200,230,0.10) 70%, rgba(100,180,220,0.06) 100%)",
-            }}
-          />
         </div>
 
         {/* Inline keyframes for wave flow */}
