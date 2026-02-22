@@ -137,14 +137,6 @@ export default function DeepSeaFooter() {
                 </li>
                 <li>
                   <a
-                    href="#register"
-                    className="hover:text-accent transition-colors"
-                  >
-                    Register
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="#sponsors"
                     className="hover:text-accent transition-colors"
                   >
