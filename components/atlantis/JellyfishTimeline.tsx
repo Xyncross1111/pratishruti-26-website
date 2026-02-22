@@ -34,7 +34,7 @@ const timelineEvents = [
   },
   {
     date: "26 February 2026 · 5:00 PM · EN Parking",
-    phase: "Bollywood Musical Band",
+    phase: "Artist Night- Chaar Diwari",
     description: "Live band performance in the evening.",
   },
   {
