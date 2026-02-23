@@ -1,22 +1,4 @@
-export type FormFieldType =
-  | "text"
-  | "email"
-  | "tel"
-  | "number"
-  | "textarea"
-  | "select"
-  | "radio";
-
-export type FormField = {
-  id: string;
-  label: string;
-  type: FormFieldType;
-  required?: boolean;
-  /** For select and radio: option values (and labels if different, use same for both). */
-  options?: string[];
-};
-
-export type RegistrationEvent = {
+export type EventData = {
   id: number;
   name: string;
   slug: string;
@@ -25,15 +7,9 @@ export type RegistrationEvent = {
   category?: string;
   access?: "RBU only" | "Open to all";
   prize?: string;
-  registrationStatus?: "open" | "closed" | "soon";
-  formFields: FormField[];
 };
 
-/**
- * Single source of truth for events that support registration.
- * Each event has its own form fields; sheet tab name = event name (sanitized).
- */
-export const registrationEvents: RegistrationEvent[] = [
+export const eventsData: EventData[] = [
   {
     id: 1,
     name: "Naaqaab",
@@ -43,37 +19,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Dramatics",
     access: "Open to all",
     prize: "₹10,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "performanceType",
-        label: "Performance Type",
-        type: "radio",
-        required: true,
-        options: ["Monologue", "Shortplay"],
-      },
-    ],
   },
   {
     id: 2,
@@ -84,37 +29,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Dance",
     access: "Open to all",
     prize: "₹10,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "entryType",
-        label: "Entry Type",
-        type: "radio",
-        required: true,
-        options: ["Solo", "Group"],
-      },
-    ],
   },
   {
     id: 7,
@@ -125,37 +39,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Music",
     access: "Open to all",
     prize: "₹10,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "entryType",
-        label: "Entry Type",
-        type: "radio",
-        required: true,
-        options: ["Solo", "Group", "Instrumental Solo", "Acappella"],
-      },
-    ],
   },
   {
     id: 3,
@@ -166,37 +49,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Fine Arts",
     access: "Open to all",
     prize: "₹6,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "entryType",
-        label: "Entry Type",
-        type: "radio",
-        required: true,
-        options: ["Face Painting", "Wall Painting"],
-      },
-    ],
   },
   {
     id: 4,
@@ -207,37 +59,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Media",
     access: "Open to all",
     prize: "₹6,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "entryType",
-        label: "Entry Type",
-        type: "radio",
-        required: true,
-        options: ["Photography", "Videography Editing"],
-      },
-    ],
   },
   {
     id: 5,
@@ -248,37 +69,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Quiz",
     access: "Open to all",
     prize: "₹4,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-      {
-        id: "entryType",
-        label: "Entry Type",
-        type: "radio",
-        required: true,
-        options: ["Duo"],
-      },
-    ],
   },
   {
     id: 6,
@@ -289,35 +79,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Fun Event",
     access: "RBU only",
     prize: "₹4,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 8,
@@ -328,55 +89,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Talent",
     access: "RBU only",
     prize: "₹10,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-      { id: "typeOfAct", label: "Type of Act", type: "text", required: true },
-      {
-        id: "soloOrGroup",
-        label: "Is this a solo or group act",
-        type: "radio",
-        required: true,
-        options: ["Solo", "Group"],
-      },
-      {
-        id: "actDescription",
-        label: "Act Description",
-        type: "textarea",
-        required: false,
-      },
-      {
-        id: "actDuration",
-        label: "Approximate duration of the act (e.g., 2–3 min, 3–5 min)",
-        type: "text",
-        required: true,
-      },
-    ],
   },
   {
     id: 9,
@@ -387,35 +99,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Technical",
     access: "RBU only",
     prize: "₹10,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 10,
@@ -426,35 +109,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Personality",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 11,
@@ -465,35 +119,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Gaming",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 12,
@@ -504,35 +129,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Finance",
     access: "RBU only",
     prize: "₹7,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 13,
@@ -543,35 +139,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Entertainment",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 14,
@@ -582,35 +149,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Sports",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 15,
@@ -621,35 +159,6 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Adventure",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
   {
     id: 16,
@@ -659,30 +168,6 @@ export const registrationEvents: RegistrationEvent[] = [
     venue: "EN Parking",
     category: "Showcase",
     access: "Open to all",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-    ],
   },
   {
     id: 17,
@@ -692,30 +177,6 @@ export const registrationEvents: RegistrationEvent[] = [
     venue: "MBA Auditorium",
     category: "Entertainment",
     access: "Open to all",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      { id: "email", label: "Email", type: "email", required: true },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "collegeName",
-        label: "College Name",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "participantCategory",
-        label: "Participant Category",
-        type: "select",
-        required: true,
-        options: ["RBU Student", "Outside RBU Student"],
-      },
-    ],
   },
   {
     id: 18,
@@ -726,72 +187,5 @@ export const registrationEvents: RegistrationEvent[] = [
     category: "Strategy",
     access: "RBU only",
     prize: "₹5,000",
-    registrationStatus: "open",
-    formFields: [
-      { id: "fullName", label: "Full Name", type: "text", required: true },
-      {
-        id: "rknecEmail",
-        label: "RKNEC/RBU Email ID",
-        type: "email",
-        required: true,
-      },
-      {
-        id: "contactNumber",
-        label: "Contact Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        id: "branchSection",
-        label: "Branch-Section",
-        type: "text",
-        required: true,
-      },
-      {
-        id: "yearOfStudy",
-        label: "Year of Study",
-        type: "select",
-        required: true,
-        options: ["First Year", "Second Year", "Third Year", "Final Year"],
-      },
-    ],
   },
 ];
-
-export function getEventById(
-  id: number | string,
-): RegistrationEvent | undefined {
-  const n = typeof id === "string" ? parseInt(id, 10) : id;
-  if (Number.isNaN(n)) return undefined;
-  return registrationEvents.find((e) => e.id === n);
-}
-
-export function getEventBySlug(slug: string): RegistrationEvent | undefined {
-  const s = slug?.trim().toLowerCase();
-  if (!s) return undefined;
-  return registrationEvents.find((e) => e.slug === s);
-}
-
-/**
- * Resolve event from URL param: supports id (e.g. "1") or slug (e.g. "poetry-slam").
- */
-export function getEventFromParam(
-  param: string | null | undefined,
-): RegistrationEvent | undefined {
-  if (param == null || param === "") return undefined;
-  const trimmed = param.trim();
-  const byId = getEventById(trimmed);
-  if (byId) return byId;
-  return getEventBySlug(trimmed);
-}
-
-/**
- * Sanitize event name for use as a Google Sheet tab name (no * ? \ / : [ ]).
- * Sheet names have a 100-char limit.
- */
-export function eventNameToSheetName(name: string): string {
-  return name
-    .replace(/[*?\\/:[\]]/g, "")
-    .trim()
-    .slice(0, 100);
-}

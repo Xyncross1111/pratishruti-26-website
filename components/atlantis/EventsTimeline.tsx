@@ -12,7 +12,7 @@ import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePuzzle } from "@/hooks/use-puzzle";
-import { registrationEvents } from "@/lib/events";
+import { eventsData } from "../../lib/events";
 
 interface Event {
   id: number;
@@ -25,7 +25,7 @@ interface Event {
   capacity?: string;
 }
 
-const events: Event[] = registrationEvents.map((event) => ({
+const events: Event[] = eventsData.map((event) => ({
   id: event.id,
   title: event.name,
   date: event.date ?? "Date TBA",
@@ -50,14 +50,16 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   // Easter egg: click any event card 5 times quickly to reveal a puzzle piece (once only across all cards)
   const { revealPiece, collected } = usePuzzle();
   const clickCount = useRef(0);
-  const clickTimer = useRef<ReturnType<typeof setTimeout>>();
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const collectedAtMount = useRef(collected);
 
   const handleEasterEggClick = () => {
     // Only allow one piece from this easter egg (the first reveal after mount)
     if (collected > collectedAtMount.current) return;
     clickCount.current++;
-    clearTimeout(clickTimer.current);
+    if (clickTimer.current !== null) {
+      clearTimeout(clickTimer.current);
+    }
 
     if (clickCount.current >= 5) {
       revealPiece();

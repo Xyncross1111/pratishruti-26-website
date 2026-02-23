@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { registrationEvents } from '@/lib/events';
+import { eventsData } from '@/lib/events';
 
 type Event = {
   id: number;
@@ -38,7 +38,7 @@ const posterBySlug: Record<string, string> = {
   traitors: '/images/events/traitors.jpg',
 };
 
-const events: Event[] = registrationEvents.map((event) => ({
+const events: Event[] = eventsData.map((event) => ({
   id: event.id,
   slug: event.slug,
   name: event.name,
