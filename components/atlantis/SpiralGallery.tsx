@@ -11,41 +11,6 @@ interface SpiralGalleryProps {
     images?: string[];
 }
 
-const defaultImages = [
-    // Ocean & underwater
-    'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1682687982501-1e58ab814714?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=1000&fit=crop',
-    // Marine life
-    'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1485550409059-9afb054cada4?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1530053969600-caed2596d242?w=800&h=1000&fit=crop',
-    // Deep sea & coral
-    'https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1498623116890-37e912163d5d?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=800&h=1000&fit=crop',
-    // Waves & coastline
-    'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1468413253725-0d5181091126?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1484291150605-0860ed671f04?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=800&h=1000&fit=crop',
-];
-
 // Smooth easing function - ease in-out sine (very smooth)
 function easeInOutSine(t: number): number {
     return -(Math.cos(Math.PI * t) - 1) / 2;
@@ -172,9 +137,6 @@ function HelixImage({
     const x = Math.sin(spiralAngle) * radius;
     const z = Math.cos(spiralAngle) * radius;
     
-    // Opacity: fully visible at center, fades at edges
-    const opacity = 1 - Math.abs(clampedProgress) * 0.7;
-    
     // Scale: larger when centered
     const scale = 1 - Math.abs(clampedProgress) * 0.3;
     
@@ -193,11 +155,10 @@ function HelixImage({
             scale={[scale, scale, scale]}
             geometry={curvedGeometry}
         >
-            <meshStandardMaterial 
+            <meshBasicMaterial 
                 map={texture}
                 side={THREE.DoubleSide}
-                transparent={true}
-                opacity={opacity}
+                toneMapped={false}
             />
         </mesh>
     );
@@ -229,7 +190,7 @@ function HelixGroup({
     );
 }
 
-export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
+export function SpiralGallery({ images = [] }: SpiralGalleryProps) {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [isIntroComplete, setIsIntroComplete] = useState(false);
@@ -274,8 +235,6 @@ export function SpiralGallery({ images = defaultImages }: SpiralGalleryProps) {
                 <Canvas>
                     <PerspectiveCamera makeDefault position={[0, 10, isMobile ? 58 : 50]} fov={isMobile ? 46 : 40} />
                     <AnimatedCamera isIntroComplete={isIntroComplete} isMobile={isMobile} />
-                    <fog attach="fog" args={['#001428', 15, 60]} />
-
                     <ambientLight intensity={0.6} color="#70c8dc" />
                     <directionalLight position={[5, 10, 7]} intensity={1.2} color="#b4e0e8" />
                     <directionalLight position={[-6, 3, -5]} intensity={0.4} color="#5da9c0" />
