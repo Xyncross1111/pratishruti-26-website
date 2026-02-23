@@ -10,7 +10,7 @@ const timelineEvents = [
     date: "25 February 2026 · 11:00 AM · Dome",
     phase: "Inaugural Function",
     description:
-      "Chief Guest: Mr. Sarang Dewaikar. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit.",
+      "Chief Guest: Mr. Sarang Dewaikar, Delivery Executive, Tieto Banking. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit. Official starts Pratishruti 2026.",
   },
   {
     date: "25 February 2026 · 12:30 PM · IT Square",
@@ -41,7 +41,7 @@ const timelineEvents = [
     date: "27 February 2026 · 11:00 AM · Dome",
     phase: "Valedictory & Prize Distribution",
     description:
-      "Chief Guest: Mr. Kuldeep Vij with valedictory and awards ceremony.",
+      "Chief Guest: Mr. Kuldeep Vij, General Manager, Mercedes Benz Pvt. Ltd. India with valedictory and awards ceremony where students are recognized for their achievements during the academic year.",
   },
   {
     date: "27 February 2026 · 5:00 PM · Dome",

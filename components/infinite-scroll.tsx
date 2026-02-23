@@ -3,10 +3,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useMemo, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import icon from "../public/icon.svg";
 
 // Register plugins
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -19,26 +18,30 @@ interface InfiniteScrollProps {
 }
 
 interface ElementItem {
-  icon: StaticImageData;
+  icon: string;
   label: string;
 }
 
 /* -------------------- Data -------------------- */
 
-const TECHNOLOGY_ICONS: StaticImageData[] = [
-  icon,
-  icon,
-  icon,
-  icon,
-  icon,
+const TECHNOLOGY_ICONS: string[] = [
+  "/images/sponsors/barcode.png",
+  "/images/sponsors/bento.jpeg",
+  "/images/sponsors/Burghar.jpeg",
+  "/images/sponsors/jrny.jpeg",
+  "/images/sponsors/RIch Drive_page-0001.jpg",
+  "/images/sponsors/snackify.jpeg",
+  "/images/sponsors/UCO Bank.avif",
 ];
 
 const LABELS: string[] = [
-  "Sponsor Partner",
-  "Associate Partner",
-  "Brand Collaborator",
-  "Community Partner",
-  "Media Partner",
+  "Barcode",
+  "Bento",
+  "Burghar",
+  "JRNY",
+  "Rich Drive",
+  "Snackify",
+  "UCO Bank",
 ];
 
 const ELEMENTS: ElementItem[] = TECHNOLOGY_ICONS.map((icon, i) => ({
@@ -131,8 +134,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
             <Image
               src={item.icon}
               alt={item.label}
-              height={34}
-              width={34}
+              height={40}
+              width={80}
               className="object-contain"
             />
 
