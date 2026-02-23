@@ -12,7 +12,7 @@ import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { Pearl, Bubble } from "./MarineSVGs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePuzzle } from "@/hooks/use-puzzle";
-import { registrationEvents } from "@/lib/events";
+import { eventsData } from "../../lib/events";
 
 interface Event {
   id: number;
@@ -25,7 +25,7 @@ interface Event {
   capacity?: string;
 }
 
-const events: Event[] = registrationEvents.map((event) => ({
+const events: Event[] = eventsData.map((event) => ({
   id: event.id,
   title: event.name,
   date: event.date ?? "Date TBA",
