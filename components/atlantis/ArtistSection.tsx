@@ -23,7 +23,7 @@ const PLACEHOLDER_ARTISTS = [
         name: 'Olly Esse',
         genre: 'Featured Artist',
         image: '/images/artists/olly_eese.webp',
-        spotifyUri: 'track/53wKgTog0mSWfeRsr5Xczf',
+        spotifyUri: 'track/18v7b90zM6myJZyIJhvDmq',
         year: '2026',
     },
     {
