@@ -13,10 +13,10 @@ interface Contributor {
 }
 
 const CONTRIBUTORS: Contributor[] = [
-  { name: 'Dr. Gaurav\nGoyal', role: 'Director,\nStudent Representative Council' },
+  { name: `Dr. Gaurav\nGoyal`, role: `Director,\nStudents' Welfare` },
   { name: 'Dr. Devishree\nNaidu', role: 'Pratishruti\nIncharge' },
   { name: 'Dr. Shubham\nAnjankar', role: 'Pratishruti\nCo-Incharge'},
-  { name: 'Dr. Alok Jha ', role: 'Overall\nIncharge'},
+  { name: 'Dr. Alok Jha ', role: `Overall Incharge,\nStudents' Welfare`},
   { name: 'Pranav Soni', role: 'SRC'},
   { name: 'Rishi Pande', role: 'SRC'},
   { name: 'Anas Khan', role: 'SRC' },
@@ -78,7 +78,7 @@ function SeashellCard({ contributor, index }: { contributor: Contributor; index:
       >
        {contributor.name}
       </motion.h1>
-          <p className="italic bold text-cyan-200/70 text-sm sm:text-sm uppercase tracking-widest mt-15 font-medium ">
+          <p className="italic bold text-cyan-200/70 text-sm sm:text-sm uppercase tracking-widest mt-15 font-medium whitespace-pre-line ">
             {contributor.role}
           </p>
         </div>
