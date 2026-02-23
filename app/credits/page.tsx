@@ -24,11 +24,12 @@ const CONTRIBUTORS: Contributor[] = [
   { name: 'Vallaki\nMandaogane', role: 'SRC' },
   { name: 'Devansh Goel', role: 'Developer' },
   { name: 'Soumya\nAgrawal', role: 'Developer' },
-  { name: 'Diyansh\nWasnik', role: 'Developer' },
   { name: 'Vyakhya\nGoyal', role: 'Developer' },
+  { name: 'Diyansh\nWasnik', role: 'Developer' },
   { name: 'Abbas Nadir', role: 'Developer' },
   { name: 'Shamit\nBundela', role: 'Developer' },
   { name: 'Tejas\nSawjiyani', role: 'Developer' },
+  { name: 'Khilendra\nPorgade', role: 'Developer' },
 ];
 
 // ──────────────────────────────────────────────
