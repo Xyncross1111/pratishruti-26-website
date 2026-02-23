@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import Image from 'next/image';
 import { TreasureChest, Pearl, Starfish, Coral } from './MarineSVGs';
 
 export default function TreasureVault() {
@@ -114,10 +113,9 @@ export default function TreasureVault() {
                   initial={{
                     x: -20 + gem * 20,
                     y: -10,
-                    opacity: 0,
                   }}
+                  style={{ opacity: chestOpen }}
                   animate={{
-                    opacity: chestOpen,
                     y: [0, -30, -50],
                     x: [-20 + gem * 20, -30 + gem * 20, -40 + gem * 20],
                   }}

@@ -50,14 +50,16 @@ function EventCard({ event, index }: { event: Event; index: number }) {
   // Easter egg: click any event card 5 times quickly to reveal a puzzle piece (once only across all cards)
   const { revealPiece, collected } = usePuzzle();
   const clickCount = useRef(0);
-  const clickTimer = useRef<ReturnType<typeof setTimeout>>();
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const collectedAtMount = useRef(collected);
 
   const handleEasterEggClick = () => {
     // Only allow one piece from this easter egg (the first reveal after mount)
     if (collected > collectedAtMount.current) return;
     clickCount.current++;
-    clearTimeout(clickTimer.current);
+    if (clickTimer.current !== null) {
+      clearTimeout(clickTimer.current);
+    }
 
     if (clickCount.current >= 5) {
       revealPiece();
