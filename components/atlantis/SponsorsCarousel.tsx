@@ -14,6 +14,7 @@ const sponsors = [
   { id: 6, name: 'Snackify', category: 'Sponsor', logo: '/images/sponsors/snackify.jpeg' },
   { id: 7, name: 'UCO Bank', category: 'Sponsor', logo: '/images/sponsors/UCO%20Bank.avif' },
   { id: 8, name: 'Venus Suzuki', category: 'Sponsor', logo: '/images/sponsors/venus.png' },
+  { id: 9, name: 'Hypehaus', category: 'Sponsor', logo: '/images/sponsors/hypehaus.png' },
 ];
 
 export default function SponsorsCarousel() {
