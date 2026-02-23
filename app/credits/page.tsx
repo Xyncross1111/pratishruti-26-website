@@ -3,7 +3,13 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import localFont from 'next/font/local';
 import DeepSeaFooter from '@/components/atlantis/Footer';
+
+const avatarFont = localFont({
+  src: '../../public/fonts/Avatar Water.ttf',
+  display: 'swap',
+});
 
 // ──────────────────────────────────────────────
 // Add / remove contributors here
@@ -18,16 +24,23 @@ interface Contributor {
 }
 
 const CONTRIBUTORS: Contributor[] = [
-  { name: 'Anas Khan', role: 'CMC', image: '/images/credits/anas.png' },
-  { name: 'Sanskar Krishnani', role: 'CMC', image: '/images/credits/sanskar-removebg-preview.png' },
-  { name: 'Vallaki Mandaogane', role: 'CMC', image: '/images/credits/vallaki-removebg-preview.png' },
-  { name: 'Devansh Goel', role: 'Developer', image: '/images/credits/devansh.png' },
-  { name: 'Soumya Agrawal', role: 'Developer', image: '/images/credits/Soumya.png' },
-  { name: 'Diyansh Wasnik', role: 'Developer', image: '/images/credits/diyansh-removebg-preview.png' },
-  { name: 'Vyakhya Goyal', role: 'Developer', image: '/images/credits/vyakhya-removebg-preview.png' },
-  { name: 'Abbas Nadir', role: 'Developer', image: '/images/credits/abbas-removebg-preview.png' },
-  { name: 'Shamit Bundela', role: 'Developer', image: '/images/credits/shamit-removebg-preview.png' },
-  { name: 'Tejas Sawjiyani', role: 'Developer', image: '/images/credits/tejas-removebg-preview.png' },
+  { name: 'Dr.Gaurav\nGoyal', role: 'Director\nStudent Representative Council', image: '/images/credits/seashell.png' },
+  { name: 'Dr.Devishree\nNaidu', role: 'Pratishruti\nIncharge', image: '/images/credits/seashell.png' },
+  { name: 'Dr.Shubham\nAnjankar', role: 'Pratishruti\nCo-Incharge', image: '/images/credits/seashell.png' },
+  { name: 'Dr.Alok Jha ', role: 'Overall\nIncharge', image: '/images/credits/seashell.png' },
+  { name: 'Pranav Soni', role: 'SRC', image: '/images/credits/seashell.png' },
+  { name: 'Rishi Pande', role: 'SRC', image: '/images/credits/seashell.png' },
+  { name: 'Anas Khan', role: 'SRC', image: '/images/credits/seashell.png' },
+  { name: 'Sanskar\nKrishnani', role: 'SRC', image: '/images/credits/seashell.png' },
+  { name: 'Vallaki\nMandaogane', role: 'SRC', image: '/images/credits/seashell.png' },
+  { name: 'Devansh Goel', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Soumya Agrawal', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Diyansh Wasnik', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Vyakhya Goyal', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Abbas Nadir', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Shamit Bundela', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Khilendra\nPorgade', role: 'Developer', image: '/images/credits/seashell.png' },
+  { name: 'Tejas Sawjiyani', role: 'Developer', image: '/images/credits/seashell.png' },
 ];
 
 // ──────────────────────────────────────────────
@@ -59,9 +72,21 @@ function Tombstone({ contributor, index }: { contributor: Contributor; index: nu
                 fill
                 className="object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.7)]"
               />
+              {/* Name overlay on the shell */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <p
+                  className={`text-center font-bold text-sm sm:text-base md:text-lg px-4 leading-tight whitespace-pre-line ${avatarFont.className}`}
+                  style={{
+                    color: '#6B4226',
+                    textShadow: '0 1px 4px rgba(255,255,255,0.5)',
+                  }}
+                >
+                  {contributor.name}
+                </p>
+              </div>
             </div>
             {/* Role tag below image */}
-              <p className="text-center text-amber-200/60 text-base sm:text-lg mt-3 tracking-wider uppercase">
+            <p className="text-center text-amber-200/60 text-base sm:text-lg mt-1 tracking-wider uppercase whitespace-pre-line font-bold">
               {contributor.role}
             </p>
             {contributor.epitaph && (
@@ -194,8 +219,8 @@ export default function CreditsPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-6"
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-100 to-amber-300/60 drop-shadow-lg">
-            The Fallen Crew
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white drop-shadow-lg">
+            Team Behind
           </h1>
         </motion.div>
 
@@ -211,25 +236,19 @@ export default function CreditsPage() {
           They may rest now, but their code lives on in the deep.
         </motion.p>
 
-        {/* Tombstone grid */}
-        {(() => {
-          // Top 3 fixed
-          const topContributors = CONTRIBUTORS.slice(0, 3);
-          // Shuffle the rest
-          const rest = CONTRIBUTORS.slice(3);
-          for (let i = rest.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [rest[i], rest[j]] = [rest[j], rest[i]];
-          }
-          const randomized = [...topContributors, ...rest];
-          return (
-            <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-items-center">
-              {randomized.map((contributor, i) => (
-                <Tombstone key={contributor.name} contributor={contributor} index={i} />
-              ))}
-            </div>
-          );
-        })()}
+        {/* First row – 4 members */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 sm:gap-10 justify-items-center mb-16">
+          {CONTRIBUTORS.slice(0, 4).map((contributor, i) => (
+            <Tombstone key={contributor.name} contributor={contributor} index={i} />
+          ))}
+        </div>
+
+        {/* Remaining members */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 sm:gap-12 justify-items-center">
+          {CONTRIBUTORS.slice(4).map((contributor, i) => (
+            <Tombstone key={contributor.name} contributor={contributor} index={i + 4} />
+          ))}
+        </div>
 
         {/* Bottom fog effect */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#020617] to-transparent pointer-events-none" />
