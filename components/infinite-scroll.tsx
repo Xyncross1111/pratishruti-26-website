@@ -32,6 +32,7 @@ const TECHNOLOGY_ICONS: string[] = [
   "/images/sponsors/RIch Drive_page-0001.jpg",
   "/images/sponsors/snackify.jpeg",
   "/images/sponsors/UCO Bank.avif",
+  "/images/sponsors/venus.png",
 ];
 
 const LABELS: string[] = [
@@ -42,6 +43,7 @@ const LABELS: string[] = [
   "Rich Drive",
   "Snackify",
   "UCO Bank",
+  "Venus Suzuki",
 ];
 
 const ELEMENTS: ElementItem[] = TECHNOLOGY_ICONS.map((icon, i) => ({

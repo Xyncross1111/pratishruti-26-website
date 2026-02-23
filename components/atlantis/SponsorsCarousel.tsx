@@ -13,6 +13,7 @@ const sponsors = [
   { id: 5, name: 'RIch Drive', category: 'Sponsor', logo: '/images/sponsors/RIch%20Drive_page-0001.jpg' },
   { id: 6, name: 'Snackify', category: 'Sponsor', logo: '/images/sponsors/snackify.jpeg' },
   { id: 7, name: 'UCO Bank', category: 'Sponsor', logo: '/images/sponsors/UCO%20Bank.avif' },
+  { id: 8, name: 'Venus Suzuki', category: 'Sponsor', logo: '/images/sponsors/venus.png' },
 ];
 
 export default function SponsorsCarousel() {

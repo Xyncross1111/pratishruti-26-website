@@ -244,7 +244,7 @@ export default function AboutSection() {
         <div className="grid md:grid-cols-3 gap-5 md:gap-6 mb-14 md:mb-16">
           <InfoCard
             title="Ramdeobaba University"
-            text="Established in 1984 in Nagpur, RBU (formerly RCOEM) is one of Central India's top institutions — nurturing competent professionals through innovation, research, and experiential learning across 50+ programs."
+            text="Established in 1984 in Nagpur, RBU (formerly RCOEM) is one of Central India's top institutions — nurturing competent professionals through innovation, research, and experiential learning across 20+ programs."
             delay={0}
           />
           <InfoCard
