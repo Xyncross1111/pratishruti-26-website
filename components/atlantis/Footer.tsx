@@ -55,8 +55,8 @@ export default function DeepSeaFooter() {
 
         <motion.img
           src="/footer/orange.png"
-          className="absolute bottom-28 right-[-20vw] w-14 sm:w-20 md:w-20 opacity-70 hidden sm:block"
-          animate={{ x: ["0vw", "-130vw"], y: [0, 5, -4, 0], rotate: [0, -2, 2, 0] }}
+          className="absolute bottom-32 left-[-20vw] w-14 sm:w-20 md:w-20 opacity-70 hidden sm:block"
+          animate={{ x: ["0vw", "100vw"], y: [0, -5, 4, 0], rotate: [0, 2, -2, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }}
         />
 

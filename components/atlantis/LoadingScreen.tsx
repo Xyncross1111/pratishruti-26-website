@@ -31,10 +31,10 @@ export default function LoadingScreen({ onFinished }: LoadingScreenProps) {
       });
     }
 
-    // Safety timeout: dismiss after 15s no matter what
+    // Safety timeout: dismiss after 6s no matter what
     const safety = setTimeout(() => {
       if (!video.ended) setFadeOut(true);
-    }, 15000);
+    }, 6000);
 
     return () => {
       video.removeEventListener('ended', handleEnded);
@@ -74,11 +74,12 @@ export default function LoadingScreen({ onFinished }: LoadingScreenProps) {
         autoPlay
         muted
         playsInline
+        preload="auto"
         // @ts-ignore — webkit-playsinline is needed for older iOS Safari
         webkit-playsinline="true"
         className="loading-screen__video"
       >
-        <source src="/Logo.mp4" type="video/mp4" />
+        <source src="/logo.mp4" type="video/mp4" />
       </video>
 
       {/* Play button shown when autoplay is blocked */}
