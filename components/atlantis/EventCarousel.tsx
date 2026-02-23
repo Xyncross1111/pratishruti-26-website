@@ -3,240 +3,54 @@
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { eventsData, type EventData } from "@/lib/events";
 
-type Event = {
-  id: number;
-  slug: string;
-  name: string;
+type CarouselEvent = EventData & {
   date: string;
   venue: string;
   category: string;
   posterSrc: string;
-  prize?: string;
-  access?: "RBU only" | "Open to all";
 };
 
-const events: Event[] = [
-  {
-    id: 1,
-    slug: "aarambh",
-    name: "Aarambh",
-    date: "22nd Feb 2026",
-    venue: "Venue DR-301",
-    category: "Opening",
-    posterSrc: "/images/events/aarambh.webp",
-    access: "Open to all",
-  },
-  {
-    id: 2,
-    slug: "auto-expo",
-    name: "Auto Expo",
-    date: "24th Feb 2026",
-    venue: "EN Parking",
-    category: "Showcase",
-    posterSrc: "/images/events/auto-expo.webp",
-    access: "Open to all",
-  },
-  {
-    id: 3,
-    slug: "cinecrypt",
-    name: "Cinecrypt",
-    date: "21st Feb 2026",
-    venue: "DT-109, DT-209",
-    category: "Entertainment",
-    posterSrc: "/images/events/cinecrypt.webp",
-    prize: "₹5,000",
-    access: "RBU only",
-  },
-  {
-    id: 4,
-    slug: "central-cartel",
-    name: "Central Cartel",
-    date: "21st Feb 2026",
-    venue: "Basketball Court",
-    category: "Management",
-    posterSrc: "/images/events/central-cartel.webp",
-    access: "Open to all",
-  },
-  {
-    id: 5,
-    slug: "cultural-night",
-    name: "Cultural Night",
-    date: "26th Feb 2026",
-    venue: "P26 Dome",
-    category: "Cultural",
-    posterSrc: "/images/events/cultural-night.webp",
-    access: "Open to all",
-  },
-  {
-    id: 2,
-    slug: "auto-expo",
-    name: "Auto Expo",
-    date: "24th Feb 2026",
-    venue: "EN Parking",
-    category: "Showcase",
-    posterSrc: "/images/events/auto-expo.webp",
-    access: "Open to all",
-  },
-  {
-    id: 6,
-    slug: "dalal-street",
-    name: "Dalal Street",
-    date: "23rd Feb 2026",
-    venue: "G-Block Classroom",
-    category: "Finance",
-    posterSrc: "/images/events/dalal-street.webp",
-    prize: "₹7,000",
-    access: "RBU only",
-  },
-  {
-    id: 7,
-    slug: "detox-room",
-    name: "Detox Room",
-    date: "22nd Feb 2026",
-    venue: "EN Auditorium",
-    category: "Wellness",
-    posterSrc: "/images/events/detox-room.webp",
-    access: "RBU only",
-  },
-  {
-    id: 8,
-    slug: "dj-garv",
-    name: "DJ Garv",
-    date: "26th Feb 2026",
-    venue: "Basketball Court",
-    category: "Music",
-    posterSrc: "/images/events/dj-garv.webp",
-    access: "Open to all",
-  },
-  {
-    id: 9,
-    slug: "escape-room",
-    name: "Escape Room",
-    date: "22nd Feb 2026",
-    venue: "DT-701",
-    category: "Adventure",
-    posterSrc: "/images/events/escape-room.webp",
-    prize: "₹5,000",
-    access: "RBU only",
-  },
-  {
-    id: 10,
-    slug: "festive-freeway",
-    name: "Festive Freeway",
-    date: "21st Feb 2026",
-    venue: "Basketball Court",
-    category: "Informals",
-    posterSrc: "/images/events/festive-freeway.webp",
-    access: "RBU only",
-  },
-  {
-    id: 11,
-    slug: "food-stalls",
-    name: "Food Stalls",
-    date: "21st-24th Feb 2026",
-    venue: "Campus Food Court",
-    category: "Lifestyle",
-    posterSrc: "/images/events/food-stalls.webp",
-    access: "Open to all",
-  },
-  {
-    id: 12,
-    slug: "hyroxx",
-    name: "Hyroxx",
-    date: "21st Feb 2026",
-    venue: "Football Ground",
-    category: "Sports",
-    posterSrc: "/images/events/hyroxx.webp",
-    prize: "₹5,000",
-    access: "RBU only",
-  },
-  {
-    id: 13,
-    slug: "minute-to-win-it",
-    name: "Minute To Win It",
-    date: "21st Feb 2026",
-    venue: "Basketball Court",
-    category: "Fun Event",
-    posterSrc: "/images/events/minute-to-win-it.webp",
-    prize: "₹4,000",
-    access: "RBU only",
-  },
-  {
-    id: 14,
-    slug: "movie-eve",
-    name: "Movie Eve",
-    date: "24th Feb 2026",
-    venue: "MBA Auditorium",
-    category: "Entertainment",
-    posterSrc: "/images/events/movie-eve.webp",
-    access: "Open to all",
-  },
-  {
-    id: 15,
-    slug: "picasso",
-    name: "Picasso",
-    date: "22nd Feb 2026",
-    venue: "Basketball Court",
-    category: "Media",
-    posterSrc: "/images/events/picasso.webp",
-    prize: "₹6,000",
-    access: "RBU only",
-  },
-  {
-    id: 16,
-    slug: "rbu-got-latent",
-    name: "RBU Got Latent",
-    date: "23rd Feb 2026",
-    venue: "EN Auditorium",
-    category: "Talent",
-    posterSrc: "/images/events/rbu-got-latent.webp",
-    prize: "₹10,000",
-    access: "RBU only",
-  },
-  {
-    id: 17,
-    slug: "traitors",
-    name: "Traitors",
-    date: "22nd Feb 2026",
-    venue: "DT-301",
-    category: "Strategy",
-    posterSrc: "/images/events/traitors.webp",
-    prize: "₹5,000",
-    access: "RBU only",
-  },
-  {
-    id: 18,
-    slug: "virtual-gaming",
-    name: "Virtual Gaming",
-    date: "22nd Feb 2026",
-    venue: "DT-303, DT-306",
-    category: "Gaming",
-    posterSrc: "/images/events/virtual-gaming.webp",
-    prize: "₹5,000",
-    access: "RBU only",
-  },
-  {
-    id: 19,
-    slug: "persona",
-    name: "Persona",
-    date: "21st Feb 2026",
-    venue: "DT-906",
-    category: "Talent",
-    posterSrc: "/images/events/persona.webp",
-    access: "Open to all",
-  },
-  {
-    id: 20,
-    slug: "ingenium",
-    name: "Ingenium",
-    date: "22nd Feb 2026",
-    venue: "DT-702",
-    category: "Showcase",
-    posterSrc: "/images/events/ingenium.webp",
-    access: "Open to all",
-  },
-];
+const carouselEventSlugs = [
+  "aarambh",
+  "auto-expo",
+  "cinecrypt",
+  "central-cartel",
+  "cultural-night",
+  "dalal-street",
+  "detox-room",
+  "dj-garv",
+  "escape-room",
+  "festive-freeway",
+  "food-stalls",
+  "hyroxx",
+  "minute-to-win-it",
+  "movie-eve",
+  "picasso",
+  "rbu-got-latent",
+  "traitors",
+  "virtual-gaming",
+  "persona",
+  "ingenium",
+] as const;
+
+const eventsBySlug = new Map(eventsData.map((event) => [event.slug, event]));
+
+const events: CarouselEvent[] = carouselEventSlugs
+  .map((slug) => {
+    const event = eventsBySlug.get(slug);
+    if (!event) return null;
+
+    return {
+      ...event,
+      date: event.date ?? "Date TBA",
+      venue: event.venue ?? "Venue TBA",
+      category: event.category ?? "General",
+      posterSrc: `/images/events/${slug}.webp`,
+    };
+  })
+  .filter((event): event is CarouselEvent => event !== null);
 
 const AUTO_SCROLL_MS = 8000;
 
@@ -327,7 +141,7 @@ export default function EventCarousel() {
     };
   }, []);
 
-  const renderEventCard = (event: Event, idx: number) => (
+  const renderEventCard = (event: CarouselEvent, idx: number) => (
     <motion.div
       key={`${event.slug}-${event.id}-${idx}`}
       initial={{ opacity: 0, y: 20 }}
