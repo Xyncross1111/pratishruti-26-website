@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
-import { registrationEvents } from '@/lib/events';
+import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 type Event = {
   id: number;
@@ -14,41 +13,230 @@ type Event = {
   category: string;
   posterSrc: string;
   prize?: string;
-  access?: 'RBU only' | 'Open to all';
+  access?: "RBU only" | "Open to all";
 };
 
-const posterBySlug: Record<string, string> = {
-  naaqaab: '/images/events/naaqaab.jpg',
-  footsteps: '/images/events/footsteps.jpg',
-  vibrato: '/images/events/vibrato.jpg',
-  'art-affairs': '/images/events/art-affairs.jpg',
-  picasso: '/images/events/picasso.jpg',
-  quizzeus: '/images/events/quizzeus.jpg',
-  'minute-to-win-it': '/images/events/minute-to-win-it.jpg',
-  'rbu-got-talent': '/images/events/rbu-got-talent.jpg',
-  ingenium: '/images/events/ingenium.jpg',
-  persona: '/images/events/persona.jpg',
-  'virtual-gaming': '/images/events/virtual-gaming.jpg',
-  'dalal-street': '/images/events/dalal-street.jpg',
-  cinecrypt: '/images/events/cinecrypt.jpg',
-  hyroxx: '/images/events/hyroxx.jpg',
-  'escape-room': '/images/events/escape-room.jpg',
-  'auto-expo': '/images/events/auto-expo.jpg',
-  'movie-eve': '/images/events/movie-eve.jpg',
-  traitors: '/images/events/traitors.jpg',
-};
-
-const events: Event[] = registrationEvents.map((event) => ({
-  id: event.id,
-  slug: event.slug,
-  name: event.name,
-  date: event.date ?? 'Date TBA',
-  venue: event.venue ?? 'Venue TBA',
-  category: event.category ?? 'General',
-  posterSrc: posterBySlug[event.slug] ?? '/placeholder.jpg',
-  prize: event.prize,
-  access: event.access,
-}));
+const events: Event[] = [
+  {
+    id: 1,
+    slug: "aarambh",
+    name: "Aarambh",
+    date: "22nd Feb 2026",
+    venue: "Venue DR-301",
+    category: "Opening",
+    posterSrc: "/images/events/aarambh.webp",
+    access: "Open to all",
+  },
+  {
+    id: 2,
+    slug: "auto-expo",
+    name: "Auto Expo",
+    date: "24th Feb 2026",
+    venue: "EN Parking",
+    category: "Showcase",
+    posterSrc: "/images/events/auto-expo.webp",
+    access: "Open to all",
+  },
+  {
+    id: 3,
+    slug: "cinecrypt",
+    name: "Cinecrypt",
+    date: "21st Feb 2026",
+    venue: "DT-109, DT-209",
+    category: "Entertainment",
+    posterSrc: "/images/events/cinecrypt.webp",
+    prize: "₹5,000",
+    access: "RBU only",
+  },
+  {
+    id: 4,
+    slug: "central-cartel",
+    name: "Central Cartel",
+    date: "21st Feb 2026",
+    venue: "Basketball Court",
+    category: "Management",
+    posterSrc: "/images/events/central-cartel.webp",
+    access: "Open to all",
+  },
+  {
+    id: 5,
+    slug: "cultural-night",
+    name: "Cultural Night",
+    date: "26th Feb 2026",
+    venue: "P26 Dome",
+    category: "Cultural",
+    posterSrc: "/images/events/cultural-night.webp",
+    access: "Open to all",
+  },
+  {
+    id: 2,
+    slug: "auto-expo",
+    name: "Auto Expo",
+    date: "24th Feb 2026",
+    venue: "EN Parking",
+    category: "Showcase",
+    posterSrc: "/images/events/auto-expo.webp",
+    access: "Open to all",
+  },
+  {
+    id: 6,
+    slug: "dalal-street",
+    name: "Dalal Street",
+    date: "23rd Feb 2026",
+    venue: "G-Block Classroom",
+    category: "Finance",
+    posterSrc: "/images/events/dalal-street.webp",
+    prize: "₹7,000",
+    access: "RBU only",
+  },
+  {
+    id: 7,
+    slug: "detox-room",
+    name: "Detox Room",
+    date: "22nd Feb 2026",
+    venue: "EN Auditorium",
+    category: "Wellness",
+    posterSrc: "/images/events/detox-room.webp",
+    access: "RBU only",
+  },
+  {
+    id: 8,
+    slug: "dj-garv",
+    name: "DJ Garv",
+    date: "26th Feb 2026",
+    venue: "Basketball Court",
+    category: "Music",
+    posterSrc: "/images/events/dj-garv.webp",
+    access: "Open to all",
+  },
+  {
+    id: 9,
+    slug: "escape-room",
+    name: "Escape Room",
+    date: "22nd Feb 2026",
+    venue: "DT-701",
+    category: "Adventure",
+    posterSrc: "/images/events/escape-room.webp",
+    prize: "₹5,000",
+    access: "RBU only",
+  },
+  {
+    id: 10,
+    slug: "festive-freeway",
+    name: "Festive Freeway",
+    date: "21st Feb 2026",
+    venue: "Basketball Court",
+    category: "Informals",
+    posterSrc: "/images/events/festive-freeway.webp",
+    access: "RBU only",
+  },
+  {
+    id: 11,
+    slug: "food-stalls",
+    name: "Food Stalls",
+    date: "21st-24th Feb 2026",
+    venue: "Campus Food Court",
+    category: "Lifestyle",
+    posterSrc: "/images/events/food-stalls.webp",
+    access: "Open to all",
+  },
+  {
+    id: 12,
+    slug: "hyroxx",
+    name: "Hyroxx",
+    date: "21st Feb 2026",
+    venue: "Football Ground",
+    category: "Sports",
+    posterSrc: "/images/events/hyroxx.webp",
+    prize: "₹5,000",
+    access: "RBU only",
+  },
+  {
+    id: 13,
+    slug: "minute-to-win-it",
+    name: "Minute To Win It",
+    date: "21st Feb 2026",
+    venue: "Basketball Court",
+    category: "Fun Event",
+    posterSrc: "/images/events/minute-to-win-it.webp",
+    prize: "₹4,000",
+    access: "RBU only",
+  },
+  {
+    id: 14,
+    slug: "movie-eve",
+    name: "Movie Eve",
+    date: "24th Feb 2026",
+    venue: "MBA Auditorium",
+    category: "Entertainment",
+    posterSrc: "/images/events/movie-eve.webp",
+    access: "Open to all",
+  },
+  {
+    id: 15,
+    slug: "picasso",
+    name: "Picasso",
+    date: "22nd Feb 2026",
+    venue: "Basketball Court",
+    category: "Media",
+    posterSrc: "/images/events/picasso.webp",
+    prize: "₹6,000",
+    access: "RBU only",
+  },
+  {
+    id: 16,
+    slug: "rbu-got-latent",
+    name: "RBU Got Latent",
+    date: "23rd Feb 2026",
+    venue: "EN Auditorium",
+    category: "Talent",
+    posterSrc: "/images/events/rbu-got-latent.webp",
+    prize: "₹10,000",
+    access: "RBU only",
+  },
+  {
+    id: 17,
+    slug: "traitors",
+    name: "Traitors",
+    date: "22nd Feb 2026",
+    venue: "DT-301",
+    category: "Strategy",
+    posterSrc: "/images/events/traitors.webp",
+    prize: "₹5,000",
+    access: "RBU only",
+  },
+  {
+    id: 18,
+    slug: "virtual-gaming",
+    name: "Virtual Gaming",
+    date: "22nd Feb 2026",
+    venue: "DT-303, DT-306",
+    category: "Gaming",
+    posterSrc: "/images/events/virtual-gaming.webp",
+    prize: "₹5,000",
+    access: "RBU only",
+  },
+  {
+    id: 19,
+    slug: "persona",
+    name: "Persona",
+    date: "21st Feb 2026",
+    venue: "DT-906",
+    category: "Talent",
+    posterSrc: "/images/events/persona.webp",
+    access: "Open to all",
+  },
+  {
+    id: 20,
+    slug: "ingenium",
+    name: "Ingenium",
+    date: "22nd Feb 2026",
+    venue: "DT-702",
+    category: "Showcase",
+    posterSrc: "/images/events/ingenium.webp",
+    access: "Open to all",
+  },
+];
 
 const AUTO_SCROLL_MS = 8000;
 
@@ -62,7 +250,9 @@ export default function EventCarousel() {
   const filteredEvents = events;
   const desktopItemsToShow = 3;
   const desktopStep = 3;
-  const desktopPageCount = Math.ceil(filteredEvents.length / desktopItemsToShow);
+  const desktopPageCount = Math.ceil(
+    filteredEvents.length / desktopItemsToShow,
+  );
 
   const getVisibleEvents = () => {
     if (filteredEvents.length === 0) return [];
@@ -81,7 +271,9 @@ export default function EventCarousel() {
     const firstCard = container.firstElementChild as HTMLElement | null;
     const cardWidth = firstCard?.offsetWidth ?? container.clientWidth;
     const computedStyle = window.getComputedStyle(container);
-    const gap = Number.parseFloat(computedStyle.columnGap || computedStyle.gap || '0') || 0;
+    const gap =
+      Number.parseFloat(computedStyle.columnGap || computedStyle.gap || "0") ||
+      0;
     return cardWidth + gap;
   };
 
@@ -97,8 +289,8 @@ export default function EventCarousel() {
     };
 
     updateViewport();
-    window.addEventListener('resize', updateViewport);
-    return () => window.removeEventListener('resize', updateViewport);
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
   }, [mounted]);
 
   useEffect(() => {
@@ -111,7 +303,10 @@ export default function EventCarousel() {
           const container = mobileScrollRef.current;
           if (container) {
             const slideWidth = getMobileSlideWidth(container);
-            container.scrollTo({ left: slideWidth * nextIndex, behavior: 'smooth' });
+            container.scrollTo({
+              left: slideWidth * nextIndex,
+              behavior: "smooth",
+            });
           }
           return nextIndex;
         });
@@ -151,7 +346,7 @@ export default function EventCarousel() {
             </h3>
           </div>
 
-              <div className="mb-4 w-[92%] md:w-full mx-auto overflow-hidden rounded-xl border border-accent/20 bg-black/15">
+          <div className="mb-4 w-[92%] md:w-full mx-auto overflow-hidden rounded-xl border border-accent/20 bg-black/15">
             <div className="relative">
               <Image
                 src={event.posterSrc}
@@ -169,16 +364,22 @@ export default function EventCarousel() {
             <div className="space-y-2 text-sm">
               <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
                 <span className="text-muted-foreground">Date</span>
-                <p className="text-right font-medium text-foreground/90">{event.date}</p>
+                <p className="text-right font-medium text-foreground/90">
+                  {event.date}
+                </p>
               </div>
               <div className="flex items-start justify-between gap-3 border-b border-accent/10 pb-2">
                 <span className="text-muted-foreground">Venue</span>
-                <p className="text-right font-medium text-foreground/90">{event.venue}</p>
+                <p className="text-right font-medium text-foreground/90">
+                  {event.venue}
+                </p>
               </div>
               {event.prize ? (
                 <div className="flex items-start justify-between gap-3">
                   <span className="text-muted-foreground">Prize Pool</span>
-                  <p className="text-right font-semibold text-accent">{event.prize}</p>
+                  <p className="text-right font-semibold text-accent">
+                    {event.prize}
+                  </p>
                 </div>
               ) : null}
             </div>
@@ -186,7 +387,7 @@ export default function EventCarousel() {
 
           <div className="mb-4 mt-auto">
             <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-xs text-accent/90">
-              {event.access ?? 'Open to all'}
+              {event.access ?? "Open to all"}
             </span>
           </div>
         </div>
@@ -194,10 +395,15 @@ export default function EventCarousel() {
     </motion.div>
   );
 
-  const activeDesktopPage = Math.floor(currentIndex / desktopItemsToShow) % Math.max(desktopPageCount, 1);
+  const activeDesktopPage =
+    Math.floor(currentIndex / desktopItemsToShow) %
+    Math.max(desktopPageCount, 1);
 
   return (
-    <section id="events" className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden">
+    <section
+      id="events"
+      className="relative py-16 lg:py-16 md:py-32 px-4 overflow-hidden"
+    >
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-accent/5 to-transparent opacity-20" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
@@ -212,7 +418,8 @@ export default function EventCarousel() {
             Explore Pratishruti Events
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Music, dance, drama, fashion, literary, fine arts, film, photography, pop-culture, informals, and workshops.
+            Music, dance, drama, fashion, literary, fine arts, film,
+            photography, pop-culture, informals, and workshops.
           </p>
         </motion.div>
 
@@ -221,36 +428,50 @@ export default function EventCarousel() {
             <div
               ref={mobileScrollRef}
               className="mb-8 flex snap-x snap-mandatory gap-0 overflow-x-auto pb-2 scrollbar-hide"
-              style={{ touchAction: 'pan-x' }}
+              style={{ touchAction: "pan-x" }}
               onScroll={(event) => {
                 const target = event.currentTarget;
                 if (mobileScrollRafRef.current) {
                   window.cancelAnimationFrame(mobileScrollRafRef.current);
                 }
 
-                mobileScrollRafRef.current = window.requestAnimationFrame(() => {
-                  const slideWidth = getMobileSlideWidth(target);
-                  const nextIndex = Math.round(target.scrollLeft / Math.max(slideWidth, 1));
-                  const boundedIndex = Math.min(Math.max(nextIndex, 0), filteredEvents.length - 1);
-                  setCurrentIndex((prev) => (prev === boundedIndex ? prev : boundedIndex));
-                });
+                mobileScrollRafRef.current = window.requestAnimationFrame(
+                  () => {
+                    const slideWidth = getMobileSlideWidth(target);
+                    const nextIndex = Math.round(
+                      target.scrollLeft / Math.max(slideWidth, 1),
+                    );
+                    const boundedIndex = Math.min(
+                      Math.max(nextIndex, 0),
+                      filteredEvents.length - 1,
+                    );
+                    setCurrentIndex((prev) =>
+                      prev === boundedIndex ? prev : boundedIndex,
+                    );
+                  },
+                );
               }}
             >
               {filteredEvents.map((event, idx) => (
-                <div key={`${event.slug}-${event.id}-${idx}`} className="min-w-full snap-start px-1.5 md:px-0">
+                <div
+                  key={`${event.slug}-${event.id}-${idx}`}
+                  className="min-w-full snap-start px-1.5 md:px-0"
+                >
                   {renderEventCard(event, idx)}
                 </div>
               ))}
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {(mounted ? getVisibleEvents() : filteredEvents.slice(0, 3)).map((event, idx) => renderEventCard(event, idx))}
+              {(mounted ? getVisibleEvents() : filteredEvents.slice(0, 3)).map(
+                (event, idx) => renderEventCard(event, idx),
+              )}
             </div>
           )}
 
           <div className="mx-auto max-w-md rounded-full border border-accent/20 bg-background/60 px-4 py-3 backdrop-blur">
             <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{isAutoPaused ? 'Paused' : 'Now showing'}</span>
+              <span>{isAutoPaused ? "Paused" : "Now showing"}</span>
               <span>
                 {isMobile
                   ? `${filteredEvents.length > 0 ? currentIndex + 1 : 0}/${filteredEvents.length}`
@@ -265,11 +486,11 @@ export default function EventCarousel() {
               onPointerLeave={() => setIsAutoPaused(false)}
             >
               <motion.div
-                key={`${currentIndex}-${isAutoPaused ? 'paused' : 'running'}`}
+                key={`${currentIndex}-${isAutoPaused ? "paused" : "running"}`}
                 className="h-full rounded-full bg-accent"
-                initial={{ width: '0%' }}
-                animate={{ width: isAutoPaused ? '0%' : '100%' }}
-                transition={{ duration: AUTO_SCROLL_MS / 1000, ease: 'linear' }}
+                initial={{ width: "0%" }}
+                animate={{ width: isAutoPaused ? "0%" : "100%" }}
+                transition={{ duration: AUTO_SCROLL_MS / 1000, ease: "linear" }}
               />
             </div>
 
@@ -281,9 +502,13 @@ export default function EventCarousel() {
                 <span
                   key={`event-indicator-${idx}`}
                   className={`h-1.5 rounded-full transition-all ${
-                    (isMobile ? idx === currentIndex : idx === activeDesktopPage)
-                      ? 'w-6 bg-accent'
-                      : 'w-1.5 bg-accent/30'
+                    (
+                      isMobile
+                        ? idx === currentIndex
+                        : idx === activeDesktopPage
+                    )
+                      ? "w-6 bg-accent"
+                      : "w-1.5 bg-accent/30"
                   }`}
                 />
               ))}
