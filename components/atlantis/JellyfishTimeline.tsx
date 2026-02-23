@@ -10,7 +10,7 @@ const timelineEvents = [
     date: "25 February 2026 · 11:00 AM · Dome",
     phase: "Inaugural Function",
     description:
-      "Chief Guest: Mr. Sarang Dewaikar. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit.",
+      "Chief Guest: Mr. Sarang Dewaikar, Delivery Executive, Tieto Banking. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit. Official starts Pratishruti 2026.",
   },
   {
     date: "25 February 2026 · 12:30 PM · IT Square",
@@ -34,14 +34,14 @@ const timelineEvents = [
   },
   {
     date: "26 February 2026 · 5:00 PM · EN Parking",
-    phase: "Bollywood Musical Band",
+    phase: "Artist Night- Chaar Diwari",
     description: "Live band performance in the evening.",
   },
   {
     date: "27 February 2026 · 11:00 AM · Dome",
     phase: "Valedictory & Prize Distribution",
     description:
-      "Chief Guest: Mr. Kuldeep Vij with valedictory and awards ceremony.",
+      "Chief Guest: Mr. Kuldeep Vij, General Manager, Mercedes Benz Pvt. Ltd. India with valedictory and awards ceremony where students are recognized for their achievements during the academic year.",
   },
   {
     date: "27 February 2026 · 5:00 PM · Dome",
@@ -125,7 +125,7 @@ export default function JellyfishTimeline() {
             Festival Timeline
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Follow the jellyfish through the depths as it guides you through
+            Follow the anchor through the depths as it guides you through
             each phase of Pratishruti
           </p>
         </motion.div>
@@ -145,7 +145,8 @@ export default function JellyfishTimeline() {
               willChange: "transform",
             }}
           >
-            <Jellyfish className="w-10 h-14 md:w-12 md:h-16 text-accent drop-shadow-lg" />
+            {/* <Jellyfish className="w-10 h-14 md:w-12 md:h-16 text-accent drop-shadow-lg" /> */}
+            <img src="/images/anchor.webp" alt="anchor" className="w-10 h-14 md:w-12 md:h-16 brightness-150" />
           </motion.div>
 
           {/* Timeline events */}

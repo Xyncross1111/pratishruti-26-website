@@ -3,10 +3,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useMemo, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import icon from "../public/icon.svg";
 
 // Register plugins
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -19,26 +18,30 @@ interface InfiniteScrollProps {
 }
 
 interface ElementItem {
-  icon: StaticImageData;
+  icon: string;
   label: string;
 }
 
 /* -------------------- Data -------------------- */
 
-const TECHNOLOGY_ICONS: StaticImageData[] = [
-  icon,
-  icon,
-  icon,
-  icon,
-  icon,
+const TECHNOLOGY_ICONS: string[] = [
+  "/images/sponsors/barcode.png",
+  "/images/sponsors/bento.jpeg",
+  "/images/sponsors/Burghar.jpeg",
+  "/images/sponsors/jrny.jpeg",
+  "/images/sponsors/RIch Drive_page-0001.jpg",
+  "/images/sponsors/snackify.jpeg",
+  "/images/sponsors/UCO Bank.avif",
 ];
 
 const LABELS: string[] = [
-  "Sponsor Partner",
-  "Associate Partner",
-  "Brand Collaborator",
-  "Community Partner",
-  "Media Partner",
+  "Barcode",
+  "Bento",
+  "Burghar",
+  "JRNY",
+  "Rich Drive",
+  "Snackify",
+  "UCO Bank",
 ];
 
 const ELEMENTS: ElementItem[] = TECHNOLOGY_ICONS.map((icon, i) => ({
@@ -131,8 +134,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
             <Image
               src={item.icon}
               alt={item.label}
-              height={34}
-              width={34}
+              height={40}
+              width={80}
               className="object-contain"
             />
 
@@ -151,7 +154,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
             Our Sponsors & Partners
           </h2>
           <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-            Our Collaboirators and Sponsors
+            Our Collaborators and Sponsors
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Thank you for supporting Pratishruti and the spirit of student-led initiatives.
@@ -189,7 +192,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
     <div
          
-          className="mt-25 p-6 text-center pt-8"
+          className="mt-25 p-6 text-center pt-8 pb-12"
         >
     <p className="text-muted-foreground mb-4">
             Interested in sponsoring Pratishruti?

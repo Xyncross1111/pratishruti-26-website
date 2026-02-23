@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {Coral,Seaweed,Pearl,Starfish} from './MarineSVGs'
 import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
 
 export default function DeepSeaFooter() {
@@ -54,8 +55,8 @@ export default function DeepSeaFooter() {
 
         <motion.img
           src="/footer/orange.png"
-          className="absolute bottom-28 right-[-20vw] w-14 sm:w-20 md:w-20 opacity-70 hidden sm:block"
-          animate={{ x: ["0vw", "-130vw"], y: [0, 5, -4, 0], rotate: [0, -2, 2, 0] }}
+          className="absolute bottom-32 left-[-20vw] w-14 sm:w-20 md:w-20 opacity-70 hidden sm:block"
+          animate={{ x: ["0vw", "100vw"], y: [0, -5, 4, 0], rotate: [0, 2, -2, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }}
         />
 
@@ -88,7 +89,7 @@ export default function DeepSeaFooter() {
         />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto mt-5">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,12 +100,7 @@ export default function DeepSeaFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="text-2xl font-bold text-accent">Ⱦ</div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground">
-                  Pratishruti
-                </h3>
-              </div>
+              <img src="/logo.png" alt="Pratishruti Logo" className="w-40 h-15"/>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Celebrating culture, creativity, and innovation through the
@@ -143,6 +139,14 @@ export default function DeepSeaFooter() {
                     Sponsors
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/credits"
+                    className="hover:text-accent transition-colors"
+                  >
+                    Credits
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -162,14 +166,14 @@ export default function DeepSeaFooter() {
                 </li>
                 <li className="flex items-start gap-2 text-muted-foreground">
                   <MapPin size={16} className="shrink-0 mt-0.5" />
-                  <span>RCOEM, Nagpur</span>
+                  <span>Ramdeobaba University, Nagpur</span>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* Social */}
-          <div>
+          <div className="ml-10">
             <h4 className="text-xs sm:text-sm font-bold text-foreground mb-3 sm:mb-4 uppercase tracking-wide">
               Follow Us
             </h4>
