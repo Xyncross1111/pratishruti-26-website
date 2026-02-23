@@ -4,7 +4,18 @@ import DeepSeaFooter from '@/components/atlantis/Footer';
 
 export default function GalleryPage() {
     return (
-        <div className="relative min-h-screen overflow-x-hidden">
+        <div
+            className="relative min-h-screen overflow-x-hidden"
+            style={{
+                backgroundImage: 'url(/images/gallerybg.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed', // Keeps background image static
+            }}
+        >
+            {/* Overlay for darkening the background */}
+            <div className="bg-dark-overlay" />
             {/* Navigation back to home */}
             <div className="fixed top-8 left-8 z-50">
                 <Link
