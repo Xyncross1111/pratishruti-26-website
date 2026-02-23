@@ -15,21 +15,8 @@ export const metadata: Metadata = {
   description: 'Dive into the depths of Atlantis. Experience the immersive world of Pratishruti 2026—a journey through ancient ruins, bioluminescent wonders, and forgotten treasures.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
 }
 
