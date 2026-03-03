@@ -162,7 +162,7 @@ export default function DeepSeaFooter() {
                 </li>
                 <li className="flex items-start gap-2 text-muted-foreground hover:text-accent transition-colors">
                   <Phone size={16} className="shrink-0 mt-0.5" />
-                  <a href="tel:+919876543210">+91 9876543210</a>
+                  <a href="tel:+917498224457">+91 7498224457</a>
                 </li>
                 <li className="flex items-start gap-2 text-muted-foreground">
                   <MapPin size={16} className="shrink-0 mt-0.5" />

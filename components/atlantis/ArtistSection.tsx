@@ -10,14 +10,7 @@ import AlbumCover from './AlbumCover';
 // To get Spotify Track URI: Open Spotify → Right-click on a TRACK → Share → Copy Spotify URI
 // Format: Use TRACK URIs only → spotify:track:TRACK_ID (remove 'spotify:' prefix, use 'track/TRACK_ID')
 const PLACEHOLDER_ARTISTS = [
-    {
-        id: '1',
-        name: 'Chaar Diwari',
-        genre: 'Featured Artist',
-        image: '/images/artists/chaar_diwari.webp',
-        spotifyUri: 'track/1hj2XHe0acA4QuAS0HSxsz',
-        year: '2026',
-    },
+    
    
     {
         id: '3',

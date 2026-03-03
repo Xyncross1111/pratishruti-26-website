@@ -28,11 +28,7 @@ const timelineEvents = [
     phase: "Under 25 Summit",
     description: "Summit session scheduled on Traditional Day.",
   },
-  {
-    date: "26 February 2026 · 5:00 PM · EN Parking",
-    phase: "Artist Night- Chaar Diwari",
-    description: "Live band performance in the evening.",
-  },
+
   {
     date: "27 February 2026 · 11:00 AM · Dome",
     phase: "Valedictory & Prize Distribution",
