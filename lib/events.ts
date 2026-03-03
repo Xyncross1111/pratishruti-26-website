@@ -160,15 +160,7 @@ export const eventsData: EventData[] = [
     access: "RBU only",
     prize: "₹5,000",
   },
-  {
-    id: 16,
-    name: "Auto Expo",
-    slug: "auto-expo",
-    date: "24th Feb 2026",
-    venue: "EN Parking",
-    category: "Showcase",
-    access: "Open to all",
-  },
+
   {
     id: 17,
     name: "Movie Eve",

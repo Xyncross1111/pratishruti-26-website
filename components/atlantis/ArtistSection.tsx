@@ -18,14 +18,7 @@ const PLACEHOLDER_ARTISTS = [
         spotifyUri: 'track/1hj2XHe0acA4QuAS0HSxsz',
         year: '2026',
     },
-    {
-        id: '2',
-        name: 'Olly Esse',
-        genre: 'Featured Artist',
-        image: '/images/artists/olly_eese.webp',
-        spotifyUri: 'track/53wKgTog0mSWfeRsr5Xczf',
-        year: '2026',
-    },
+   
     {
         id: '3',
         name: 'Paarth Shrivastava',

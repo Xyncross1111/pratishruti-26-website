@@ -33,7 +33,6 @@ const posterBySlug: Record<string, string> = {
   cinecrypt: '/images/events/cinecrypt.jpg',
   hyroxx: '/images/events/hyroxx.jpg',
   'escape-room': '/images/events/escape-room.jpg',
-  'auto-expo': '/images/events/auto-expo.jpg',
   'movie-eve': '/images/events/movie-eve.jpg',
   traitors: '/images/events/traitors.jpg',
 };

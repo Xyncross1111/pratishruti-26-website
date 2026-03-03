@@ -12,11 +12,7 @@ const timelineEvents = [
     description:
       "Chief Guest: Mr. Sarang Dewaikar. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit.",
   },
-  {
-    date: "25 February 2026 · 12:30 PM · IT Square",
-    phase: "Aarambh – The Fete",
-    description: "Festive kickoff event as part of the opening day schedule.",
-  },
+  
   {
     date: "25 February 2026 · 5:00 PM · Dome",
     phase: "Cultural Night",
