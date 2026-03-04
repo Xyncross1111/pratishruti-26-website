@@ -3,15 +3,18 @@
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
-// Placeholder sponsor data - replace with actual sponsor logos
 const sponsors = [
-  { id: 1, name: 'TechCorp', category: 'Platinum Sponsor' },
-  { id: 2, name: 'AquaSoft', category: 'Gold Sponsor' },
-  { id: 3, name: 'OceanFlow', category: 'Silver Sponsor' },
-  { id: 4, name: 'DeepNet', category: 'Tech Partner' },
-  { id: 5, name: 'WaveSync', category: 'Media Partner' },
-  { id: 6, name: 'TidalWave', category: 'Community Partner' },
+  { id: 1, name: 'Barcode', category: 'Sponsor', logo: '/images/sponsors/barcode.png' },
+  { id: 2, name: 'Bento', category: 'Sponsor', logo: '/images/sponsors/bento.jpeg' },
+  { id: 3, name: 'Burghar', category: 'Sponsor', logo: '/images/sponsors/Burghar.jpeg' },
+  { id: 4, name: 'JRNY', category: 'Sponsor', logo: '/images/sponsors/jrny.jpeg' },
+  { id: 5, name: 'RIch Drive', category: 'Sponsor', logo: '/images/sponsors/RIch%20Drive_page-0001.jpg' },
+  { id: 6, name: 'Snackify', category: 'Sponsor', logo: '/images/sponsors/snackify.jpeg' },
+  { id: 7, name: 'UCO Bank', category: 'Sponsor', logo: '/images/sponsors/UCO%20Bank.avif' },
+  { id: 8, name: 'Venus Suzuki', category: 'Sponsor', logo: '/images/sponsors/venus.png' },
+  { id: 9, name: 'Hypehaus', category: 'Sponsor', logo: '/images/sponsors/hypehaus.png' },
 ];
 
 export default function SponsorsCarousel() {
@@ -74,11 +77,14 @@ export default function SponsorsCarousel() {
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/0 group-hover:from-accent/10 group-hover:to-accent/5 transition-all duration-300" />
 
                     <div className="relative z-10 text-center p-4">
-                      {/* Placeholder for sponsor logo */}
-                      <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:from-accent/50 group-hover:to-accent/30 transition-all">
-                        <span className="text-2xl font-bold text-accent">
-                          {sponsor.name[0]}
-                        </span>
+                      <div className="relative w-16 h-12 mx-auto mb-3">
+                        <Image
+                          src={sponsor.logo}
+                          alt={`${sponsor.name} logo`}
+                          fill
+                          sizes="64px"
+                          className="object-contain"
+                        />
                       </div>
                       <h3 className="font-bold text-foreground mb-1">
                         {sponsor.name}

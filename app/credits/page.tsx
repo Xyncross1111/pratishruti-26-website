@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import localFont from 'next/font/local';
 import DeepSeaFooter from '@/components/atlantis/Footer';
 import { useMemo } from 'react';
 

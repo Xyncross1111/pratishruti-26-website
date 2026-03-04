@@ -1,8 +1,30 @@
 import { SpiralGallery } from '@/components/atlantis/SpiralGallery';
 import Link from 'next/link';
 import DeepSeaFooter from '@/components/atlantis/Footer';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-export default function GalleryPage() {
+const GALLERY_FOLDER = path.join(process.cwd(), 'public', 'images', 'gallery');
+
+async function getGalleryImages(): Promise<string[]> {
+    try {
+        const entries = await fs.readdir(GALLERY_FOLDER, { withFileTypes: true });
+        const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
+
+        return entries
+            .filter((entry) => entry.isFile())
+            .map((entry) => entry.name)
+            .filter((name) => imageExtensions.has(path.extname(name).toLowerCase()))
+            .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+            .map((name) => `/images/gallery/${encodeURIComponent(name)}`);
+    } catch {
+        return [];
+    }
+}
+
+export default async function GalleryPage() {
+    const galleryImages = await getGalleryImages();
+
     return (
         <div
             className="relative min-h-screen overflow-x-hidden"
@@ -14,8 +36,6 @@ export default function GalleryPage() {
                 backgroundAttachment: 'fixed', // Keeps background image static
             }}
         >
-            {/* Overlay for darkening the background */}
-            <div className="bg-dark-overlay" />
             {/* Navigation back to home */}
             <div className="fixed top-8 left-8 z-50">
                 <Link
@@ -61,7 +81,7 @@ export default function GalleryPage() {
 
             {/* 3D Spiral Gallery */}
             <main className="relative">
-                <SpiralGallery />
+                <SpiralGallery images={galleryImages} />
             </main>
 
             
