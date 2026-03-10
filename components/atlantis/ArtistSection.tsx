@@ -17,17 +17,9 @@ const PLACEHOLDER_ARTISTS = [
         image: '/images/artists/chaar_diwari.webp',
         spotifyUri: 'track/1hj2XHe0acA4QuAS0HSxsz',
         year: '2026',
-    },
+    },    
     {
         id: '2',
-        name: 'Olly Esse',
-        genre: 'Featured Artist',
-        image: '/images/artists/olly_eese.webp',
-        spotifyUri: 'track/18v7b90zM6myJZyIJhvDmq',
-        year: '2026',
-    },
-    {
-        id: '3',
         name: 'Paarth Shrivastava',
         genre: 'Featured Artist',
         image: '/images/artists/paarth_shrivastava.webp',
@@ -35,7 +27,7 @@ const PLACEHOLDER_ARTISTS = [
         year: '2026',
     },
     {
-        id: '4',
+        id: '3',
         name: 'Raazid',
         genre: 'Featured Artist',
         image: '/images/artists/raazid.webp',

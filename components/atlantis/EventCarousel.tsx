@@ -12,35 +12,25 @@ type CarouselEvent = EventData & {
   posterSrc: string;
 };
 
-const carouselEventSlugs = [
-  "aarambh",
-  "auto-expo",
-  "cinecrypt",
-  "central-cartel",
-  "cultural-night",
-  "dalal-street",
-  "detox-room",
-  "dj-garv",
-  "escape-room",
-  "festive-freeway",
-  "food-stalls",
-  "hyroxx",
-  "minute-to-win-it",
-  "movie-eve",
-  "picasso",
-  "rbu-got-latent",
-  "traitors",
-  "virtual-gaming",
-  "persona",
-  "ingenium",
-] as const;
-
-const eventsBySlug = new Map(eventsData.map((event) => [event.slug, event]));
-
-const events: CarouselEvent[] = carouselEventSlugs
-  .map((slug) => {
-    const event = eventsBySlug.get(slug);
-    if (!event) return null;
+const posterBySlug: Record<string, string> = {
+  naaqaab: '/images/events/naaqaab.jpg',
+  footsteps: '/images/events/footsteps.jpg',
+  vibrato: '/images/events/vibrato.jpg',
+  'art-affairs': '/images/events/art-affairs.jpg',
+  picasso: '/images/events/picasso.jpg',
+  quizzeus: '/images/events/quizzeus.jpg',
+  'minute-to-win-it': '/images/events/minute-to-win-it.jpg',
+  'rbu-got-talent': '/images/events/rbu-got-talent.jpg',
+  ingenium: '/images/events/ingenium.jpg',
+  persona: '/images/events/persona.jpg',
+  'virtual-gaming': '/images/events/virtual-gaming.jpg',
+  'dalal-street': '/images/events/dalal-street.jpg',
+  cinecrypt: '/images/events/cinecrypt.jpg',
+  hyroxx: '/images/events/hyroxx.jpg',
+  'escape-room': '/images/events/escape-room.jpg',
+  'movie-eve': '/images/events/movie-eve.jpg',
+  traitors: '/images/events/traitors.jpg',
+};
 
     return {
       ...event,

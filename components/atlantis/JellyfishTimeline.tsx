@@ -12,11 +12,7 @@ const timelineEvents = [
     description:
       "Chief Guest: Mr. Sarang Dewaikar, Delivery Executive, Tieto Banking. Presided by Shri Satyanarayan Nuwal in presence of Shri Rajendra Purohit. Official starts Pratishruti 2026.",
   },
-  {
-    date: "25 February 2026 · 12:30 PM · IT Square",
-    phase: "Aarambh – The Fete",
-    description: "Festive kickoff event as part of the opening day schedule.",
-  },
+  
   {
     date: "25 February 2026 · 5:00 PM · Dome",
     phase: "Cultural Night",
@@ -32,11 +28,7 @@ const timelineEvents = [
     phase: "Under 25 Summit",
     description: "Summit session scheduled on Traditional Day.",
   },
-  {
-    date: "26 February 2026 · 5:00 PM · EN Parking",
-    phase: "Artist Night- Chaar Diwari",
-    description: "Live band performance in the evening.",
-  },
+
   {
     date: "27 February 2026 · 11:00 AM · Dome",
     phase: "Valedictory & Prize Distribution",
