@@ -47,6 +47,7 @@ const AUTO_SCROLL_MS = 8000;
 export default function EventCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const [progressNonce, setProgressNonce] = useState(0);
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const mobileScrollRafRef = useRef<number | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -121,7 +122,7 @@ export default function EventCarousel() {
     }, AUTO_SCROLL_MS);
 
     return () => clearInterval(interval);
-  }, [mounted, isAutoPaused, filteredEvents.length, isMobile]);
+  }, [mounted, isAutoPaused, filteredEvents.length, isMobile, progressNonce]);
 
   useEffect(() => {
     return () => {
@@ -139,7 +140,7 @@ export default function EventCarousel() {
       transition={{ delay: idx * 0.1 }}
       className="group relative h-full w-[95%] md:w-full mx-auto"
     >
-      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-linear-to-b from-primary/30 via-background/80 to-secondary/30 p-4 md:p-5 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-accent/45">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-linear-to-b from-primary/30 via-background/80 to-secondary/30 p-4 md:p-5 transition-transform transition-colors duration-300 group-hover:-translate-y-1 group-hover:border-accent/45">
         <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-accent/10 opacity-70" />
         <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-accent/10 blur-3xl" />
 
@@ -203,6 +204,31 @@ export default function EventCarousel() {
     Math.floor(currentIndex / desktopItemsToShow) %
     Math.max(desktopPageCount, 1);
 
+  const handleIndicatorClick = (idx: number) => {
+    if (filteredEvents.length === 0) return;
+
+    if (isMobile) {
+      setCurrentIndex(idx);
+      setProgressNonce((prev) => prev + 1);
+      const container = mobileScrollRef.current;
+      if (container) {
+        const slideWidth = getMobileSlideWidth(container);
+        container.scrollTo({
+          left: slideWidth * idx,
+          behavior: "smooth",
+        });
+      }
+      return;
+    }
+
+    const nextIndex = Math.min(
+      idx * desktopItemsToShow,
+      Math.max(filteredEvents.length - 1, 0),
+    );
+    setCurrentIndex(nextIndex);
+    setProgressNonce((prev) => prev + 1);
+  };
+
   return (
     <section
       id="events"
@@ -249,9 +275,11 @@ export default function EventCarousel() {
                       Math.max(nextIndex, 0),
                       filteredEvents.length - 1,
                     );
-                    setCurrentIndex((prev) =>
-                      prev === boundedIndex ? prev : boundedIndex,
-                    );
+                    setCurrentIndex((prev) => {
+                      if (prev === boundedIndex) return prev;
+                      setProgressNonce((nonce) => nonce + 1);
+                      return boundedIndex;
+                    });
                   },
                 );
               }}
@@ -290,7 +318,7 @@ export default function EventCarousel() {
               onPointerLeave={() => setIsAutoPaused(false)}
             >
               <motion.div
-                key={`${currentIndex}-${isAutoPaused ? "paused" : "running"}`}
+                key={`${currentIndex}-${progressNonce}-${isAutoPaused ? "paused" : "running"}`}
                 className="h-full rounded-full bg-accent"
                 initial={{ width: "0%" }}
                 animate={{ width: isAutoPaused ? "0%" : "100%" }}
@@ -303,9 +331,14 @@ export default function EventCarousel() {
                 ? filteredEvents.map((_, idx) => idx)
                 : Array.from({ length: desktopPageCount }, (_, idx) => idx)
               ).map((idx) => (
-                <span
+                <button
                   key={`event-indicator-${idx}`}
-                  className={`h-1.5 rounded-full transition-all ${
+                  type="button"
+                  aria-label={`Go to ${
+                    isMobile ? "event" : "page"
+                  } ${idx + 1}`}
+                  onClick={() => handleIndicatorClick(idx)}
+                  className={`hover:cursor-pointer h-1.5 rounded-full transition-all ${
                     (
                       isMobile
                         ? idx === currentIndex
